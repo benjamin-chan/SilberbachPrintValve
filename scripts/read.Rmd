@@ -1,0 +1,42 @@
+# Read anonymized data
+
+```{r}
+f <- file.path("C:/Users/chanb/Box Sync/PrintValveGroup AnonymyzedData",
+               "BenPrintValveDataSet.xlsx")
+D <-
+  read_excel(f, col_names = FALSE, skip = 1, na = "x") %>% 
+  filter(!is.na(X2)) %>%
+  select(-(4:11)) %>%
+  rename(group = X0,
+         id = X1,
+         casecon = X2,
+         # segmentation = X3,
+         # ratioSmoothWrap = X4,
+         # exportTrimHollow = X5,
+         # pointsPlanes = X6,
+         # mirror = X7,
+         # valveCreated = X8,
+         # centroidCalc = X9,
+         # allCalcs = X10,
+         NR = X11,
+         NRfrac = X12,
+         RL = X13,
+         RLfrac = X14,
+         LN = X15,
+         LNfrac = X16,
+         areaTotalValue = X17,
+         areaTotal = X18,
+         areaOrifice = X19,
+         diameterValve = X20,
+         areaValve = X21,
+         ratioAreaCoapToDiameterValve = X22,
+         ratioAreaCoapToAreaOrifice = X23,
+         ratioAreaCoapToAreaValve = X24,
+         notesMimics = X25,
+         notes3Matic = X26)
+```
+
+```{r}
+D %>% group_by(casecon) %>% tally %>% kable
+summary(D)
+```

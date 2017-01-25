@@ -2,41 +2,71 @@
 
 ```{r}
 f <- file.path("C:/Users/chanb/Box Sync/PrintValveGroup AnonymyzedData",
-               "BenPrintValveDataSet.xlsx")
+               "Anonymyized.Consolidated Validated Spreadsheet, missing some BSAs.xlsx")
 D <-
   read_excel(f, col_names = FALSE, skip = 1, na = "x") %>% 
-  filter(!is.na(X2)) %>%
-  select(-(4:11)) %>%
-  rename(group = X0,
-         id = X1,
-         casecon = X2,
-         # segmentation = X3,
-         # ratioSmoothWrap = X4,
-         # exportTrimHollow = X5,
-         # pointsPlanes = X6,
-         # mirror = X7,
-         # valveCreated = X8,
-         # centroidCalc = X9,
-         # allCalcs = X10,
-         NR = X11,
-         NRfrac = X12,
-         RL = X13,
-         RLfrac = X14,
-         LN = X15,
-         LNfrac = X16,
-         areaTotalValue = X17,
-         areaTotal = X18,
-         areaOrifice = X19,
-         diameterValve = X20,
-         areaValve = X21,
-         ratioAreaCoapToDiameterValve = X22,
-         ratioAreaCoapToAreaOrifice = X23,
-         ratioAreaCoapToAreaValve = X24,
-         notesMimics = X25,
-         notes3Matic = X26)
+  rename(id = X0,
+         type = X1,
+         randid = X2,
+         studydate = X3,
+         gender = X4,
+         pmh = X5,
+         ct_surgeries = X6,
+         hx_stroke = X7,
+         clinic_visit_date = X8,
+         bp = X9,
+         anti_htn_meds = X10,
+         date_of_echo = X11,
+         days_b_w_echo_cmr = X12,
+         aov_velocity = X13,
+         date_of_cmr = X14,
+         aov_morphology = X15,
+         diagnosis = X16,
+         ar = X17,
+         as = X18,
+         lvedv = X19,
+         lvedvi = X20,
+         lvesv = X21,
+         lvesvi = X22,
+         ef = X23,
+         ht = X24,
+         wt = X25,
+         bsa = X26,
+         nr = X27,
+         nr_frac = X28,
+         rl = X29,
+         rl_frac = X30,
+         ln = X31,
+         ln_frac = X32,
+         total_area_value = X33,
+         total_area = X34,
+         orifice_area = X35,
+         valve_diameter = X36,
+         valve_area = X37,
+         a_coap_size_valve = X38,
+         a_coap_orifice_area = X39,
+         a_coap_valve_area = X40,
+         mimics_notes = X41,
+         three_matic_notes = X42,
+         type2 = X43,
+         xybavtype = X44,
+         xyaortopathY = X45,
+         centroidCalcX = X46,
+         centroidCalcY = X47,
+         centroidGeoX = X48,
+         centroidGeoY = X49,
+         centroidBottomX = X50,
+         centroidBottomY = X51,
+         centroidBottomZ = X52,
+         nstar_X = X53,
+         nstar_Y = X54,
+         coapt_line_length = X55) %>% 
+  select(-matches("type2"))
+```
+
 ```
 
 ```{r}
-D %>% group_by(casecon) %>% tally %>% kable
+D %>% group_by(type) %>% tally %>% kable
 summary(D)
 ```

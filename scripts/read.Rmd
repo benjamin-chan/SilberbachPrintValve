@@ -64,6 +64,30 @@ D <-
   select(-matches("type2"))
 ```
 
+Rotate the geometric centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+
+```{r}
+D <-
+  D %>% 
+  mutate(centroidGeoLength = sqrt(centroidGeoX ^ 2 + centroidGeoY ^ 2),
+         nstarLength = sqrt(nstar_X ^ 2 + nstar_Y ^ 2),
+         centroidGeoNormX = centroidGeoX / centroidGeoLength,
+         centroidGeoNormY = centroidGeoY / centroidGeoLength,
+         nstarNormX = nstar_X / nstarLength,
+         nstarNormY = nstar_Y / nstarLength,
+         dotProd = centroidGeoNormX * nstarNormX + centroidGeoNormY * nstarNormY,
+         rotationRad = acos(dotProd),
+         rotationDeg = rotationRad * 180 / pi,
+         centroidGeoRelNStarX = centroidGeoX * cos(rotationRad) -  centroidGeoY * sin(rotationRad),
+         centroidGeoRelNStarY = centroidGeoX * sin(rotationRad) +  centroidGeoY * cos(rotationRad))
+```
+
+```{r}
+D %>% select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% head %>% kable
+D %>%
+  select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% 
+  head %>% 
+  write.csv(file = "../data/processed/rotations.csv", row.names = FALSE)
 ```
 
 ```{r}

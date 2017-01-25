@@ -26,6 +26,6 @@ sessionInfo() %>% print(locale = FALSE)
 
 Source user-defined functions.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 sapply(list.files("../lib", full.names = TRUE), source)
 ```

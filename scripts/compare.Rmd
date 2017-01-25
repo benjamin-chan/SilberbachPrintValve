@@ -1,0 +1,7 @@
+# Compare cases and controls
+
+The case-control variable is `type`.
+
+```{r}
+compare("coapt_line_length", "Coaptation line length")
+```

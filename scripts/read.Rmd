@@ -94,12 +94,18 @@ D <-
 message(sprintf("Correlation between coapt_line_length and calculated radial is: %.05f",
                 cor(D$coapt_line_length, D$radial, use = "complete.obs")))
 ```
+
+Output a subset for spot-checking.
+
 ```{r}
-D %>% select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% head %>% kable
+var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|radial|polar|azimuthal"
 D %>%
-  select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% 
+  sample_n(5) %>%
+  select(matches(var)) %>% 
   head %>% 
-  write.csv(file = "../data/processed/rotations.csv", row.names = FALSE)
+  write.csv(file = "../data/processed/sphericalCoordinates.csv",
+            row.names = FALSE,
+            na = "")
 ```
 
 ```{r}

@@ -1,5 +1,13 @@
 # Read anonymized data
 
+1. Read the Excel file
+1. Rename columns
+1. Remove extraneous columns
+1. Scale size variables by body surface area, `bsa`
+1. Fix sign of `centroidBottomZ`
+1. Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
+
 ```{r}
 f <- file.path("C:/Users/chanb/Box Sync/PrintValveGroup AnonymyzedData",
                "Anonymyized.Consolidated Validated Spreadsheet, missing some BSAs.xlsx")
@@ -61,24 +69,8 @@ df <-
          nstar_X = X53,
          nstar_Y = X54,
          coapt_line_length = X55) %>% 
-  select(-matches("type2"))
-```
-
-Fix sign of `centroidBottomZ`.
-
-```{r}
-D <-
-  D %>% 
-  mutate(centroidBottomZ = -abs(centroidBottomZ))
-```
-
-* Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
-* Convert cartesian coordinates of rotated coaptation line to spherical coordinates
-* Check calculation of `radial` against given `coapt_line_length`; it should be 1.0
-
-```{r}
-D <-
-  D %>% 
+  select(-matches("type2")) %>%
+  mutate(centroidBottomZ = -abs(centroidBottomZ)) %>%
   mutate(dotProd =
            normalize(centroidCalcX, centroidCalcY) * normalize(nstar_X, nstar_Y) +
            normalize(centroidCalcY, centroidCalcX) * normalize(nstar_Y, nstar_X),
@@ -88,11 +80,19 @@ D <-
          centroidCalcRotatedY = centroidCalcX * sin(rotation) + centroidCalcY * cos(rotation),
          centroidBottomRotatedX = centroidBottomX * cos(rotation) - centroidBottomY * sin(rotation),
          centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>% 
-  cbind(cart2sph(.$centroidCalcRotatedX, .$centroidCalcRotatedY, 0,
-                 .$centroidBottomRotatedX, .$centroidBottomRotatedY, .$centroidBottomZ,
-                 units = "deg"))
+  bind_cols(cart2sph(.$centroidCalcRotatedX, .$centroidCalcRotatedY, 0,
+                     .$centroidBottomRotatedX, .$centroidBottomRotatedY, .$centroidBottomZ,
+                     units = "deg"))
+```
+
+Check calculation of `radial` against given `coapt_line_length`; it should be 1.0
+
+```{r}
 message(sprintf("Correlation between coapt_line_length and calculated radial is: %.05f",
-                cor(D$coapt_line_length, D$radial, use = "complete.obs")))
+                cor(df$coapt_line_length, df$radial, use = "complete.obs")))
+```
+
+
 ```
 
 Output a subset for spot-checking.
@@ -102,11 +102,12 @@ var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|radial|polar|azimuthal"
 df %>%
   sample_n(5) %>%
   select(matches(var)) %>% 
-  head %>% 
   write.csv(file = "../data/processed/sphericalCoordinates.csv",
             row.names = FALSE,
             na = "")
 ```
+
+Summarize the entire data set.
 
 ```{r}
 df %>% group_by(type) %>% tally %>% kable

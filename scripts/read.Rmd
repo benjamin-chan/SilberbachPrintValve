@@ -73,6 +73,7 @@ D <-
 ```
 
 * Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+* Convert cartesian coordinates of rotated coaptation line to spherical coordinates
 ```{r}
 D <-
   D %>% 
@@ -85,6 +86,9 @@ D <-
          centroidCalcRotatedY = centroidCalcX * sin(rotation) + centroidCalcY * cos(rotation),
          centroidBottomRotatedX = centroidBottomX * cos(rotation) - centroidBottomY * sin(rotation),
          centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>% 
+  cbind(cart2sph(.$centroidCalcRotatedX, .$centroidCalcRotatedY, 0,
+                 .$centroidBottomRotatedX, .$centroidBottomRotatedY, .$centroidBottomZ,
+                 units = "deg"))
 ```
 ```{r}
 D %>% select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% head %>% kable

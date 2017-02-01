@@ -65,6 +65,7 @@ D <-
 ```
 
 Rotate the geometric centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+Fix sign of `centroidBottomZ`.
 
 ```{r}
 D <-
@@ -80,6 +81,7 @@ D <-
          rotationDeg = rotationRad * 180 / pi,
          centroidGeoRelNStarX = centroidGeoX * cos(rotationRad) -  centroidGeoY * sin(rotationRad),
          centroidGeoRelNStarY = centroidGeoX * sin(rotationRad) +  centroidGeoY * cos(rotationRad))
+  mutate(centroidBottomZ = -abs(centroidBottomZ))
 ```
 
 ```{r}

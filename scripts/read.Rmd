@@ -74,6 +74,8 @@ D <-
 
 * Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
 * Convert cartesian coordinates of rotated coaptation line to spherical coordinates
+* Check calculation of `radial` against given `coapt_line_length`; it should be 1.0
+
 ```{r}
 D <-
   D %>% 
@@ -89,6 +91,8 @@ D <-
   cbind(cart2sph(.$centroidCalcRotatedX, .$centroidCalcRotatedY, 0,
                  .$centroidBottomRotatedX, .$centroidBottomRotatedY, .$centroidBottomZ,
                  units = "deg"))
+message(sprintf("Correlation between coapt_line_length and calculated radial is: %.05f",
+                cor(D$coapt_line_length, D$radial, use = "complete.obs")))
 ```
 ```{r}
 D %>% select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% head %>% kable

@@ -64,26 +64,28 @@ D <-
   select(-matches("type2"))
 ```
 
-Rotate the geometric centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
 Fix sign of `centroidBottomZ`.
 
 ```{r}
 D <-
   D %>% 
-  mutate(centroidGeoLength = sqrt(centroidGeoX ^ 2 + centroidGeoY ^ 2),
-         nstarLength = sqrt(nstar_X ^ 2 + nstar_Y ^ 2),
-         centroidGeoNormX = centroidGeoX / centroidGeoLength,
-         centroidGeoNormY = centroidGeoY / centroidGeoLength,
-         nstarNormX = nstar_X / nstarLength,
-         nstarNormY = nstar_Y / nstarLength,
-         dotProd = centroidGeoNormX * nstarNormX + centroidGeoNormY * nstarNormY,
-         rotationRad = acos(dotProd),
-         rotationDeg = rotationRad * 180 / pi,
-         centroidGeoRelNStarX = centroidGeoX * cos(rotationRad) -  centroidGeoY * sin(rotationRad),
-         centroidGeoRelNStarY = centroidGeoX * sin(rotationRad) +  centroidGeoY * cos(rotationRad))
   mutate(centroidBottomZ = -abs(centroidBottomZ))
 ```
 
+* Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+```{r}
+D <-
+  D %>% 
+  mutate(dotProd =
+           normalize(centroidCalcX, centroidCalcY) * normalize(nstar_X, nstar_Y) +
+           normalize(centroidCalcY, centroidCalcX) * normalize(nstar_Y, nstar_X),
+         rotation = acos(dotProd),  # Radians
+         rotationDeg = rotation * (180 / pi),
+         centroidCalcRotatedX = centroidCalcX * cos(rotation) - centroidCalcY * sin(rotation),
+         centroidCalcRotatedY = centroidCalcX * sin(rotation) + centroidCalcY * cos(rotation),
+         centroidBottomRotatedX = centroidBottomX * cos(rotation) - centroidBottomY * sin(rotation),
+         centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>% 
+```
 ```{r}
 D %>% select(matches("^id|centroidGeo|nstar|cendtroidGeo|rotation")) %>% head %>% kable
 D %>%

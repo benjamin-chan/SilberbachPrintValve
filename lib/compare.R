@@ -1,6 +1,6 @@
 compare <- function (var, label) {
   summary <- 
-    D %>% 
+    df %>% 
     group_by(type) %>% 
     summarize_(n = sprintf("length(%s)", var),
                mean = sprintf("mean(%s, na.rm = TRUE)", var),
@@ -13,7 +13,7 @@ compare <- function (var, label) {
     select(variable, everything())
   formula <- sprintf("%s ~ type", var)
   statistics <-
-    D %>% 
+    df %>% 
     mutate(type = factor(type, levels = c("Control", "Case"))) %>%
     lm(eval(formula), .) %>% 
     summary %>% 

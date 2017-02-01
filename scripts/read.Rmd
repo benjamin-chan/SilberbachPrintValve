@@ -3,7 +3,7 @@
 ```{r}
 f <- file.path("C:/Users/chanb/Box Sync/PrintValveGroup AnonymyzedData",
                "Anonymyized.Consolidated Validated Spreadsheet, missing some BSAs.xlsx")
-D <-
+df <-
   read_excel(f, col_names = FALSE, skip = 1, na = "x") %>% 
   rename(id = X0,
          type = X1,
@@ -99,7 +99,7 @@ Output a subset for spot-checking.
 
 ```{r}
 var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|radial|polar|azimuthal"
-D %>%
+df %>%
   sample_n(5) %>%
   select(matches(var)) %>% 
   head %>% 
@@ -109,6 +109,6 @@ D %>%
 ```
 
 ```{r}
-D %>% group_by(type) %>% tally %>% kable
-summary(D)
+df %>% group_by(type) %>% tally %>% kable
+summary(df)
 ```

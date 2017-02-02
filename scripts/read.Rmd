@@ -2,6 +2,7 @@
 
 1. Read the Excel file
 1. Rename columns
+1. Remove patients with missing values for `nl`, `rl`, and `ln`
 1. Remove extraneous columns
 1. Scale size variables by body surface area, `bsa`
 1. Fix sign of `centroidBottomZ`
@@ -69,6 +70,7 @@ df <-
          nstar_X = X53,
          nstar_Y = X54,
          coapt_line_length = X55) %>% 
+  filter(!is.na(nr) & !is.na(rl) & !is.na(ln)) %>% 
   select(-matches("type2")) %>%
   mutate(centroidBottomZ = -abs(centroidBottomZ)) %>%
   mutate(dotProd =

@@ -94,7 +94,27 @@ message(sprintf("Correlation between coapt_line_length and calculated radial is:
                 cor(df$coapt_line_length, df$radial, use = "complete.obs")))
 ```
 
+Check correlation between body surface area, `bsa`, and other size variables.
 
+```{r}
+df %>% 
+  select(matches("bsa|area|diam|size|radial")) %>% 
+  cor(use = "complete") %>% 
+  data.frame %>%
+  select(1)
+```
+
+Scale the size variables by `bsa`.
+
+```{r}
+df <- 
+  df %>%
+  mutate(total_area_valueScaled = total_area_value / bsa,
+         total_areaScaled = total_area / bsa,
+         orifice_areaScaled = orifice_area / bsa,
+         valve_diameterScaled = valve_diameter / bsa,
+         valve_areaScaled = valve_area / bsa,
+         radialScaled = radial / bsa)
 ```
 
 Output a subset for spot-checking.

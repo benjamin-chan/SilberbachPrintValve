@@ -12,6 +12,7 @@ Load libraries.
 library(readxl)
 library(magrittr)
 library(dplyr)
+library(reshape2)
 library(broom)
 library(ggplot2)
 library(knitr)

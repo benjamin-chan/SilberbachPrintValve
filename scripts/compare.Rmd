@@ -3,5 +3,67 @@
 The case-control variable is `type`.
 
 ```{r}
-compare("coapt_line_length", "Coaptation line length")
+results <- rbind(compare("bsa", "Body surface area"),
+                 compare("nr_frac", "NR fraction"),
+                 compare("rl_frac", "RL fraction"),
+                 compare("ln_frac", "LN fraction"),
+                 compare("total_area_value", "Total coaptation area, value"),
+                 compare("total_area", "Total coaptation area, calculated"),
+                 compare("orifice_area", "Orifice area"),
+                 compare("valve_diameter", "Valve diameter"),
+                 compare("valve_area", "Valve area"),
+                 compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
+                 compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
+                 compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
+                 compare("coapt_line_length", "Coaptation line length"),
+                 compare("radial", "Coaptation line length"),
+                 compare("polar", "Polar angle of coaptation line (top to bottom"),
+                 compare("azimuthal", "Azimuthal angle of coaptation line"),
+                 compare("total_area_valueScaled", "Total coaptation area, value, scaled to BSA"),
+                 compare("total_areaScaled", "Total coaptation area, calculated, scaled to BSA"),
+                 compare("orifice_areaScaled", "Orifice area scaled to BSA"),
+                 compare("valve_diameterScaled", "Valve diameter scaled to BSA"),
+                 compare("valve_areaScaled", "Valve area scaled to BSA"),
+                 compare("radialScaled", "Coaptation line length scaled to BSA"))
+```
+
+Plot comparisons.
+
+```{r}
+var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
+df1 <-
+  df %>%
+  select(matches(var)) %>%
+  melt(id.vars = c("id", "type")) %>% 
+  mutate(type = factor(type))
+levels(df1$variable)
+g <-
+  df1 %>% 
+  ggplot +
+    aes(x = value, color = type, fill = type) +
+    geom_density(alpha = 1/2) +
+    scale_color_brewer("Type", palette = "Set1") +
+    scale_fill_brewer("Type", palette = "Set1") +
+    facet_wrap(~ variable, ncol = 4, scales = "free") +
+    theme_bw() +
+    theme(legend.position = "bottom")
+g
+```
+
+Adjust p-values for multiple comparisons.
+
+```{r}
+results <-
+  results %>%
+  mutate(pAdjust = p.adjust(pValue, method = "BH"),
+         sig = pAdjust < 0.05)
+```
+
+Output results.
+
+```{r}
+results %>% kable
+results %>% write.csv(file = "../data/processed/compare.csv",
+                      row.names = FALSE,
+                      na = "")
 ```

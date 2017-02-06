@@ -14,3 +14,15 @@ vignettes/*.pdf
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
+
+# Log files
+# scripts/*.log
+
+# Sublime files
+*.sublime*
+
+# Background files
+# background/*
+
+# Raw data files
+data/raw/*.xlsx

@@ -116,12 +116,13 @@ df %>%
   select(matches("bsa|area|diam|size|radial")) %>% 
   cor(use = "complete") %>% 
   data.frame %>%
-  select(1)
+  select(1) %>%
+  kable
 ```
 
 Scale the size variables by `bsa`.
 
-```{r}
+```{r, echo = TRUE}
 df <- 
   df %>%
   mutate(total_area_valueScaled = total_area_value / bsa,
@@ -136,17 +137,17 @@ Output a subset for spot-checking.
 
 ```{r}
 var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|radial|polar|azimuthal"
+f <- "../data/processed/sphericalCoordinates.csv"
 df %>%
   sample_n(5) %>%
   select(matches(var)) %>% 
-  write.csv(file = "../data/processed/sphericalCoordinates.csv",
-            row.names = FALSE,
-            na = "")
+  write.csv(file = f, row.names = FALSE, na = "")
+message(sprintf("File %s was written on %s", f, file.mtime(f)))
 ```
 
 Summarize the entire data set.
 
 ```{r}
 df %>% group_by(type) %>% tally %>% kable
-summary(df)
+# summary(df)
 ```

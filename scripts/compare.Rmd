@@ -28,6 +28,8 @@ results <- rbind(compare("bsa", "Body surface area"),
 ```
 
 Plot comparisons.
+Use multiple visualizations, density plots and scatterplots.
+Each has their advantages and disadvantages.
 
 Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/densityplots.svg) files.
 
@@ -39,7 +41,6 @@ df1 <-
   select(matches(var)) %>%
   melt(id.vars = c("id", "type")) %>% 
   mutate(type = factor(type))
-levels(df1$variable)
 g <-
   df1 %>% 
   ggplot +
@@ -75,6 +76,10 @@ g
 ggsave("../figures/scatterplots.svg", dpi = 300, height = 6, width = 9, units = "in")
 ```
 
+## Unadjusted/unscaled comparisons
+
+Calculate mean (SD) and ranges.
+Calculate differences in means.
 Adjust p-values for multiple comparisons.
 
 ```{r}
@@ -85,10 +90,11 @@ results <-
 ```
 
 Output results.
+Results save as [CSV](../data/processed/compare.csv).
 
 ```{r}
 results %>% kable
-results %>% write.csv(file = "../data/processed/compare.csv",
-                      row.names = FALSE,
-                      na = "")
+f <- "../data/processed/compare.csv"
+results %>% write.csv(file = f, row.names = FALSE, na = "")
+message(sprintf("File %s was written on %s", f, file.mtime(f)))
 ```

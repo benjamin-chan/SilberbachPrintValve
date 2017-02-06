@@ -14,7 +14,7 @@ f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])
     writeLines(x, f)
-    if (i < length(files)) {writeLines("\n---\n", f)}
+    # if (i < length(files)) {writeLines("\n---\n", f)}
 }
 close(f)
 library(knitr)

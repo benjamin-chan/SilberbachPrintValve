@@ -15,16 +15,16 @@ results <- rbind(compare("bsa", "Body surface area"),
                  compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
                  compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
                  compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
-                 compare("coapt_line_length", "Coaptation line length"),
+                 # compare("coapt_line_length", "Coaptation line length"),
                  compare("radial", "Coaptation line length"),
                  compare("polar", "Polar angle of coaptation line (top to bottom"),
-                 compare("azimuthal", "Azimuthal angle of coaptation line"),
-                 compare("total_area_valueScaled", "Total coaptation area, value, scaled to BSA"),
-                 compare("total_areaScaled", "Total coaptation area, calculated, scaled to BSA"),
-                 compare("orifice_areaScaled", "Orifice area scaled to BSA"),
-                 compare("valve_diameterScaled", "Valve diameter scaled to BSA"),
-                 compare("valve_areaScaled", "Valve area scaled to BSA"),
-                 compare("radialScaled", "Coaptation line length scaled to BSA"))
+                 compare("azimuthal", "Azimuthal angle of coaptation line"))
+                 # compare("total_area_valueScaled", "Total coaptation area, value, scaled to BSA"),
+                 # compare("total_areaScaled", "Total coaptation area, calculated, scaled to BSA"),
+                 # compare("orifice_areaScaled", "Orifice area scaled to BSA"),
+                 # compare("valve_diameterScaled", "Valve diameter scaled to BSA"),
+                 # compare("valve_areaScaled", "Valve area scaled to BSA"),
+                 # compare("radialScaled", "Coaptation line length scaled to BSA"))
 ```
 
 Plot comparisons.
@@ -35,7 +35,7 @@ Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/de
 
 ```{r densityplots, dpi = 300, fig.height = 6, fig.width = 9}
 # var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
-var <- "^id|^type|bsa|(_frac|_area|_area_value|_diameter)$|^(radial|polar|azimuthal)$"
+var <- "^id|^type|bsa|(_frac|_area|_area_value|_size_valve|_diameter)$|^(radial|polar|azimuthal)$"
 df1 <-
   df %>%
   select(matches(var)) %>%

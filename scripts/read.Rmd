@@ -1,24 +1,28 @@
 # Read anonymized data
 
+Read and clean data.
+See [`read.Rmd`](../scripts/read.Rmd) for full details.
+
 1. Read the Excel file
 1. Rename columns
 1. Remove patients with missing values for `nl`, `rl`, and `ln`
+  * 2 cases, 1 control
 1. Remove extraneous columns
-1. Scale size variables by body surface area, `bsa`
 1. Fix sign of `centroidBottomZ`
+  * All values should be $<0$; a few were $>0$
 1. Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
+  * Rotate both the calculated and bottom centroids
 1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
   * See function [`cart2sph`](../lib/cart2sph.R)
   * $\rho$ = radial distance
-  * $\theta$ = polar angle (inclination) bounded between [0, pi] or [0, 180]; default units is radians
-  * $\phi$ = azimuthal angle bounded between [0, 2 * pi] or [0, 360]; default units is radians
+  * $\theta$ = polar angle (inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians
+  * $\phi$ = azimuthal angle bounded between $(0, 2\pi)$ or $(0^{\circ}, 360^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 
 Example coaptation line (triple point) is below.
+An interactive representation of the coaptation line is [here](https://ggbm.at/h6FyDngs).
 
 ![Coaptation line](../figures/CoaptationLine.png)
-
-Link to interactive representation of the coaptation line is [here](https://ggbm.at/h6FyDngs).
 
 ```{r}
 f <- file.path("C:/Users/chanb/Box Sync/PrintValveGroup AnonymyzedData",

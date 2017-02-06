@@ -29,6 +29,8 @@ results <- rbind(compare("bsa", "Body surface area"),
 
 Plot comparisons.
 
+Images are saved as [PNG](../figures/histograms-1.png) and [SVG](../figures/histograms.svg) files.
+
 ```{r histograms, dpi = 300, fig.height = 6, fig.width = 9}
 var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
 df1 <-

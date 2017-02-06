@@ -31,8 +31,9 @@ Plot comparisons.
 
 Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/densityplots.svg) files.
 
-var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
 ```{r densityplots, dpi = 300, fig.height = 6, fig.width = 9}
+# var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
+var <- "^id|^type|bsa|(_frac|_area|_area_value|_diameter)$|^(radial|polar|azimuthal)$"
 df1 <-
   df %>%
   select(matches(var)) %>%

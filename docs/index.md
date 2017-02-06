@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-06 08:17:36"
+date: "2017-02-06 08:59:18"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -116,6 +116,17 @@ sapply(list.files("../lib", full.names = TRUE), source)
 1. Fix sign of `centroidBottomZ`
 1. Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
 1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
+  * See function [`cart2sph`](../lib/cart2sph.R)
+  * $\rho$ = radial distance
+  * $\theta$ = polar angle (inclination) bounded between [0, pi] or [0, 180]; default units is radians
+  * $\phi$ = azimuthal angle bounded between [0, 2 * pi] or [0, 360]; default units is radians
+  * $\rho, \theta, \phi$ will be used to describe the coaptation line
+
+Example coaptation line (triple point) is below.
+
+![Coaptation line](../figures/CoaptationLine.png)
+
+Link to interactive representation of the coaptation line is [here](https://ggbm.at/h6FyDngs).
 
 
 ```r
@@ -482,6 +493,8 @@ results <- rbind(compare("bsa", "Body surface area"),
 ```
 
 Plot comparisons.
+
+Images are saved as [PNG](../figures/histograms-1.png) and [SVG](../figures/histograms.svg) files.
 
 
 ```r

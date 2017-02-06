@@ -19,7 +19,7 @@ for (i in 1:length(files)) {
 close(f)
 library(knitr)
 library(rmarkdown)
-opts_chunk$set(fig.path = "../figures/")
+opts_chunk$set(echo = FALSE, fig.path = "../figures/")
 knit("master.Rmd", output = "../docs/index.md")
 # pandoc("../docs/index.md", format = "html")
 file.remove("master.Rmd")

@@ -29,10 +29,10 @@ results <- rbind(compare("bsa", "Body surface area"),
 
 Plot comparisons.
 
-Images are saved as [PNG](../figures/histograms-1.png) and [SVG](../figures/histograms.svg) files.
+Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/densityplots.svg) files.
 
-```{r histograms, dpi = 300, fig.height = 6, fig.width = 9}
 var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
+```{r densityplots, dpi = 300, fig.height = 6, fig.width = 9}
 df1 <-
   df %>%
   select(matches(var)) %>%
@@ -53,7 +53,7 @@ g <-
     theme(legend.position = "bottom",
           panel.grid = element_blank())
 g
-ggsave("../figures/histograms.svg", dpi = 300, height = 6, width = 9, units = "in")
+ggsave("../figures/densityplots.svg", dpi = 300, height = 6, width = 9, units = "in")
 ```
 
 Adjust p-values for multiple comparisons.

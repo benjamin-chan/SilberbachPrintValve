@@ -1,14 +1,8 @@
-# Preamble
-
-Set working directory.
-
-```{r}
+```{r, results = "hide", warning = FALSE, message = FALSE}
+# Set working directory.
 setwd("~/Projects/SilberbachPrintValve/scripts")
-```
 
-Load libraries.
-
-```{r}
+# Load libraries.
 library(readxl)
 library(magrittr)
 library(dplyr)
@@ -16,17 +10,11 @@ library(reshape2)
 library(broom)
 library(ggplot2)
 library(knitr)
-```
 
-Reproducibility steps.
-
-```{r}
+# Reproducibility steps.
 sessionInfo() %>% print(locale = FALSE)
 "2017-01-25" %>% as.Date %>% as.integer %>% set.seed
-```
 
-Source user-defined functions.
-
-```{r, eval = TRUE}
+# Source user-defined functions.
 sapply(list.files("../lib", full.names = TRUE), source)
 ```

@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-06 08:59:18"
+date: "2017-02-06 09:40:25"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -494,11 +494,12 @@ results <- rbind(compare("bsa", "Body surface area"),
 
 Plot comparisons.
 
-Images are saved as [PNG](../figures/histograms-1.png) and [SVG](../figures/histograms.svg) files.
+Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/densityplots.svg) files.
 
 
 ```r
-var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
+# var <- "^id|^type|radial|polar|azimuthal|Scaled|frac|a_coap|bsa"
+var <- "^id|^type|bsa|(_frac|_area|_area_value|_diameter)$|^(radial|polar|azimuthal)$"
 df1 <-
   df %>%
   select(matches(var)) %>%
@@ -508,14 +509,11 @@ levels(df1$variable)
 ```
 
 ```
-##  [1] "bsa"                    "nr_frac"               
-##  [3] "rl_frac"                "ln_frac"               
-##  [5] "a_coap_size_valve"      "a_coap_orifice_area"   
-##  [7] "a_coap_valve_area"      "radial"                
-##  [9] "polar"                  "azimuthal"             
-## [11] "total_area_valueScaled" "total_areaScaled"      
-## [13] "orifice_areaScaled"     "valve_diameterScaled"  
-## [15] "valve_areaScaled"       "radialScaled"
+##  [1] "bsa"                 "nr_frac"             "rl_frac"            
+##  [4] "ln_frac"             "total_area_value"    "total_area"         
+##  [7] "orifice_area"        "valve_diameter"      "valve_area"         
+## [10] "a_coap_orifice_area" "a_coap_valve_area"   "radial"             
+## [13] "polar"               "azimuthal"
 ```
 
 ```r
@@ -535,10 +533,34 @@ g <-
 g
 ```
 
-![plot of chunk histograms](../figures/histograms-1.png)
+![plot of chunk densityplots](../figures/densityplots-1.png)
 
 ```r
-ggsave("../figures/histograms.svg", dpi = 300, height = 6, width = 9, units = "in")
+ggsave("../figures/densityplots.svg", dpi = 300, height = 6, width = 9, units = "in")
+```
+
+
+```r
+g <-
+  df1 %>% 
+  ggplot +
+    aes(x = value, y = type, color = type, fill = type) +
+    geom_jitter(alpha = 1/3) +
+    scale_x_continuous("") +
+    scale_y_discrete("", labels = NULL) +
+    scale_color_brewer("", palette = "Set1") +
+    scale_fill_brewer("", palette = "Set1") +
+    facet_wrap(~ variable, ncol = 4, scales = "free") +
+    theme_bw() +
+    theme(legend.position = "bottom",
+          panel.grid = element_blank())
+g
+```
+
+![plot of chunk scatterplots](../figures/scatterplots-1.png)
+
+```r
+ggsave("../figures/scatterplots.svg", dpi = 300, height = 6, width = 9, units = "in")
 ```
 
 Adjust p-values for multiple comparisons.
@@ -589,4 +611,13 @@ results %>% kable
 results %>% write.csv(file = "../data/processed/compare.csv",
                       row.names = FALSE,
                       na = "")
+```
+
+```
+## Warning in file(file, ifelse(append, "a", "w")): cannot open file '../data/
+## processed/compare.csv': Permission denied
+```
+
+```
+## Error in file(file, ifelse(append, "a", "w")): cannot open the connection
 ```

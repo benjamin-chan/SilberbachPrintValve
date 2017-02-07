@@ -20,7 +20,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 
 Example coaptation line (triple point) is below.
-An interactive representation of the coaptation line is [here](https://ggbm.at/h6FyDngs).
+An interactive representation of the coaptation line geometry is [here](https://ggbm.at/CeF95YMN).
 
 ![Coaptation line](../figures/CoaptationLine.png)
 

@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-06 14:44:06"
+date: "2017-02-07 09:22:38"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -30,7 +30,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 
 Example coaptation line (triple point) is below.
-An interactive representation of the coaptation line is [here](https://ggbm.at/h6FyDngs).
+An interactive representation of the coaptation line geometry is [here](https://ggbm.at/CeF95YMN).
 
 ![Coaptation line](../figures/CoaptationLine.png)
 
@@ -77,7 +77,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-06 14:44:07
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-07 09:22:41
 ```
 
 Summarize the entire data set.
@@ -134,5 +134,5 @@ Results save as [CSV](../data/processed/compare.csv).
 |Azimuthal angle of coaptation line                     |     48|184.684 (133.204) |(1.212, 358.824)    |        49|211.443 (116.612) |(12.159, 349.432)   | -26.7591262| 25.4045403| -1.0533206| 0.2948658| 0.3402297|FALSE |
 
 ```
-## File ../data/processed/compare.csv was written on 2017-02-06 14:44:18
+## File ../data/processed/compare.csv was written on 2017-02-07 09:22:52
 ```

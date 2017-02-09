@@ -18,6 +18,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
   * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
   * $\phi$ = azimuthal angle bounded between $(-\pi, pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
+1. Normalize the orientation of the coaptation line to the unit sphere
 
 Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is [here](https://ggbm.at/CeF95YMN).
@@ -100,6 +101,9 @@ df <-
   bind_cols(cart2sph(cbind(.$centroidCalcRotatedX, .$centroidCalcRotatedY, .$centroidBottomZ),
                      cbind(.$centroidBottomRotatedX, .$centroidBottomRotatedY, 0),
                      units = "deg")) %>%
+  mutate(coapUnitX = (centroidCalcRotatedX - centroidBottomRotatedX) / radial,
+         coapUnitY = (centroidCalcRotatedY - centroidBottomRotatedY) / radial,
+         coapUnitZ = (centroidBottomZ) / radial)
 ```
 
 Check calculation of `radial` against given `coapt_line_length`; it should be 1.0

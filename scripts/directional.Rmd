@@ -1,0 +1,122 @@
+# Directional analysis of coaptation line
+
+> From: Benjamin Chan   
+> Sent: Wednesday, February 08, 2017 8:15 AM  
+> To: G. Michael Silberbach <silberbm@ohsu.edu>  
+> Cc: Xiao-Yue Han <hanxi@ohsu.edu>  
+> Subject: RE: update  
+> 
+> Hi Michael,
+> 
+> Yes, I was thinking along the same path as you. The analysis needs to think of
+> the "outcome" as the set of the 3 numbers (or 2 numbers, if you want to think
+> of the length separately from the angles) that fully describe the centroid
+> line. This brings the statistical analysis into what's called a multivariate
+> analysis. It's a little more complicated, but possible. Planning on devoting
+> some time on Friday to work it out.
+> 
+> From: G. Michael Silberbach   
+> Sent: Tuesday, February 07, 2017 9:29 PM  
+> To: Benjamin Chan <chanb@ohsu.edu>  
+> Cc: Xiao-Yue Han <hanxi@ohsu.edu>  
+> Subject: RE: update  
+> 
+> Hi Ben,
+> 
+> Thinking about the centroid line in space, it may be  incorrect to separate it
+> into two numbers and compare cases to controls separately.  We are interested
+> in comparing the lines not the angles. The two angles (azimuthal and polar )
+> separately may not be different from their control separately but a
+> combination of the angles could be different.  Also, what about the
+> variability in the centroid length AND angle; is it a big cone or a little
+> cone? Let's talk about this some more.
+> 
+> Assuming that we don't need to analyze the centroid angle and length more,
+> these data suggest that the sinus mirror hypothesis predicts a normal aortic
+> valve in terms of coaptation area and "shape".
+> 
+> Michael
+
+Correlations between coaptation line measures.
+
+```{r}
+df %>%
+  select(matches("bsa|^orifice_area$|^(radial|polar|azimuthal)$")) %>%
+  cor %>% 
+  kable(digits = 2)
+```
+
+Scatterplot matrix of coaptation line measures.
+
+```{r scatterplotMatrixCoaptationLine, dpi = 300}
+df %>%
+  select(matches("^id|^type|^(radial|polar|azimuthal)$")) %>%
+  melt(id.vars = c("id", "type")) %>% 
+  mutate(type = factor(type)) %>% 
+  merge(., ., by = c("id", "type")) %>% 
+  filter(variable.x != variable.y) %>% 
+  ggplot +
+    aes(x = value.x, y = value.y, color = type) +
+    geom_point(alpha = 1/2) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_color_brewer("", palette = "Set1") +
+    scale_x_continuous("") +
+    scale_y_continuous("") +
+    facet_grid(variable.y ~ variable.x, scales = "free") +
+    theme_bw()
+ggsave("../figures/scatterplotMatrixCoaptationLine.svg", dpi = 300)
+```
+
+```{r polarplot, dpi = 300}
+df %>%
+  select(matches("^id|^type|^(polar|azimuthal)$")) %>%
+  melt(id.vars = c("id", "type")) %>% 
+  mutate(type = factor(type)) %>% 
+  merge(., df %>% select(matches("^id|^type|^radial$"))) %>% 
+  ggplot +
+    aes(x = value, y = radial, color = type, fill = type) +
+    geom_point(alpha = 1/2) +
+    scale_color_brewer("", palette = "Set1") +
+    scale_fill_brewer("", palette = "Set1") +
+    scale_x_continuous("", breaks = seq(-180, 180, 30)) +
+    scale_y_log10("Length", breaks = c(5, 10, 20)) +
+    facet_grid(variable ~ type) +
+    coord_polar(start = pi / 2, direction = -1) +
+    theme_bw() +
+    theme(legend.position = "none")
+ggsave("../figures/polarplot.svg", dpi = 300)
+```
+
+```{r, echo = TRUE}
+x <- matrix(as.numeric(c(df$coapUnitX, df$coapUnitY, df$coapUnitZ)), ncol = 3)
+ina <- factor(df$type)
+hcf.aov(x, ina)
+lr.aov(x, ina)
+embed.aov(x, ina)
+het.aov(x, ina)
+spherconc.test(x, ina)
+```
+
+```{r, echo = TRUE}
+x <- matrix(as.numeric(c(df$centroidCalcRotatedX - df$centroidBottomRotatedX,
+                         df$centroidCalcRotatedY - df$centroidBottomRotatedY,
+                         df$centroidBottomZ)),
+            ncol = 3)
+ina <- factor(df$type)
+hcf.aov(x, ina)
+lr.aov(x, ina)
+embed.aov(x, ina)
+het.aov(x, ina)
+spherconc.test(x, ina)
+```
+
+```{r, echo = TRUE}
+x <- matrix(as.numeric(c(df$polar, df$azimuthal) * pi / 180), ncol = 2)
+head(x)
+ina <- factor(df$type)
+hcf.circaov(x, ina, rads = TRUE)
+lr.circaov(x, ina, rads = TRUE)
+embed.circaov(x, ina, rads = TRUE)
+het.circaov(x, ina, rads = TRUE)
+conc.test(x, ina, rads = TRUE)
+```

@@ -10,6 +10,7 @@ library(reshape2)
 library(broom)
 library(ggplot2)
 library(knitr)
+library(Directional)
 
 # Reproducibility steps.
 sessionInfo() %>% print(locale = FALSE)

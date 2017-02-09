@@ -17,3 +17,7 @@ cart2sph <- function (v, v0 = data.frame(x= 0, y = 0, z = 0), units = "rad") {
   }
   data.frame(radial = rho, polar = theta, azimuthal = phi)
 }
+
+# > cart2sph(data.frame(x = 3.19, y = 6.23, z = -8.3), units = "deg")
+#     radial     polar azimuthal
+# 1 10.85721 -49.85977   62.8858

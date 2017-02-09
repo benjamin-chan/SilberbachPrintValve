@@ -97,9 +97,9 @@ df <-
          centroidCalcRotatedY = centroidCalcX * sin(rotation) + centroidCalcY * cos(rotation),
          centroidBottomRotatedX = centroidBottomX * cos(rotation) - centroidBottomY * sin(rotation),
          centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>% 
-  bind_cols(cart2sph(.$centroidCalcRotatedX, .$centroidCalcRotatedY, 0,
-                     .$centroidBottomRotatedX, .$centroidBottomRotatedY, .$centroidBottomZ,
-                     units = "deg"))
+  bind_cols(cart2sph(cbind(.$centroidCalcRotatedX, .$centroidCalcRotatedY, .$centroidBottomZ),
+                     cbind(.$centroidBottomRotatedX, .$centroidBottomRotatedY, 0),
+                     units = "deg")) %>%
 ```
 
 Check calculation of `radial` against given `coapt_line_length`; it should be 1.0

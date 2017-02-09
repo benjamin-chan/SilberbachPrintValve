@@ -15,8 +15,8 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
 1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
   * See function [`cart2sph`](../lib/cart2sph.R)
   * $\rho$ = radial distance
-  * $\theta$ = polar angle (inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians
-  * $\phi$ = azimuthal angle bounded between $(0, 2\pi)$ or $(0^{\circ}, 360^{\circ})$; default units is radians
+  * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
+  * $\phi$ = azimuthal angle bounded between $(-\pi, pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 
 Example coaptation line (triple point) is below.

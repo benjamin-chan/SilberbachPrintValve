@@ -9,6 +9,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
 1. Remove patients with missing values for `nl`, `rl`, and `ln`
   * 2 cases, 1 control
 1. Remove extraneous columns
+1. Add logical indicator for `type` *Case*
 1. Fix sign of `centroidBottomZ`
   * All values should be $<0$; a few were $>0$
 1. Rotate the calculated centroid coordinates relative to "north", as defined by `nstar_X` and `nstar_Y`.
@@ -90,6 +91,7 @@ df <-
          coapt_line_length = X55) %>% 
   filter(!is.na(nr) & !is.na(rl) & !is.na(ln)) %>% 
   select(-matches("type2")) %>%
+  mutate(typeCase = type == "Case") %>%
   mutate(centroidBottomZ = -abs(centroidBottomZ)) %>%
   mutate(dotProd =
            normalize(centroidCalcX, centroidCalcY) * normalize(nstar_X, nstar_Y) +

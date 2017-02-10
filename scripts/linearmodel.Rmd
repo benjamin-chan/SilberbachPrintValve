@@ -64,7 +64,7 @@ M <-
   lm(radial ~ type + bsaScaled, data = .)
 M %>% glance %>% kable
 M %>% tidy %>% kable
-new <- data.frame(type = df$type %>% levels, bsaScaled = c(0, 0))
+new <- data.frame(type = rep(df$type %>% levels, 3), bsaScaled = rep(-1:1, each = 2))
 new %>% 
   bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
   kable
@@ -81,7 +81,7 @@ M <-
   lm(radial ~ type + orificeAreaScaled, data = .)
 M %>% glance %>% kable
 M %>% tidy %>% kable
-new <- data.frame(type = df$type %>% levels, orificeAreaScaled = c(0, 0)) 
+new <- data.frame(type = rep(df$type %>% levels, 3), orificeAreaScaled = rep(-1:1, each = 2))
 new %>% 
   bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
   kable

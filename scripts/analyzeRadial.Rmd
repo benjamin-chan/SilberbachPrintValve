@@ -1,42 +1,5 @@
 # Linear model of coaptation line length
 
-> From: Benjamin Chan   
-> Sent: Wednesday, February 08, 2017 8:15 AM  
-> To: G. Michael Silberbach <silberbm@ohsu.edu>  
-> Cc: Xiao-Yue Han <hanxi@ohsu.edu>  
-> Subject: RE: update  
-> 
-> Hi Michael,
-> 
-> Yes, I was thinking along the same path as you. The analysis needs to think of
-> the "outcome" as the set of the 3 numbers (or 2 numbers, if you want to think
-> of the length separately from the angles) that fully describe the centroid
-> line. This brings the statistical analysis into what's called a multivariate
-> analysis. It's a little more complicated, but possible. Planning on devoting
-> some time on Friday to work it out.
-> 
-> From: G. Michael Silberbach   
-> Sent: Tuesday, February 07, 2017 9:29 PM  
-> To: Benjamin Chan <chanb@ohsu.edu>  
-> Cc: Xiao-Yue Han <hanxi@ohsu.edu>  
-> Subject: RE: update  
-> 
-> Hi Ben,
-> 
-> Thinking about the centroid line in space, it may be  incorrect to separate it
-> into two numbers and compare cases to controls separately.  We are interested
-> in comparing the lines not the angles. The two angles (azimuthal and polar )
-> separately may not be different from their control separately but a
-> combination of the angles could be different.  Also, what about the
-> variability in the centroid length AND angle; is it a big cone or a little
-> cone? Let's talk about this some more.
-> 
-> Assuming that we don't need to analyze the centroid angle and length more,
-> these data suggest that the sinus mirror hypothesis predicts a normal aortic
-> valve in terms of coaptation area and "shape".
-> 
-> Michael
-
 Unadjusted.
 
 ```{r}

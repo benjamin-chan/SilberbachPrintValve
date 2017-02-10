@@ -128,19 +128,6 @@ df %>%
   kable
 ```
 
-Scale the size variables by `bsa`.
-
-```{r, echo = TRUE}
-df <- 
-  df %>%
-  mutate(total_area_valueScaled = total_area_value / bsa,
-         total_areaScaled = total_area / bsa,
-         orifice_areaScaled = orifice_area / bsa,
-         valve_diameterScaled = valve_diameter / bsa,
-         valve_areaScaled = valve_area / bsa,
-         radialScaled = radial / bsa)
-```
-
 Output a subset for spot-checking.
 
 ```{r}

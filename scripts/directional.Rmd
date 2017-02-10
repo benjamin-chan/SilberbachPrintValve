@@ -88,6 +88,32 @@ ggsave("../figures/polarplot.svg", dpi = 300)
 ```
 
 ```{r, echo = TRUE}
+matrix(as.numeric(c(df$coapUnitX, 
+                    df$coapUnitY, 
+                    df$coapUnitZ)), 
+       ncol = 3) %>% 
+  mediandir
+matrix(as.numeric(c(df$coapUnitX[df$type == "Case"], 
+                    df$coapUnitY[df$type == "Case"], 
+                    df$coapUnitZ[df$type == "Case"])), 
+       ncol = 3) %>% 
+  mediandir
+matrix(as.numeric(c(df$coapUnitX[df$type == "Control"], 
+                    df$coapUnitY[df$type == "Control"], 
+                    df$coapUnitZ[df$type == "Control"])), 
+       ncol = 3) %>% 
+  mediandir
+circ.summary(df$polar, rads = FALSE, plot = FALSE)
+circ.summary(df$polar[df$type == "Case"], rads = FALSE, plot = FALSE)
+circ.summary(df$polar[df$type == "Control"], rads = FALSE, plot = FALSE)
+circ.summary(df$azimuthal, rads = FALSE, plot = FALSE)
+circ.summary(df$azimuthal[df$type == "Case"], rads = FALSE, plot = FALSE)
+circ.summary(df$azimuthal[df$type == "Control"], rads = FALSE, plot = FALSE)
+circ.cor1(df$polar, df$azimuthal, rads = FALSE)
+circ.cor2(df$polar, df$azimuthal, rads = FALSE)
+```
+
+```{r, echo = TRUE}
 x <- matrix(as.numeric(c(df$coapUnitX, df$coapUnitY, df$coapUnitZ)), ncol = 3)
 ina <- factor(df$type)
 hcf.aov(x, ina)

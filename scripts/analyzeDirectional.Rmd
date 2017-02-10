@@ -1,6 +1,16 @@
 # Directional analysis of coaptation line
 
+Citation for package `Directional`.
+
+```{r}
+citation("Directional")
+```
+
+I need to understand what package `Directional` is doing.
+So echo back the R code.
+
 Scatterplot matrix of coaptation line measures.
+Link to [SVG](../figures/polarplot.svg) version.
 
 ```{r polarplot, dpi = 300}
 df %>%
@@ -11,7 +21,6 @@ df %>%
   ggplot +
     aes(x = value, y = radial, color = type, fill = type) +
     geom_point(alpha = 1/2) +
-    geom_smooth(method = "lm", se = FALSE) +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
     scale_x_continuous("", breaks = seq(-180, 180, 30)) +
@@ -24,42 +33,42 @@ ggsave("../figures/polarplot.svg", dpi = 300)
 ```
 
 Calculate median cartesian coordinates and latitude and longitude.
+**These calculations look incorrect; need to troubleshoot.**
 
 ```{r, echo = TRUE}
 cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
 matAll <- cartCoord %>% select(-1) %>% as.matrix
 matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-rbind(matAll %>% mediandir,
-      matCases %>% mediandir,
-      matControls %>% mediandir) %>%
-  data.frame %>% 
-  rename(x = X1, y = X2, z = X3) %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  kable
-rbind(matAll %>% mediandir %>% euclid.inv,
-      matCases %>% mediandir %>% euclid.inv,
-      matControls %>% mediandir %>% euclid.inv) %>%
-  data.frame %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+merge(rbind(matAll %>% mediandir,
+            matCases %>% mediandir,
+            matControls %>% mediandir) %>%
+        data.frame %>%
+        rename(x = X1, y = X2, z = X3) %>%
+        cbind(group = c("All", "Cases", "Controls"), .),
+      rbind(matAll %>% mediandir %>% euclid.inv,
+            matCases %>% mediandir %>% euclid.inv,
+            matControls %>% mediandir %>% euclid.inv) %>%
+        data.frame %>%
+        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
   kable
 ```
 
 Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
+**These calculations look incorrect; need to troubleshoot.**
 
 ```{r, echo = TRUE}
-rbind(matAll %>% vmf %>% .[["mu"]],
-      matCases %>% vmf %>% .[["mu"]],
-      matControls %>% vmf %>% .[["mu"]]) %>%
-  data.frame %>% 
-  rename(x = X1, y = X2, z = X3) %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  kable
-rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
-      matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
-      matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
-  data.frame %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+merge(rbind(matAll %>% vmf %>% .[["mu"]],
+            matCases %>% vmf %>% .[["mu"]],
+            matControls %>% vmf %>% .[["mu"]]) %>%
+        data.frame %>% 
+        rename(x = X1, y = X2, z = X3) %>% 
+        cbind(group = c("All", "Cases", "Controls"), .),
+      rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
+            matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
+            matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
+        data.frame %>% 
+        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
   kable
 ```
 
@@ -88,7 +97,8 @@ matControls[, "polar"]%>% circ.summary(rads = FALSE, plot = FALSE)
 matControls[, "azimuthal"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
-Scatterplot matrix of coaptation line measures. 
+Scatterplot matrix of coaptation line measures.
+**Not useful; candidate for deletion.** 
  
 ```{r scatterplotMatrixCoaptationLine, dpi = 300} 
 df %>% 
@@ -110,6 +120,8 @@ ggsave("../figures/scatterplotMatrixCoaptationLine.svg", dpi = 300)
 ``` 
  
 Correlations.
+Output from `circ.cor1` and `circ.cor2` are quite different.
+**Need to reconcile.**
 
 ```{r, echo = TRUE}
 circ.cor1(df$polar, df$azimuthal, rads = FALSE)

@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-10 11:30:41"
+date: "2017-02-10 14:33:20"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -802,6 +802,7 @@ See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/
 <li>$\rho, \theta, \phi$ will be used to describe the coaptation line</li>
 </ul>
 </li>
+<li>Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)</li>
 <li>Normalize the orientation of the coaptation line to the unit sphere</li>
 <li>Scale body size measures, <code>bsa</code> and <code>orifice_area</code>, to have mean = 0 and SD = 1</li>
 </ol>
@@ -879,7 +880,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 11:30:42
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 14:33:21
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -1175,7 +1176,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compare.csv was written on 2017-02-10 11:30:56
+<pre><code>## File ../data/processed/compare.csv was written on 2017-02-10 14:33:35
 </code></pre>
 
 <h1>
@@ -1692,25 +1693,59 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <h1>
 <a id="user-content-directional-analysis-of-coaptation-line" class="anchor" href="#directional-analysis-of-coaptation-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directional analysis of coaptation line</h1>
 
-<p>Scatterplot matrix of coaptation line measures.</p>
+<p>Citation for package <code>Directional</code>.</p>
+
+<pre><code>## 
+## To cite package 'Directional' in publications use:
+## 
+##   Michail Tsagris, Giorgos Athineou and Anamul Sajib (2016).
+##   Directional: Directional Statistics. R package version 2.3.
+##   https://CRAN.R-project.org/package=Directional
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {Directional: Directional Statistics},
+##     author = {Michail Tsagris and Giorgos Athineou and Anamul Sajib},
+##     year = {2016},
+##     note = {R package version 2.3},
+##     url = {https://CRAN.R-project.org/package=Directional},
+##   }
+## 
+## ATTENTION: This citation information has been auto-generated from
+## the package DESCRIPTION file and may need manual editing, see
+## 'help("citation")'.
+</code></pre>
+
+<p>I need to understand what package <code>Directional</code> is doing.
+So echo back the R code.</p>
+
+<p>Scatterplot matrix of coaptation line measures.
+Link to <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot.svg">SVG</a> version.</p>
 
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" alt="plot of chunk polarplot" style="max-width:100%;"></a></p>
 
 <pre><code>## Saving 7 x 7 in image
 </code></pre>
 
-<p>Calculate median cartesian coordinates and latitude and longitude.</p>
+<p>Calculate median cartesian coordinates and latitude and longitude.
+<strong>These calculations look incorrect; need to troubleshoot.</strong></p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">cartCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|coapUnit[XYZ]<span class="pl-pds">"</span></span>))
 <span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
-rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
-      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
-      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>) %<span class="pl-k">&gt;</span>%
-  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
-  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>) %<span class="pl-k">&gt;</span>%
+        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
+        rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>%
+        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .),
+      rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
+        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
+        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .)) %<span class="pl-k">&gt;</span>% 
   <span class="pl-smi">kable</span></pre></div>
 
 <table>
@@ -1720,72 +1755,52 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 <th align="right">x</th>
 <th align="right">y</th>
 <th align="right">z</th>
+<th align="right">Lat</th>
+<th align="right">Long</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">All</td>
-<td align="right">-0.1035612</td>
-<td align="right">0.0428729</td>
+<td align="right">0.1035612</td>
+<td align="right">-0.0428729</td>
 <td align="right">-0.9936986</td>
+<td align="right">84.05572</td>
+<td align="right">267.5295</td>
 </tr>
 <tr>
 <td align="left">Cases</td>
-<td align="right">-0.1307252</td>
-<td align="right">0.0319395</td>
+<td align="right">0.1307252</td>
+<td align="right">-0.0319395</td>
 <td align="right">-0.9909040</td>
+<td align="right">82.48850</td>
+<td align="right">268.1538</td>
 </tr>
 <tr>
 <td align="left">Controls</td>
-<td align="right">-0.0788606</td>
-<td align="right">0.0474871</td>
+<td align="right">0.0788606</td>
+<td align="right">-0.0474871</td>
 <td align="right">-0.9957540</td>
+<td align="right">85.47692</td>
+<td align="right">267.2697</td>
 </tr>
 </tbody>
 </table>
 
-<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
-  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
-  <span class="pl-smi">kable</span></pre></div>
+<p>Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
+<strong>These calculations look incorrect; need to troubleshoot.</strong></p>
 
-<table>
-<thead>
-<tr>
-<th align="left">group</th>
-<th align="right">Lat</th>
-<th align="right">Long</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">All</td>
-<td align="right">95.94428</td>
-<td align="right">272.4705</td>
-</tr>
-<tr>
-<td align="left">Cases</td>
-<td align="right">97.51150</td>
-<td align="right">271.8462</td>
-</tr>
-<tr>
-<td align="left">Controls</td>
-<td align="right">94.52308</td>
-<td align="right">272.7303</td>
-</tr>
-</tbody>
-</table>
-
-<p>Calculate maximum likelihood estimates of the von Mises-Fisher distribution.</p>
-
-<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
-      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
-      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]]) %<span class="pl-k">&gt;</span>%
-  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
-  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+<div class="highlight highlight-source-r"><pre>merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]]) %<span class="pl-k">&gt;</span>%
+        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+        rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
+        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .),
+      rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
+        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .)) %<span class="pl-k">&gt;</span>% 
   <span class="pl-smi">kable</span></pre></div>
 
 <table>
@@ -1795,41 +1810,6 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 <th align="right">x</th>
 <th align="right">y</th>
 <th align="right">z</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">All</td>
-<td align="right">-0.1019622</td>
-<td align="right">0.0225069</td>
-<td align="right">-0.9945336</td>
-</tr>
-<tr>
-<td align="left">Cases</td>
-<td align="right">-0.1426048</td>
-<td align="right">0.0346619</td>
-<td align="right">-0.9891726</td>
-</tr>
-<tr>
-<td align="left">Controls</td>
-<td align="right">-0.0625443</td>
-<td align="right">0.0107320</td>
-<td align="right">-0.9979845</td>
-</tr>
-</tbody>
-</table>
-
-<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
-  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
-  <span class="pl-smi">kable</span></pre></div>
-
-<table>
-<thead>
-<tr>
-<th align="left">group</th>
 <th align="right">Lat</th>
 <th align="right">Long</th>
 </tr>
@@ -1837,18 +1817,27 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 <tbody>
 <tr>
 <td align="left">All</td>
-<td align="right">95.85218</td>
-<td align="right">271.2964</td>
+<td align="right">0.1019622</td>
+<td align="right">-0.0225069</td>
+<td align="right">-0.9945336</td>
+<td align="right">84.14782</td>
+<td align="right">268.7036</td>
 </tr>
 <tr>
 <td align="left">Cases</td>
-<td align="right">98.19860</td>
-<td align="right">272.0069</td>
+<td align="right">0.1426048</td>
+<td align="right">-0.0346619</td>
+<td align="right">-0.9891726</td>
+<td align="right">81.80140</td>
+<td align="right">267.9931</td>
 </tr>
 <tr>
 <td align="left">Controls</td>
-<td align="right">93.58587</td>
-<td align="right">270.6161</td>
+<td align="right">0.0625443</td>
+<td align="right">-0.0107320</td>
+<td align="right">-0.9979845</td>
+<td align="right">86.41413</td>
+<td align="right">269.3839</td>
 </tr>
 </tbody>
 </table>
@@ -2021,14 +2010,17 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 ## [1] 1.520896
 </code></pre>
 
-<p>Scatterplot matrix of coaptation line measures. </p>
+<p>Scatterplot matrix of coaptation line measures.
+<strong>Not useful; candidate for deletion.</strong> </p>
 
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" alt="plot of chunk scatterplotMatrixCoaptationLine" style="max-width:100%;"></a></p>
 
 <pre><code>## Saving 7 x 7 in image
 </code></pre>
 
-<p>Correlations.</p>
+<p>Correlations.
+Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite different.
+<strong>Need to reconcile.</strong></p>
 
 <div class="highlight highlight-source-r"><pre>circ.cor1(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
@@ -2130,7 +2122,7 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.08    0.00    0.05 
+##    0.03    0.00    0.02 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -2175,7 +2167,7 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.06    0.00    0.05 
+##    0.07    0.02    0.04 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -2256,7 +2248,7 @@ rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span 
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.12    0.00    0.07 
+##    0.11    0.01    0.07 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y

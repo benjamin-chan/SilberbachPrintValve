@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-10 11:30:41"
+date: "2017-02-10 14:33:20"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -30,6 +30,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
   * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
   * $\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
+1. Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)
 1. Normalize the orientation of the coaptation line to the unit sphere
 1. Scale body size measures, `bsa` and `orifice_area`, to have mean = 0 and SD = 1
 
@@ -69,7 +70,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 11:30:42
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 14:33:21
 ```
 
 Summarize the entire data set.
@@ -126,7 +127,7 @@ Results save as [CSV](../data/processed/compare.csv).
 |Azimuthal angle of coaptation line                     |     48|4.684 (133.204)   |(-178.788, 178.824) |        49|31.443 (116.612)  |(-167.841, 169.432) | -26.7591262| 25.4045403| -1.0533206| 0.2948658| 0.3402297|FALSE |
 
 ```
-## File ../data/processed/compare.csv was written on 2017-02-10 11:30:56
+## File ../data/processed/compare.csv was written on 2017-02-10 14:33:35
 ```
 # Linear model of coaptation line length
 
@@ -233,7 +234,37 @@ Results save as [CSV](../data/processed/compare.csv).
 |Control |                 1|+1 SD from mean orifice area | 15.656194| 8.518708| 22.79368|
 # Directional analysis of coaptation line
 
+Citation for package `Directional`.
+
+
+```
+## 
+## To cite package 'Directional' in publications use:
+## 
+##   Michail Tsagris, Giorgos Athineou and Anamul Sajib (2016).
+##   Directional: Directional Statistics. R package version 2.3.
+##   https://CRAN.R-project.org/package=Directional
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {Directional: Directional Statistics},
+##     author = {Michail Tsagris and Giorgos Athineou and Anamul Sajib},
+##     year = {2016},
+##     note = {R package version 2.3},
+##     url = {https://CRAN.R-project.org/package=Directional},
+##   }
+## 
+## ATTENTION: This citation information has been auto-generated from
+## the package DESCRIPTION file and may need manual editing, see
+## 'help("citation")'.
+```
+
+I need to understand what package `Directional` is doing.
+So echo back the R code.
+
 Scatterplot matrix of coaptation line measures.
+Link to [SVG](../figures/polarplot.svg) version.
 
 ![plot of chunk polarplot](../figures/polarplot-1.png)
 
@@ -242,6 +273,7 @@ Scatterplot matrix of coaptation line measures.
 ```
 
 Calculate median cartesian coordinates and latitude and longitude.
+**These calculations look incorrect; need to troubleshoot.**
 
 
 ```r
@@ -249,77 +281,54 @@ cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
 matAll <- cartCoord %>% select(-1) %>% as.matrix
 matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-rbind(matAll %>% mediandir,
-      matCases %>% mediandir,
-      matControls %>% mediandir) %>%
-  data.frame %>% 
-  rename(x = X1, y = X2, z = X3) %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+merge(rbind(matAll %>% mediandir,
+            matCases %>% mediandir,
+            matControls %>% mediandir) %>%
+        data.frame %>%
+        rename(x = X1, y = X2, z = X3) %>%
+        cbind(group = c("All", "Cases", "Controls"), .),
+      rbind(matAll %>% mediandir %>% euclid.inv,
+            matCases %>% mediandir %>% euclid.inv,
+            matControls %>% mediandir %>% euclid.inv) %>%
+        data.frame %>%
+        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
   kable
 ```
 
 
 
-|group    |          x|         y|          z|
-|:--------|----------:|---------:|----------:|
-|All      | -0.1035612| 0.0428729| -0.9936986|
-|Cases    | -0.1307252| 0.0319395| -0.9909040|
-|Controls | -0.0788606| 0.0474871| -0.9957540|
-
-```r
-rbind(matAll %>% mediandir %>% euclid.inv,
-      matCases %>% mediandir %>% euclid.inv,
-      matControls %>% mediandir %>% euclid.inv) %>%
-  data.frame %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  kable
-```
-
-
-
-|group    |      Lat|     Long|
-|:--------|--------:|--------:|
-|All      | 95.94428| 272.4705|
-|Cases    | 97.51150| 271.8462|
-|Controls | 94.52308| 272.7303|
+|group    |         x|          y|          z|      Lat|     Long|
+|:--------|---------:|----------:|----------:|--------:|--------:|
+|All      | 0.1035612| -0.0428729| -0.9936986| 84.05572| 267.5295|
+|Cases    | 0.1307252| -0.0319395| -0.9909040| 82.48850| 268.1538|
+|Controls | 0.0788606| -0.0474871| -0.9957540| 85.47692| 267.2697|
 
 Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
+**These calculations look incorrect; need to troubleshoot.**
 
 
 ```r
-rbind(matAll %>% vmf %>% .[["mu"]],
-      matCases %>% vmf %>% .[["mu"]],
-      matControls %>% vmf %>% .[["mu"]]) %>%
-  data.frame %>% 
-  rename(x = X1, y = X2, z = X3) %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+merge(rbind(matAll %>% vmf %>% .[["mu"]],
+            matCases %>% vmf %>% .[["mu"]],
+            matControls %>% vmf %>% .[["mu"]]) %>%
+        data.frame %>% 
+        rename(x = X1, y = X2, z = X3) %>% 
+        cbind(group = c("All", "Cases", "Controls"), .),
+      rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
+            matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
+            matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
+        data.frame %>% 
+        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
   kable
 ```
 
 
 
-|group    |          x|         y|          z|
-|:--------|----------:|---------:|----------:|
-|All      | -0.1019622| 0.0225069| -0.9945336|
-|Cases    | -0.1426048| 0.0346619| -0.9891726|
-|Controls | -0.0625443| 0.0107320| -0.9979845|
-
-```r
-rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
-      matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
-      matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
-  data.frame %>% 
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  kable
-```
-
-
-
-|group    |      Lat|     Long|
-|:--------|--------:|--------:|
-|All      | 95.85218| 271.2964|
-|Cases    | 98.19860| 272.0069|
-|Controls | 93.58587| 270.6161|
+|group    |         x|          y|          z|      Lat|     Long|
+|:--------|---------:|----------:|----------:|--------:|--------:|
+|All      | 0.1019622| -0.0225069| -0.9945336| 84.14782| 268.7036|
+|Cases    | 0.1426048| -0.0346619| -0.9891726| 81.80140| 267.9931|
+|Controls | 0.0625443| -0.0107320| -0.9979845| 86.41413| 269.3839|
 
 ANOVA.
 
@@ -524,7 +533,8 @@ matControls[, "azimuthal"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ## [1] 1.520896
 ```
 
-Scatterplot matrix of coaptation line measures. 
+Scatterplot matrix of coaptation line measures.
+**Not useful; candidate for deletion.** 
  
 ![plot of chunk scatterplotMatrixCoaptationLine](../figures/scatterplotMatrixCoaptationLine-1.png)
 
@@ -533,6 +543,8 @@ Scatterplot matrix of coaptation line measures.
 ```
  
 Correlations.
+Output from `circ.cor1` and `circ.cor2` are quite different.
+**Need to reconcile.**
 
 
 ```r
@@ -680,7 +692,7 @@ Unadjusted.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.08    0.00    0.05 
+##    0.03    0.00    0.02 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -712,7 +724,7 @@ Adjusted for body surface area.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.06    0.00    0.05 
+##    0.07    0.02    0.04 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -750,7 +762,7 @@ Adjusted for orifice area area.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.12    0.00    0.07 
+##    0.11    0.01    0.07 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y

@@ -4,59 +4,95 @@ Scatterplot matrix of coaptation line measures.
 
 ```{r polarplot, dpi = 300}
 df %>%
-  select(matches("^id|^type|^(polar|azimuthal)$")) %>%
+  select(matches("^id|^type$|^(polar|azimuthal)$")) %>%
   melt(id.vars = c("id", "type")) %>% 
   mutate(type = factor(type)) %>% 
   merge(., df %>% select(matches("^id|^type|^radial$"))) %>% 
   ggplot +
     aes(x = value, y = radial, color = type, fill = type) +
     geom_point(alpha = 1/2) +
+    geom_smooth(method = "lm", se = FALSE) +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
     scale_x_continuous("", breaks = seq(-180, 180, 30)) +
     scale_y_log10("Length", breaks = c(5, 10, 20)) +
-    facet_grid(variable ~ type) +
+    facet_wrap(~ variable) +
     coord_polar(start = pi / 2, direction = -1) +
     theme_bw() +
-    theme(legend.position = "none")
+    theme(legend.position = "bottom")
 ggsave("../figures/polarplot.svg", dpi = 300)
 ```
 
-Calculate median cartesian coordinates.
+Calculate median cartesian coordinates and latitude and longitude.
 
 ```{r, echo = TRUE}
-df %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% mediandir
-df %>% filter(type == "Case") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% mediandir
-df %>% filter(type == "Control") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% mediandir
+cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
+matAll <- cartCoord %>% select(-1) %>% as.matrix
+matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
+matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
+rbind(matAll %>% mediandir,
+      matCases %>% mediandir,
+      matControls %>% mediandir) %>%
+  data.frame %>% 
+  rename(x = X1, y = X2, z = X3) %>% 
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  kable
+rbind(matAll %>% mediandir %>% euclid.inv,
+      matCases %>% mediandir %>% euclid.inv,
+      matControls %>% mediandir %>% euclid.inv) %>%
+  data.frame %>% 
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  kable
 ```
 
 Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
 
 ```{r, echo = TRUE}
-df %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf
-df %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf %>% .[["mu"]] %>% euclid.inv
-df %>% filter(type == "Case") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf
-df %>% filter(type == "Case") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf %>% .[["mu"]] %>% euclid.inv
-df %>% filter(type == "Control") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf
-df %>% filter(type == "Control") %>% select(matches("coapUnit[XYZ]")) %>% as.matrix %>% vmf %>% .[["mu"]] %>% euclid.inv
+rbind(matAll %>% vmf %>% .[["mu"]],
+      matCases %>% vmf %>% .[["mu"]],
+      matControls %>% vmf %>% .[["mu"]]) %>%
+  data.frame %>% 
+  rename(x = X1, y = X2, z = X3) %>% 
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  kable
+rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
+      matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
+      matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
+  data.frame %>% 
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  kable
+```
+
+ANOVA.
+
+```{r, echo = TRUE}
+hcf.aov(matAll, factor(df$type))
+lr.aov(matAll, factor(df$type))
+embed.aov(matAll, factor(df$type))
+het.aov(matAll, factor(df$type))
+spherconc.test(matAll, factor(df$type))
 ```
 
 Calculate circular summary statistics.
 
 ```{r, echo = TRUE}
-df %>% select(matches("polar")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
-df %>% select(matches("azimuthal")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
-df %>% filter(type == "Case") %>% select(matches("polar")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
-df %>% filter(type == "Case") %>% select(matches("azimuthal")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
-df %>% filter(type == "Control") %>% select(matches("polar")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
-df %>% filter(type == "Control") %>% select(matches("azimuthal")) %>% as.matrix %>% circ.summary(rads = FALSE, plot = FALSE)
+cirCoord <- df %>% select(matches("^type$|polar|azimuthal"))
+matAll <- cirCoord %>% select(-1) %>% as.matrix
+matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
+matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
+matAll[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matAll[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "polar"]%>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "azimuthal"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 Scatterplot matrix of coaptation line measures. 
  
 ```{r scatterplotMatrixCoaptationLine, dpi = 300} 
 df %>% 
-  select(matches("^id|^type|^(radial|polar|azimuthal)$")) %>% 
+  select(matches("^id|^type$|^(radial|polar|azimuthal)$")) %>% 
   melt(id.vars = c("id", "type")) %>%  
   mutate(type = factor(type)) %>%  
   merge(., ., by = c("id", "type")) %>%  
@@ -85,25 +121,16 @@ circlin.cor(df$azimuthal, df[, c("radial", "bsa", "orifice_area")], rads = FALSE
 ANOVA.
 
 ```{r, echo = TRUE}
-x <- df %>% select(matches("coapUnit[XYZ]")) %>% as.matrix
-ina <- df$type
-hcf.aov(x, ina)
-lr.aov(x, ina)
-embed.aov(x, ina)
-het.aov(x, ina)
-spherconc.test(x, ina)
-```
-
-ANOVA.
-
-```{r, echo = TRUE}
-x <- df %>% select(matches("polar|azimuthal")) %>% as.matrix
-ina <- df$type
-hcf.circaov(x, ina, rads = FALSE)
-lr.circaov(x, ina, rads = FALSE)
-embed.circaov(x, ina, rads = FALSE)
-het.circaov(x, ina, rads = FALSE)
-conc.test(x, ina, rads = FALSE)
+hcf.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "polar"], factor(df$type), rads = FALSE)
+hcf.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 ```
 
 
@@ -112,28 +139,51 @@ conc.test(x, ina, rads = FALSE)
 Unadjusted.
 
 ```{r}
-new <- data.frame(type = df$type %>% levels)
-M <- spml.reg(df$polar, df$type, rads = FALSE, xnew = new)
+new <- df$typeCase %>% unique
+M <- spml.reg(df$polar, 
+              as.matrix(df[, "typeCase"]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = df$type %>% unique, 
+           typeCase = new,
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 Adjusted for body surface area.
 
 ```{r}
-new <- data.frame(type = rep(df$type %>% levels, 3), bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, df[, c("type", "bsaScaled")], rads = FALSE, xnew = new)
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  bsaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$polar, 
+              as.matrix(df[, c("typeCase", "bsaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean BSA",
+                           "Mean BSA",
+                           "+1 SD from mean BSA"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 Adjusted for orifice area area.
 
 ```{r}
-new <- data.frame(type = rep(df$type %>% levels, 3), orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, df[, c("type", "orificeAreaScaled")], rads = FALSE, xnew = new)
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  orificeAreaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$polar, 
+              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean orifice area",
+                           "Mean orifice area",
+                           "+1 SD from mean orifice area"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 
@@ -142,26 +192,49 @@ data.frame(new, pred = as.vector(M$est) - 360) %>% kable
 Unadjusted.
 
 ```{r}
-new <- data.frame(type = df$type %>% levels)
-M <- spml.reg(df$azimuthal, df$type, rads = FALSE, xnew = new)
+new <- df$typeCase %>% unique
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, "typeCase"]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = df$type %>% unique, 
+           typeCase = new,
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 Adjusted for body surface area.
 
 ```{r}
-new <- data.frame(type = rep(df$type %>% levels, 3), bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, df[, c("type", "bsaScaled")], rads = FALSE, xnew = new)
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  bsaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, c("typeCase", "bsaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean BSA",
+                           "Mean BSA",
+                           "+1 SD from mean BSA"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 Adjusted for orifice area area.
 
 ```{r}
-new <- data.frame(type = rep(df$type %>% levels, 3), orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, df[, c("type", "orificeAreaScaled")], rads = FALSE, xnew = new)
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  orificeAreaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
 M
-data.frame(new, pred = as.vector(M$est) - 360) %>% kable
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean orifice area",
+                           "Mean orifice area",
+                           "+1 SD from mean orifice area"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
 ```

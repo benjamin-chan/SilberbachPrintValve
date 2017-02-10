@@ -20,6 +20,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
   * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
   * $\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
+1. Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)
 1. Normalize the orientation of the coaptation line to the unit sphere
 1. Scale body size measures, `bsa` and `orifice_area`, to have mean = 0 and SD = 1
 
@@ -105,9 +106,12 @@ df <-
   bind_cols(cart2sph(cbind(.$centroidCalcRotatedX, .$centroidCalcRotatedY, .$centroidBottomZ),
                      cbind(.$centroidBottomRotatedX, .$centroidBottomRotatedY, 0),
                      units = "deg")) %>%
-  mutate(coapUnitX = (centroidCalcRotatedX - centroidBottomRotatedX) / radial,
-         coapUnitY = (centroidCalcRotatedY - centroidBottomRotatedY) / radial,
-         coapUnitZ = (centroidBottomZ) / radial) %>% 
+  mutate(coapX = centroidBottomRotatedX - centroidCalcRotatedX,
+         coapY = centroidBottomRotatedY - centroidCalcRotatedY,
+         coapZ = centroidBottomZ - 0) %>% 
+  mutate(coapUnitX = coapX / radial,
+         coapUnitY = coapY / radial,
+         coapUnitZ = coapZ / radial) %>% 
   mutate(bsaScaled = as.vector(scale(bsa)),
          orificeAreaScaled = as.vector(scale(orifice_area)))
 ```

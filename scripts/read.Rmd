@@ -105,8 +105,8 @@ df <-
   mutate(coapUnitX = (centroidCalcRotatedX - centroidBottomRotatedX) / radial,
          coapUnitY = (centroidCalcRotatedY - centroidBottomRotatedY) / radial,
          coapUnitZ = (centroidBottomZ) / radial) %>% 
-  mutate(bsaScaled = scale(bsa, center = TRUE, scale = TRUE),
-         orificeAreaScaled = scale(orifice_area, center = TRUE, scale = TRUE))
+  mutate(bsaScaled = as.vector(scale(bsa)),
+         orificeAreaScaled = as.vector(scale(orifice_area)))
 ```
 
 Check calculation of `radial` against given `coapt_line_length`; it should be 1.0

@@ -70,7 +70,7 @@ Adjusted for body surface area.
 M <- 
   df %>%
   select(matches("^type|Scaled|^radial$")) %>% 
-  lm(radial ~ type + as.vector(bsaScaled), data = .)
+  lm(radial ~ type + bsaScaled, data = .)
 M %>% glance %>% kable
 M %>% tidy %>% kable
 new <- data.frame(type = df$type %>% levels, bsaScaled = c(0, 0))
@@ -87,7 +87,7 @@ Adjusted for orifice area.
 ```{r}
 M <- 
   df %>%
-  lm(radial ~ type + as.vector(orificeAreaScaled), data = .)
+  lm(radial ~ type + orificeAreaScaled, data = .)
 M %>% glance %>% kable
 M %>% tidy %>% kable
 new <- data.frame(type = df$type %>% levels, orificeAreaScaled = c(0, 0)) 

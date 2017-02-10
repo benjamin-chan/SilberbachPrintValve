@@ -10,7 +10,8 @@ files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
            "compare.Rmd",
-           "directional.Rmd")
+           "analyzeRadial.Rmd",
+           "analyzeDirectional.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])

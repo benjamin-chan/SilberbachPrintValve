@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-07 09:22:38"
+date: "2017-02-10 11:30:41"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -764,6 +764,7 @@ output:
 <a id="user-content-read-anonymized-data" class="anchor" href="#read-anonymized-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read anonymized data</h1>
 
 <p>Read and clean data.
+R code is suppressed for brevity.
 See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/read.Rmd"><code>read.Rmd</code></a> for full details.</p>
 
 <ol>
@@ -776,6 +777,8 @@ See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/
 </ul>
 </li>
 <li>Remove extraneous columns</li>
+<li>Add logical indicator for <code>type</code> <em>Case</em>
+</li>
 <li>Fix sign of <code>centroidBottomZ</code>
 
 <ul>
@@ -794,11 +797,13 @@ See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/
 <li>See function <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/lib/cart2sph.R"><code>cart2sph</code></a>
 </li>
 <li>$\rho$ = radial distance</li>
-<li>$\theta$ = polar angle (inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians</li>
-<li>$\phi$ = azimuthal angle bounded between $(0, 2\pi)$ or $(0^{\circ}, 360^{\circ})$; default units is radians</li>
+<li>$\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians</li>
+<li>$\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians</li>
 <li>$\rho, \theta, \phi$ will be used to describe the coaptation line</li>
 </ul>
 </li>
+<li>Normalize the orientation of the coaptation line to the unit sphere</li>
+<li>Scale body size measures, <code>bsa</code> and <code>orifice_area</code>, to have mean = 0 and SD = 1</li>
 </ol>
 
 <p>Example coaptation line (triple point) is below.
@@ -861,23 +866,20 @@ An interactive representation of the coaptation line geometry is <a href="https:
 <td align="left">radial</td>
 <td align="right">0.2923220</td>
 </tr>
+<tr>
+<td align="left">bsaScaled</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr>
+<td align="left">orificeAreaScaled</td>
+<td align="right">0.3803151</td>
+</tr>
 </tbody>
 </table>
 
-<p>Scale the size variables by <code>bsa</code>.</p>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">df</span> <span class="pl-k">&lt;-</span> 
-  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>%
-  mutate(<span class="pl-v">total_area_valueScaled</span> <span class="pl-k">=</span> <span class="pl-smi">total_area_value</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>,
-         <span class="pl-v">total_areaScaled</span> <span class="pl-k">=</span> <span class="pl-smi">total_area</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>,
-         <span class="pl-v">orifice_areaScaled</span> <span class="pl-k">=</span> <span class="pl-smi">orifice_area</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>,
-         <span class="pl-v">valve_diameterScaled</span> <span class="pl-k">=</span> <span class="pl-smi">valve_diameter</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>,
-         <span class="pl-v">valve_areaScaled</span> <span class="pl-k">=</span> <span class="pl-smi">valve_area</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>,
-         <span class="pl-v">radialScaled</span> <span class="pl-k">=</span> <span class="pl-smi">radial</span> <span class="pl-k">/</span> <span class="pl-smi">bsa</span>)</pre></div>
-
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-07 09:22:41
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 11:30:42
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -1143,11 +1145,11 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tr>
 <td align="left">Polar angle of coaptation line (top to bottom</td>
 <td align="right">48</td>
-<td align="left">16.582 (12.494)</td>
-<td align="left">(1.280, 59.152)</td>
+<td align="left">-73.418 (12.494)</td>
+<td align="left">(-88.720, -30.848)</td>
 <td align="right">49</td>
-<td align="left">13.139 (10.433)</td>
-<td align="left">(1.492, 70.144)</td>
+<td align="left">-76.861 (10.433)</td>
+<td align="left">(-88.508, -19.856)</td>
 <td align="right">3.4429561</td>
 <td align="right">2.3351759</td>
 <td align="right">1.4743883</td>
@@ -1158,11 +1160,11 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tr>
 <td align="left">Azimuthal angle of coaptation line</td>
 <td align="right">48</td>
-<td align="left">184.684 (133.204)</td>
-<td align="left">(1.212, 358.824)</td>
+<td align="left">4.684 (133.204)</td>
+<td align="left">(-178.788, 178.824)</td>
 <td align="right">49</td>
-<td align="left">211.443 (116.612)</td>
-<td align="left">(12.159, 349.432)</td>
+<td align="left">31.443 (116.612)</td>
+<td align="left">(-167.841, 169.432)</td>
 <td align="right">-26.7591262</td>
 <td align="right">25.4045403</td>
 <td align="right">-1.0533206</td>
@@ -1173,6 +1175,1371 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compare.csv was written on 2017-02-07 09:22:52
+<pre><code>## File ../data/processed/compare.csv was written on 2017-02-10 11:30:56
 </code></pre>
+
+<h1>
+<a id="user-content-linear-model-of-coaptation-line-length" class="anchor" href="#linear-model-of-coaptation-line-length" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear model of coaptation line length</h1>
+
+<h2>
+<a id="user-content-unadjusted" class="anchor" href="#unadjusted" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted</h2>
+
+<table>
+<thead>
+<tr>
+<th align="right">r.squared</th>
+<th align="right">adj.r.squared</th>
+<th align="right">sigma</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">df</th>
+<th align="right">logLik</th>
+<th align="right">AIC</th>
+<th align="right">BIC</th>
+<th align="right">deviance</th>
+<th align="right">df.residual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0.0072426</td>
+<td align="right">-0.0032074</td>
+<td align="right">3.881536</td>
+<td align="right">0.6930697</td>
+<td align="right">0.4072102</td>
+<td align="right">2</td>
+<td align="right">-268.181</td>
+<td align="right">542.362</td>
+<td align="right">550.0861</td>
+<td align="right">1431.301</td>
+<td align="right">95</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(Intercept)</td>
+<td align="right">12.3795844</td>
+<td align="right">0.5602515</td>
+<td align="right">22.0964777</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr>
+<td align="left">typeControl</td>
+<td align="right">0.6562349</td>
+<td align="right">0.7882625</td>
+<td align="right">0.8325081</td>
+<td align="right">0.4072102</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">12.37958</td>
+<td align="right">11.26734</td>
+<td align="right">13.49182</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">13.03582</td>
+<td align="right">11.93499</td>
+<td align="right">14.13665</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">12.37958</td>
+<td align="right">4.593906</td>
+<td align="right">20.16526</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">13.03582</td>
+<td align="right">5.251762</td>
+<td align="right">20.81988</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-adjusted-for-body-surface-area" class="anchor" href="#adjusted-for-body-surface-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for body surface area</h2>
+
+<table>
+<thead>
+<tr>
+<th align="right">r.squared</th>
+<th align="right">adj.r.squared</th>
+<th align="right">sigma</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">df</th>
+<th align="right">logLik</th>
+<th align="right">AIC</th>
+<th align="right">BIC</th>
+<th align="right">deviance</th>
+<th align="right">df.residual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0.1173521</td>
+<td align="right">0.0985724</td>
+<td align="right">3.679372</td>
+<td align="right">6.248866</td>
+<td align="right">0.0028315</td>
+<td align="right">3</td>
+<td align="right">-262.4793</td>
+<td align="right">532.9587</td>
+<td align="right">543.2575</td>
+<td align="right">1272.551</td>
+<td align="right">94</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(Intercept)</td>
+<td align="right">11.983427</td>
+<td align="right">0.5435260</td>
+<td align="right">22.047568</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr>
+<td align="left">typeControl</td>
+<td align="right">1.440464</td>
+<td align="right">0.7815147</td>
+<td align="right">1.843170</td>
+<td align="right">0.0684555</td>
+</tr>
+<tr>
+<td align="left">bsaScaled</td>
+<td align="right">1.344983</td>
+<td align="right">0.3927664</td>
+<td align="right">3.424384</td>
+<td align="right">0.0009148</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">bsaScaled</th>
+<th align="left">scaling</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">10.63844</td>
+<td align="right">9.178629</td>
+<td align="right">12.09826</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">12.07891</td>
+<td align="right">10.896950</td>
+<td align="right">13.26087</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">11.98343</td>
+<td align="right">10.904244</td>
+<td align="right">13.06261</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">13.42389</td>
+<td align="right">12.356271</td>
+<td align="right">14.49151</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">13.32841</td>
+<td align="right">12.139067</td>
+<td align="right">14.51775</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">14.76887</td>
+<td align="right">13.320108</td>
+<td align="right">16.21764</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">bsaScaled</th>
+<th align="left">scaling</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">10.63844</td>
+<td align="right">3.188539</td>
+<td align="right">18.08835</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">12.07891</td>
+<td align="right">4.678432</td>
+<td align="right">19.47939</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">11.98343</td>
+<td align="right">4.598668</td>
+<td align="right">19.36819</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">13.42389</td>
+<td align="right">6.040813</td>
+<td align="right">20.80697</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">13.32841</td>
+<td align="right">5.926751</td>
+<td align="right">20.73007</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">14.76887</td>
+<td align="right">7.321127</td>
+<td align="right">22.21662</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-adjusted-for-orifice-area" class="anchor" href="#adjusted-for-orifice-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for orifice area</h2>
+
+<table>
+<thead>
+<tr>
+<th align="right">r.squared</th>
+<th align="right">adj.r.squared</th>
+<th align="right">sigma</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">df</th>
+<th align="right">logLik</th>
+<th align="right">AIC</th>
+<th align="right">BIC</th>
+<th align="right">deviance</th>
+<th align="right">df.residual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">0.1944174</td>
+<td align="right">0.1772774</td>
+<td align="right">3.515078</td>
+<td align="right">11.34287</td>
+<td align="right">3.87e-05</td>
+<td align="right">3</td>
+<td align="right">-258.0483</td>
+<td align="right">524.0967</td>
+<td align="right">534.3955</td>
+<td align="right">1161.443</td>
+<td align="right">94</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(Intercept)</td>
+<td align="right">11.593290</td>
+<td align="right">0.5345275</td>
+<td align="right">21.688854</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr>
+<td align="left">typeControl</td>
+<td align="right">2.212777</td>
+<td align="right">0.7877198</td>
+<td align="right">2.809091</td>
+<td align="right">0.0060435</td>
+</tr>
+<tr>
+<td align="left">orificeAreaScaled</td>
+<td align="right">1.850127</td>
+<td align="right">0.3958849</td>
+<td align="right">4.673396</td>
+<td align="right">0.0000099</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">orificeAreaScaled</th>
+<th align="left">scaling</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">9.743163</td>
+<td align="right">8.236703</td>
+<td align="right">11.24962</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">11.955940</td>
+<td align="right">10.858407</td>
+<td align="right">13.05347</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">11.593290</td>
+<td align="right">10.531973</td>
+<td align="right">12.65461</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">13.806067</td>
+<td align="right">12.756698</td>
+<td align="right">14.85544</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">13.443417</td>
+<td align="right">12.339298</td>
+<td align="right">14.54754</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">15.656194</td>
+<td align="right">14.161708</td>
+<td align="right">17.15068</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">orificeAreaScaled</th>
+<th align="left">scaling</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">9.743163</td>
+<td align="right">2.603161</td>
+<td align="right">16.88317</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">11.955940</td>
+<td align="right">4.890900</td>
+<td align="right">19.02098</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">11.593290</td>
+<td align="right">4.533786</td>
+<td align="right">18.65279</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">13.806067</td>
+<td align="right">6.748349</td>
+<td align="right">20.86378</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">13.443417</td>
+<td align="right">6.377351</td>
+<td align="right">20.50948</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">15.656194</td>
+<td align="right">8.518708</td>
+<td align="right">22.79368</td>
+</tr>
+</tbody>
+</table>
+
+<h1>
+<a id="user-content-directional-analysis-of-coaptation-line" class="anchor" href="#directional-analysis-of-coaptation-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directional analysis of coaptation line</h1>
+
+<p>Scatterplot matrix of coaptation line measures.</p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" alt="plot of chunk polarplot" style="max-width:100%;"></a></p>
+
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+
+<p>Calculate median cartesian coordinates and latitude and longitude.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">cartCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|coapUnit[XYZ]<span class="pl-pds">"</span></span>))
+<span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+<span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+<span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">group</th>
+<th align="right">x</th>
+<th align="right">y</th>
+<th align="right">z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">All</td>
+<td align="right">-0.1035612</td>
+<td align="right">0.0428729</td>
+<td align="right">-0.9936986</td>
+</tr>
+<tr>
+<td align="left">Cases</td>
+<td align="right">-0.1307252</td>
+<td align="right">0.0319395</td>
+<td align="right">-0.9909040</td>
+</tr>
+<tr>
+<td align="left">Controls</td>
+<td align="right">-0.0788606</td>
+<td align="right">0.0474871</td>
+<td align="right">-0.9957540</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">group</th>
+<th align="right">Lat</th>
+<th align="right">Long</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">All</td>
+<td align="right">95.94428</td>
+<td align="right">272.4705</td>
+</tr>
+<tr>
+<td align="left">Cases</td>
+<td align="right">97.51150</td>
+<td align="right">271.8462</td>
+</tr>
+<tr>
+<td align="left">Controls</td>
+<td align="right">94.52308</td>
+<td align="right">272.7303</td>
+</tr>
+</tbody>
+</table>
+
+<p>Calculate maximum likelihood estimates of the von Mises-Fisher distribution.</p>
+
+<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]]) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">group</th>
+<th align="right">x</th>
+<th align="right">y</th>
+<th align="right">z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">All</td>
+<td align="right">-0.1019622</td>
+<td align="right">0.0225069</td>
+<td align="right">-0.9945336</td>
+</tr>
+<tr>
+<td align="left">Cases</td>
+<td align="right">-0.1426048</td>
+<td align="right">0.0346619</td>
+<td align="right">-0.9891726</td>
+</tr>
+<tr>
+<td align="left">Controls</td>
+<td align="right">-0.0625443</td>
+<td align="right">0.0107320</td>
+<td align="right">-0.9979845</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">group</th>
+<th align="right">Lat</th>
+<th align="right">Long</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">All</td>
+<td align="right">95.85218</td>
+<td align="right">271.2964</td>
+</tr>
+<tr>
+<td align="left">Cases</td>
+<td align="right">98.19860</td>
+<td align="right">272.0069</td>
+</tr>
+<tr>
+<td align="left">Controls</td>
+<td align="right">93.58587</td>
+<td align="right">270.6161</td>
+</tr>
+</tbody>
+</table>
+
+<p>ANOVA.</p>
+
+<div class="highlight highlight-source-r"><pre>hcf.aov(<span class="pl-smi">matAll</span>, <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>))</pre></div>
+
+<pre><code>##       test    p-value      kappa 
+##  1.7657268  0.1738577 21.6647313
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>lr.aov(<span class="pl-smi">matAll</span>, <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>))</pre></div>
+
+<pre><code>##         w   p-value 
+## 3.5742089 0.1674443
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>embed.aov(<span class="pl-smi">matAll</span>, <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>))</pre></div>
+
+<pre><code>##         F   p-value 
+## 1.7768999 0.1719612
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>het.aov(<span class="pl-smi">matAll</span>, <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>))</pre></div>
+
+<pre><code>##      test   p-value 
+## 3.5920396 0.1659581
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>spherconc.test(<span class="pl-smi">matAll</span>, <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>))</pre></div>
+
+<pre><code>## $mess
+## [1] "The mean resultant length is more than 0.67. U3 was calculated"
+## 
+## $res
+##      test   p-value 
+## 2.2234523 0.1359288
+</code></pre>
+
+<p>Calculate circular summary statistics.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">cirCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|polar|azimuthal<span class="pl-pds">"</span></span>))
+<span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+<span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+<span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
+<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] -75.34583
+## 
+## $confint
+## [1] -75.41890 -75.27276
+## 
+## $kappa
+## [1] 25.93036
+## 
+## $MRL
+## [1] 0.980524
+## 
+## $circvariance
+## [1] 0.01947597
+## 
+## $circstd
+## [1] 0.1983337
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] 156.0474
+## 
+## $confint
+## [1] 155.3553 156.7395
+## 
+## $kappa
+## [1] 0.773375
+## 
+## $MRL
+## [1] 0.3603926
+## 
+## $circvariance
+## [1] 0.6396074
+## 
+## $circstd
+## [1] 1.428679
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] -73.58603
+## 
+## $confint
+## [1] -73.69852 -73.47354
+## 
+## $kappa
+## [1] 22.25913
+## 
+## $MRL
+## [1] 0.9772728
+## 
+## $circvariance
+## [1] 0.0227272
+## 
+## $circstd
+## [1] 0.2144269
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] 160.8957
+## 
+## $confint
+## [1] 160.0409 161.7505
+## 
+## $kappa
+## [1] 0.9018208
+## 
+## $MRL
+## [1] 0.4105231
+## 
+## $circvariance
+## [1] 0.5894769
+## 
+## $circstd
+## [1] 1.334409
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] -77.05687
+## 
+## $confint
+## [1] -77.14801 -76.96573
+## 
+## $kappa
+## [1] 32.72235
+## 
+## $MRL
+## [1] 0.9845994
+## 
+## $circvariance
+## [1] 0.01540057
+## 
+## $circstd
+## [1] 0.1761839
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mesos
+## [1] 149.8446
+## 
+## $confint
+## [1] 148.7197 150.9695
+## 
+## $kappa
+## [1] 0.663083
+## 
+## $MRL
+## [1] 0.3145656
+## 
+## $circvariance
+## [1] 0.6854344
+## 
+## $circstd
+## [1] 1.520896
+</code></pre>
+
+<p>Scatterplot matrix of coaptation line measures. </p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" alt="plot of chunk scatterplotMatrixCoaptationLine" style="max-width:100%;"></a></p>
+
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+
+<p>Correlations.</p>
+
+<div class="highlight highlight-source-r"><pre>circ.cor1(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##        rho    p-value 
+## 0.18384547 0.07485033
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>circ.cor2(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##        rho    p-value 
+## 0.04200493 0.99654087
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>radial<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##       R-squared      p-value
+## [1,] 0.12007523 0.0000118665
+## [2,] 0.05463061 0.0058553758
+## [3,] 0.04236606 0.0185962606
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>radial<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##        R-squared   p-value
+## [1,] 0.052024485 0.0074860
+## [2,] 0.003150427 0.7436825
+## [3,] 0.017708820 0.1892279
+</code></pre>
+
+<p>ANOVA.</p>
+
+<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##       test    p-value      kappa 
+##  2.2461896  0.1372596 25.9303615
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##       test    p-value      kappa 
+##  2.2629933  0.1324977 25.9303615
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##       test    p-value      kappa 
+##  2.2409746  0.1377114 25.9303615
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##      test   p-value 
+## 2.3060975 0.1288672
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## $mess
+## [1] "The mean resultant length is more than 0.7. U3 was calculated"
+## 
+## $res
+##      test   p-value 
+## 1.7746721 0.1828049
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##     test  p-value    kappa 
+##       NA       NA 0.773375
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##      test   p-value     kappa 
+## 0.2486268 0.6180437 0.7733750
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##      test   p-value     kappa 
+## 0.2202366 0.6399350 0.7733750
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>##      test   p-value 
+## 0.2411616 0.6233684
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+
+<pre><code>## Error in conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE): object 'U3' not found
+</code></pre>
+
+<h2>
+<a id="user-content-circular-regression-for-polar-angle" class="anchor" href="#circular-regression-for-polar-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for polar angle</h2>
+
+<p>Unadjusted.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##    0.08    0.00    0.05 
+## 
+## $beta
+##          Cosinus of y Sinus of y
+##           1.331727706  -6.021609
+## typeCase  0.006409535   1.344292
+## 
+## $seb
+##          Cosinus of y Sinus of y
+##             0.1404381  0.1042759
+## typeCase    0.2035170  0.2031161
+## 
+## $loglik
+## [1] 25.35768
+## 
+## $est
+## [1] 285.9653 282.4707
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-74.03466</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-77.52930</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for body surface area.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##    0.06    0.00    0.05 
+## 
+## $beta
+##           Cosinus of y Sinus of y
+##              1.7520884  -8.383290
+## typeCase    -0.3037059   3.356043
+## bsaScaled    0.3094801  -2.198097
+## 
+## $seb
+##           Cosinus of y Sinus of y
+##              0.1428666  0.1098323
+## typeCase     0.2143050  0.2125200
+## bsaScaled    0.1086668  0.1069531
+## 
+## $loglik
+## [1] 42.12291
+## 
+## $est
+## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">bsaScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">-68.07226</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">-76.87128</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">-73.92796</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">-78.19523</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">-76.32610</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">-78.97519</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for orifice area area.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##    0.12    0.00    0.07 
+## 
+## $beta
+##                   Cosinus of y Sinus of y
+##                      1.6054003  -8.120715
+## typeCase            -0.1043417   3.106066
+## orificeAreaScaled    0.1893907  -2.454024
+## 
+## $seb
+##                   Cosinus of y Sinus of y
+##                      0.1462691  0.1160903
+## typeCase             0.2266974  0.2242708
+## orificeAreaScaled    0.1144086  0.1127463
+## 
+## $loglik
+## [1] 40.81098
+## 
+## $est
+## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">orificeAreaScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">-62.87641</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">-75.97007</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">-73.33573</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">-78.81728</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">-77.24663</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">-80.36730</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-circular-regression-for-azimuthal-angle" class="anchor" href="#circular-regression-for-azimuthal-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for azimuthal angle</h2>
+
+<p>Unadjusted.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##       0       0       0 
+## 
+## $beta
+##          Cosinus of y  Sinus of y
+##            -0.4600674  0.27089631
+## typeCase   -0.2294334 -0.06964816
+## 
+## $seb
+##          Cosinus of y Sinus of y
+##             0.1192794  0.1347447
+## typeCase    0.1991933  0.2034726
+## 
+## $loglik
+## [1] -164.3917
+## 
+## $est
+## [1] 163.7288 149.5096
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-196.2712</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-210.4904</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for body surface area.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##       0       0       0 
+## 
+## $beta
+##           Cosinus of y  Sinus of y
+##             -0.4277925  0.27503757
+## typeCase    -0.3015519 -0.07924063
+## bsaScaled    0.1144437  0.01654991
+## 
+## $seb
+##           Cosinus of y Sinus of y
+##              0.1275069  0.1376270
+## typeCase     0.2062491  0.2128108
+## bsaScaled    0.1050178  0.1066545
+## 
+## $loglik
+## [1] -163.9478
+## 
+## $est
+## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">bsaScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">-191.9931</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean BSA</td>
+<td align="right">-205.4875</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">-195.0271</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">-212.7379</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">-199.0516</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">-222.9398</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for orifice area area.</p>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##       0       0       0 
+## 
+## $beta
+##                   Cosinus of y  Sinus of y
+##                     -0.3582187  0.25927990
+## typeCase            -0.4622895 -0.05843433
+## orificeAreaScaled    0.2644774 -0.02736773
+## 
+## $seb
+##                   Cosinus of y Sinus of y
+##                      0.1395525  0.1447753
+## typeCase             0.2122474  0.2241783
+## orificeAreaScaled    0.1048306  0.1117893
+## 
+## $loglik
+## [1] -162.4629
+## 
+## $est
+## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">orificeAreaScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">-191.8783</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean orifice area</td>
+<td align="right">-204.7182</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">-193.7545</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">-215.8971</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">-197.3276</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">-247.9910</td>
+</tr>
+</tbody>
+</table>
 </article></body></html>

@@ -46,15 +46,55 @@ df %>%
   kable(digits = 2)
 ```
 
+Unadjusted.
+
 ```{r}
 M <- 
   df %>%
   select(matches("^type|Scaled|^radial$")) %>% 
-  lm(radial ~ type + orificeAreaScaled, data = .)
+  lm(radial ~ type, data = .)
 M %>% glance %>% kable
 M %>% tidy %>% kable
-df %>%
+new <- data.frame(type = df$type %>% levels)
+new %>% 
+  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
+  kable
+new %>% 
+  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
+  kable
+```
+
+Adjusted for body surface area.
+
+```{r}
+M <- 
+  df %>%
   select(matches("^type|Scaled|^radial$")) %>% 
-  group_by(type) %>% 
-  summarize(meanLength = mean(radial))
+  lm(radial ~ type + as.vector(bsaScaled), data = .)
+M %>% glance %>% kable
+M %>% tidy %>% kable
+new <- data.frame(type = df$type %>% levels, bsaScaled = c(0, 0))
+new %>% 
+  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
+  kable
+new %>% 
+  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
+  kable
+```
+
+Adjusted for orifice area.
+
+```{r}
+M <- 
+  df %>%
+  lm(radial ~ type + as.vector(orificeAreaScaled), data = .)
+M %>% glance %>% kable
+M %>% tidy %>% kable
+new <- data.frame(type = df$type %>% levels, orificeAreaScaled = c(0, 0)) 
+new %>% 
+  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
+  kable
+new %>% 
+  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
+  kable
 ```

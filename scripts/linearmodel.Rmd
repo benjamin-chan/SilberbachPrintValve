@@ -37,15 +37,6 @@
 > 
 > Michael
 
-Correlations between coaptation line measures.
-
-```{r}
-df %>%
-  select(matches("bsa|^orifice_area$|^radial$")) %>%
-  cor %>% 
-  kable(digits = 2)
-```
-
 Unadjusted.
 
 ```{r}

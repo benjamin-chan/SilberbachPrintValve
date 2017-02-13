@@ -10,11 +10,13 @@ M <-
 M %>% glance %>% kable
 M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = df$type %>% factor %>% levels)
-new %>% 
-  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
-  kable(digits = 2)
-new %>% 
-  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
+merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame),
+      new %>% bind_cols(., predict(M, ., interval = "prediction") %>% data.frame),
+      by = c("type", "fit")) %>% 
+  rename(lowerConf = lwr.x,
+         upperConf = upr.x,
+         lowerPred = lwr.y,
+         upperPred = upr.y) %>% 
   kable(digits = 2)
 ```
 
@@ -32,12 +34,14 @@ new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                   scaling = rep(c("-1 SD from mean BSA",
                                   "Mean BSA",
                                   "+1 SD from mean BSA"), each = 2))
-new %>% 
-  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
+merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame),
+      new %>% bind_cols(., predict(M, ., interval = "prediction") %>% data.frame),
+      by = c("type", "bsaScaled", "scaling", "fit")) %>% 
+  rename(lowerConf = lwr.x,
+         upperConf = upr.x,
+         lowerPred = lwr.y,
+         upperPred = upr.y) %>% 
   kable(digits = 2)
-new %>% 
-  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
-  kable(digits= 2)
 ```
 
 ## Adjusted for orifice area
@@ -53,10 +57,12 @@ new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                   scaling = rep(c("-1 SD from mean orifice area",
                                   "Mean orifice area",
                                   "+1 SD from mean orifice area"), each = 2))
-new %>% 
-  bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
-  kable(digits = 2)
-new %>% 
-  bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
+merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame),
+      new %>% bind_cols(., predict(M, ., interval = "prediction") %>% data.frame),
+      by = c("type", "orificeAreaScaled", "scaling", "fit")) %>% 
+  rename(lowerConf = lwr.x,
+         upperConf = upr.x,
+         lowerPred = lwr.y,
+         upperPred = upr.y) %>% 
   kable(digits = 2)
 ```

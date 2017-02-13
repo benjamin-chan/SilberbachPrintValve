@@ -2,6 +2,13 @@
 
 ## Unadjusted
 
+Summary from linear model estimating coaptation line length by case or control group status,
+**unadjusted.**
+
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
+
 ```{r}
 M <- 
   df %>%
@@ -21,6 +28,13 @@ merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame
 ```
 
 ## Adjusted for body surface area
+
+Summary from linear model estimating coaptation line length by case or control group status,
+**adjusted for body surface area.**
+
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
 
 ```{r}
 M <- 
@@ -45,6 +59,13 @@ merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame
 ```
 
 ## Adjusted for orifice area
+
+Summary from linear model estimating coaptation line length by case or control group status,
+**adjusted for orifice area.**
+
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
 
 ```{r}
 M <- 

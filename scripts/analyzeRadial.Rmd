@@ -27,6 +27,18 @@ merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame
   kable(digits = 2)
 ```
 
+**Interpretation**
+Coaptation line length in the control population is, on average,
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) %>% round(2)` mm longer 
+(95% CI: 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.025) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`, 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.975) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`;
+p-value:
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("p.value")) %>% round(4)`)
+than in the case population,
+unadjusted.
+
+
 ## Adjusted for body surface area
 
 Summary from linear model estimating coaptation line length by case or control group status,
@@ -58,6 +70,18 @@ merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame
   kable(digits = 2)
 ```
 
+**Interpretation**
+Coaptation line length in the control population is, on average,
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) %>% round(2)` mm longer 
+(95% CI: 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.025) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`, 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.975) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`;
+p-value:
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("p.value")) %>% round(4)`)
+than in the case population,
+adjusted for body surface area.
+
+
 ## Adjusted for orifice area
 
 Summary from linear model estimating coaptation line length by case or control group status,
@@ -87,3 +111,14 @@ merge(new %>% bind_cols(., predict(M, ., interval = "confidence") %>% data.frame
          upperPred = upr.y) %>% 
   kable(digits = 2)
 ```
+
+**Interpretation**
+Coaptation line length in the control population is, on average,
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) %>% round(2)` mm longer 
+(95% CI: 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.025) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`, 
+`r (M %>% tidy %>% filter(term == "typeControl") %>% select(matches("estimate")) + qnorm(0.975) * M %>% tidy %>% filter(term == "typeControl") %>% select(matches("std.error"))) %>% round(2)`;
+p-value:
+`r M %>% tidy %>% filter(term == "typeControl") %>% select(matches("p.value")) %>% round(4)`)
+than in the case population,
+adjusted for orifice area.

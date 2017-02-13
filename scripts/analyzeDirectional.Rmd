@@ -9,8 +9,7 @@ citation("Directional")
 I need to understand what package `Directional` is doing.
 So echo back the R code.
 
-Scatterplot matrix of coaptation line measures.
-Link to [SVG](../figures/polarplot.svg) version.
+Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [SVG](figures/polarplot.svg)
 
 ```{r polarplot, dpi = 300}
 df %>%
@@ -150,7 +149,7 @@ conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 
 Unadjusted.
 
-```{r}
+```{r, echo = TRUE}
 new <- df$typeCase %>% unique
 M <- spml.reg(df$polar, 
               as.matrix(df[, "typeCase"]), 
@@ -164,7 +163,7 @@ data.frame(type = df$type %>% unique,
 
 Adjusted for body surface area.
 
-```{r}
+```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$polar, 
@@ -182,7 +181,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for orifice area area.
 
-```{r}
+```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$polar, 
@@ -203,7 +202,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Unadjusted.
 
-```{r}
+```{r, echo = TRUE}
 new <- df$typeCase %>% unique
 M <- spml.reg(df$azimuthal, 
               as.matrix(df[, "typeCase"]), 
@@ -217,7 +216,7 @@ data.frame(type = df$type %>% unique,
 
 Adjusted for body surface area.
 
-```{r}
+```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$azimuthal, 
@@ -235,7 +234,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for orifice area area.
 
-```{r}
+```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$azimuthal, 

@@ -8,14 +8,14 @@ M <-
   select(matches("^type|Scaled|^radial$")) %>% 
   lm(radial ~ type, data = .)
 M %>% glance %>% kable
-M %>% tidy %>% kable
+M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = df$type %>% factor %>% levels)
 new %>% 
   bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
-  kable
+  kable(digits = 2)
 new %>% 
   bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
-  kable
+  kable(digits = 2)
 ```
 
 ## Adjusted for body surface area
@@ -26,7 +26,7 @@ M <-
   select(matches("^type|Scaled|^radial$")) %>% 
   lm(radial ~ type + bsaScaled, data = .)
 M %>% glance %>% kable
-M %>% tidy %>% kable
+M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                   bsaScaled = rep(-1:1, each = 2),
                   scaling = rep(c("-1 SD from mean BSA",
@@ -34,10 +34,10 @@ new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                                   "+1 SD from mean BSA"), each = 2))
 new %>% 
   bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
-  kable
+  kable(digits = 2)
 new %>% 
   bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
-  kable
+  kable(digits= 2)
 ```
 
 ## Adjusted for orifice area
@@ -47,7 +47,7 @@ M <-
   df %>%
   lm(radial ~ type + orificeAreaScaled, data = .)
 M %>% glance %>% kable
-M %>% tidy %>% kable
+M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                   orificeAreaScaled = rep(-1:1, each = 2),
                   scaling = rep(c("-1 SD from mean orifice area",
@@ -55,8 +55,8 @@ new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
                                   "+1 SD from mean orifice area"), each = 2))
 new %>% 
   bind_cols(., predict(M, ., interval = "confidence") %>% data.frame) %>% 
-  kable
+  kable(digits = 2)
 new %>% 
   bind_cols(., predict(M, ., interval = "prediction") %>% data.frame) %>% 
-  kable
+  kable(digits = 2)
 ```

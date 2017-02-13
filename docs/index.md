@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-10 14:33:20"
+date: "2017-02-13 15:27:40"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -70,7 +70,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 14:33:21
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-13 15:27:41
 ```
 
 Summarize the entire data set.
@@ -127,111 +127,138 @@ Results save as [CSV](../data/processed/compare.csv).
 |Azimuthal angle of coaptation line                     |     48|4.684 (133.204)   |(-178.788, 178.824) |        49|31.443 (116.612)  |(-167.841, 169.432) | -26.7591262| 25.4045403| -1.0533206| 0.2948658| 0.3402297|FALSE |
 
 ```
-## File ../data/processed/compare.csv was written on 2017-02-10 14:33:35
+## File ../data/processed/compare.csv was written on 2017-02-13 15:27:53
 ```
 # Linear model of coaptation line length
 
 ## Unadjusted
 
+Summary from linear model estimating coaptation line length by case or control group status,
+**unadjusted.**
 
-| r.squared| adj.r.squared|    sigma| statistic|   p.value| df|   logLik|     AIC|      BIC| deviance| df.residual|
-|---------:|-------------:|--------:|---------:|---------:|--:|--------:|-------:|--------:|--------:|-----------:|
-| 0.0072426|    -0.0032074| 3.881536| 0.6930697| 0.4072102|  2| -268.181| 542.362| 550.0861| 1431.301|          95|
-
-
-
-|term        |   estimate| std.error|  statistic|   p.value|
-|:-----------|----------:|---------:|----------:|---------:|
-|(Intercept) | 12.3795844| 0.5602515| 22.0964777| 0.0000000|
-|typeControl |  0.6562349| 0.7882625|  0.8325081| 0.4072102|
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
 
 
-
-|type    |      fit|      lwr|      upr|
-|:-------|--------:|--------:|--------:|
-|Case    | 12.37958| 11.26734| 13.49182|
-|Control | 13.03582| 11.93499| 14.13665|
+| r.squared| adj.r.squared| sigma| statistic| p.value| df|   logLik|     AIC|     BIC| deviance| df.residual|
+|---------:|-------------:|-----:|---------:|-------:|--:|--------:|-------:|-------:|--------:|-----------:|
+|     0.007|        -0.003| 3.882|     0.693|   0.407|  2| -268.181| 542.362| 550.086| 1431.301|          95|
 
 
 
-|type    |      fit|      lwr|      upr|
-|:-------|--------:|--------:|--------:|
-|Case    | 12.37958| 4.593906| 20.16526|
-|Control | 13.03582| 5.251762| 20.81988|
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |    12.38|      0.56|     22.10|  0.0000|
+|typeControl |     0.66|      0.79|      0.83|  0.4072|
+
+
+
+|type    |   fit| lowerConf| upperConf| lowerPred| upperPred|
+|:-------|-----:|---------:|---------:|---------:|---------:|
+|Case    | 12.38|     11.27|     13.49|      4.59|     20.17|
+|Control | 13.04|     11.93|     14.14|      5.25|     20.82|
+
+**Interpretation**
+Coaptation line length in the control population is, on average,
+0.66 mm longer 
+(95% CI: 
+-0.89, 
+2.2;
+p-value:
+0.4072)
+than in the case population,
+unadjusted.
+
 
 ## Adjusted for body surface area
 
+Summary from linear model estimating coaptation line length by case or control group status,
+**adjusted for body surface area.**
 
-| r.squared| adj.r.squared|    sigma| statistic|   p.value| df|    logLik|      AIC|      BIC| deviance| df.residual|
-|---------:|-------------:|--------:|---------:|---------:|--:|---------:|--------:|--------:|--------:|-----------:|
-| 0.1173521|     0.0985724| 3.679372|  6.248866| 0.0028315|  3| -262.4793| 532.9587| 543.2575| 1272.551|          94|
-
-
-
-|term        |  estimate| std.error| statistic|   p.value|
-|:-----------|---------:|---------:|---------:|---------:|
-|(Intercept) | 11.983427| 0.5435260| 22.047568| 0.0000000|
-|typeControl |  1.440464| 0.7815147|  1.843170| 0.0684555|
-|bsaScaled   |  1.344983| 0.3927664|  3.424384| 0.0009148|
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
 
 
-
-|type    | bsaScaled|scaling             |      fit|       lwr|      upr|
-|:-------|---------:|:-------------------|--------:|---------:|--------:|
-|Case    |        -1|-1 SD from mean BSA | 10.63844|  9.178629| 12.09826|
-|Control |        -1|-1 SD from mean BSA | 12.07891| 10.896950| 13.26087|
-|Case    |         0|Mean BSA            | 11.98343| 10.904244| 13.06261|
-|Control |         0|Mean BSA            | 13.42389| 12.356271| 14.49151|
-|Case    |         1|+1 SD from mean BSA | 13.32841| 12.139067| 14.51775|
-|Control |         1|+1 SD from mean BSA | 14.76887| 13.320108| 16.21764|
+| r.squared| adj.r.squared| sigma| statistic| p.value| df|   logLik|     AIC|     BIC| deviance| df.residual|
+|---------:|-------------:|-----:|---------:|-------:|--:|--------:|-------:|-------:|--------:|-----------:|
+|     0.117|         0.099| 3.679|     6.249|   0.003|  3| -262.479| 532.959| 543.258| 1272.551|          94|
 
 
 
-|type    | bsaScaled|scaling             |      fit|      lwr|      upr|
-|:-------|---------:|:-------------------|--------:|--------:|--------:|
-|Case    |        -1|-1 SD from mean BSA | 10.63844| 3.188539| 18.08835|
-|Control |        -1|-1 SD from mean BSA | 12.07891| 4.678432| 19.47939|
-|Case    |         0|Mean BSA            | 11.98343| 4.598668| 19.36819|
-|Control |         0|Mean BSA            | 13.42389| 6.040813| 20.80697|
-|Case    |         1|+1 SD from mean BSA | 13.32841| 5.926751| 20.73007|
-|Control |         1|+1 SD from mean BSA | 14.76887| 7.321127| 22.21662|
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |    11.98|      0.54|     22.05|  0.0000|
+|typeControl |     1.44|      0.78|      1.84|  0.0685|
+|bsaScaled   |     1.34|      0.39|      3.42|  0.0009|
+
+
+
+|type    | bsaScaled|scaling             |   fit| lowerConf| upperConf| lowerPred| upperPred|
+|:-------|---------:|:-------------------|-----:|---------:|---------:|---------:|---------:|
+|Case    |        -1|-1 SD from mean BSA | 10.64|      9.18|     12.10|      3.19|     18.09|
+|Case    |         0|Mean BSA            | 11.98|     10.90|     13.06|      4.60|     19.37|
+|Case    |         1|+1 SD from mean BSA | 13.33|     12.14|     14.52|      5.93|     20.73|
+|Control |        -1|-1 SD from mean BSA | 12.08|     10.90|     13.26|      4.68|     19.48|
+|Control |         0|Mean BSA            | 13.42|     12.36|     14.49|      6.04|     20.81|
+|Control |         1|+1 SD from mean BSA | 14.77|     13.32|     16.22|      7.32|     22.22|
+
+**Interpretation**
+Coaptation line length in the control population is, on average,
+1.44 mm longer 
+(95% CI: 
+-0.09, 
+2.97;
+p-value:
+0.0685)
+than in the case population,
+adjusted for body surface area.
+
 
 ## Adjusted for orifice area
 
+Summary from linear model estimating coaptation line length by case or control group status,
+**adjusted for orifice area.**
 
-| r.squared| adj.r.squared|    sigma| statistic|  p.value| df|    logLik|      AIC|      BIC| deviance| df.residual|
-|---------:|-------------:|--------:|---------:|--------:|--:|---------:|--------:|--------:|--------:|-----------:|
-| 0.1944174|     0.1772774| 3.515078|  11.34287| 3.87e-05|  3| -258.0483| 524.0967| 534.3955| 1161.443|          94|
-
-
-
-|term              |  estimate| std.error| statistic|   p.value|
-|:-----------------|---------:|---------:|---------:|---------:|
-|(Intercept)       | 11.593290| 0.5345275| 21.688854| 0.0000000|
-|typeControl       |  2.212777| 0.7877198|  2.809091| 0.0060435|
-|orificeAreaScaled |  1.850127| 0.3958849|  4.673396| 0.0000099|
+* Model statistics
+* ANOVA table
+* Predicted values, and confidence and prediction intervals
 
 
-
-|type    | orificeAreaScaled|scaling                      |       fit|       lwr|      upr|
-|:-------|-----------------:|:----------------------------|---------:|---------:|--------:|
-|Case    |                -1|-1 SD from mean orifice area |  9.743163|  8.236703| 11.24962|
-|Control |                -1|-1 SD from mean orifice area | 11.955940| 10.858407| 13.05347|
-|Case    |                 0|Mean orifice area            | 11.593290| 10.531973| 12.65461|
-|Control |                 0|Mean orifice area            | 13.806067| 12.756698| 14.85544|
-|Case    |                 1|+1 SD from mean orifice area | 13.443417| 12.339298| 14.54754|
-|Control |                 1|+1 SD from mean orifice area | 15.656194| 14.161708| 17.15068|
+| r.squared| adj.r.squared| sigma| statistic| p.value| df|   logLik|     AIC|     BIC| deviance| df.residual|
+|---------:|-------------:|-----:|---------:|-------:|--:|--------:|-------:|-------:|--------:|-----------:|
+|     0.194|         0.177| 3.515|    11.343|       0|  3| -258.048| 524.097| 534.396| 1161.443|          94|
 
 
 
-|type    | orificeAreaScaled|scaling                      |       fit|      lwr|      upr|
-|:-------|-----------------:|:----------------------------|---------:|--------:|--------:|
-|Case    |                -1|-1 SD from mean orifice area |  9.743163| 2.603161| 16.88317|
-|Control |                -1|-1 SD from mean orifice area | 11.955940| 4.890900| 19.02098|
-|Case    |                 0|Mean orifice area            | 11.593290| 4.533786| 18.65279|
-|Control |                 0|Mean orifice area            | 13.806067| 6.748349| 20.86378|
-|Case    |                 1|+1 SD from mean orifice area | 13.443417| 6.377351| 20.50948|
-|Control |                 1|+1 SD from mean orifice area | 15.656194| 8.518708| 22.79368|
+|term              | estimate| std.error| statistic| p.value|
+|:-----------------|--------:|---------:|---------:|-------:|
+|(Intercept)       |    11.59|      0.53|     21.69|   0.000|
+|typeControl       |     2.21|      0.79|      2.81|   0.006|
+|orificeAreaScaled |     1.85|      0.40|      4.67|   0.000|
+
+
+
+|type    | orificeAreaScaled|scaling                      |   fit| lowerConf| upperConf| lowerPred| upperPred|
+|:-------|-----------------:|:----------------------------|-----:|---------:|---------:|---------:|---------:|
+|Case    |                -1|-1 SD from mean orifice area |  9.74|      8.24|     11.25|      2.60|     16.88|
+|Case    |                 0|Mean orifice area            | 11.59|     10.53|     12.65|      4.53|     18.65|
+|Case    |                 1|+1 SD from mean orifice area | 13.44|     12.34|     14.55|      6.38|     20.51|
+|Control |                -1|-1 SD from mean orifice area | 11.96|     10.86|     13.05|      4.89|     19.02|
+|Control |                 0|Mean orifice area            | 13.81|     12.76|     14.86|      6.75|     20.86|
+|Control |                 1|+1 SD from mean orifice area | 15.66|     14.16|     17.15|      8.52|     22.79|
+
+**Interpretation**
+Coaptation line length in the control population is, on average,
+2.21 mm longer 
+(95% CI: 
+0.67, 
+3.76;
+p-value:
+0.006)
+than in the case population,
+adjusted for orifice area.
 # Directional analysis of coaptation line
 
 Citation for package `Directional`.
@@ -263,8 +290,7 @@ Citation for package `Directional`.
 I need to understand what package `Directional` is doing.
 So echo back the R code.
 
-Scatterplot matrix of coaptation line measures.
-Link to [SVG](../figures/polarplot.svg) version.
+Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [SVG](figures/polarplot.svg)
 
 ![plot of chunk polarplot](../figures/polarplot-1.png)
 
@@ -689,10 +715,19 @@ conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 Unadjusted.
 
 
+```r
+new <- df$typeCase %>% unique
+M <- spml.reg(df$polar, 
+              as.matrix(df[, "typeCase"]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
+
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.02 
+##    0.05    0.01    0.03 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -711,6 +746,12 @@ Unadjusted.
 ## [1] 285.9653 282.4707
 ```
 
+```r
+data.frame(type = df$type %>% unique, 
+           typeCase = new,
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
 
 
 |type    |typeCase |      pred|
@@ -721,10 +762,20 @@ Unadjusted.
 Adjusted for body surface area.
 
 
+```r
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  bsaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$polar, 
+              as.matrix(df[, c("typeCase", "bsaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
+
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.07    0.02    0.04 
+##    0.09    0.00    0.05 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -745,6 +796,15 @@ Adjusted for body surface area.
 ## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 ```
 
+```r
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean BSA",
+                           "Mean BSA",
+                           "+1 SD from mean BSA"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
 
 
 |type    |typeCase | bsaScaled|scaling             |      pred|
@@ -759,10 +819,20 @@ Adjusted for body surface area.
 Adjusted for orifice area area.
 
 
+```r
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  orificeAreaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$polar, 
+              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
+
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.11    0.01    0.07 
+##    0.12    0.00    0.06 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -783,6 +853,15 @@ Adjusted for orifice area area.
 ## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 ```
 
+```r
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean orifice area",
+                           "Mean orifice area",
+                           "+1 SD from mean orifice area"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
 
 
 |type    |typeCase | orificeAreaScaled|scaling                      |      pred|
@@ -800,10 +879,19 @@ Adjusted for orifice area area.
 Unadjusted.
 
 
+```r
+new <- df$typeCase %>% unique
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, "typeCase"]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
+
 ```
 ## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##          Cosinus of y  Sinus of y
@@ -822,6 +910,12 @@ Unadjusted.
 ## [1] 163.7288 149.5096
 ```
 
+```r
+data.frame(type = df$type %>% unique, 
+           typeCase = new,
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
 
 
 |type    |typeCase |      pred|
@@ -831,6 +925,16 @@ Unadjusted.
 
 Adjusted for body surface area.
 
+
+```r
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  bsaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, c("typeCase", "bsaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
 
 ```
 ## $runtime
@@ -856,6 +960,15 @@ Adjusted for body surface area.
 ## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
 ```
 
+```r
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean BSA",
+                           "Mean BSA",
+                           "+1 SD from mean BSA"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
 
 
 |type    |typeCase | bsaScaled|scaling             |      pred|
@@ -870,10 +983,20 @@ Adjusted for body surface area.
 Adjusted for orifice area area.
 
 
+```r
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  orificeAreaScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$azimuthal, 
+              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+```
+
 ```
 ## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.02    0.01    0.02 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y
@@ -892,6 +1015,15 @@ Adjusted for orifice area area.
 ## 
 ## $est
 ## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
+```
+
+```r
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean orifice area",
+                           "Mean orifice area",
+                           "+1 SD from mean orifice area"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
 ```
 
 

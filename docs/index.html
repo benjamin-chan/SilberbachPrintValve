@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-10 14:33:20"
+date: "2017-02-13 15:27:40"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -880,7 +880,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-10 14:33:21
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-13 15:27:41
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -1176,7 +1176,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compare.csv was written on 2017-02-10 14:33:35
+<pre><code>## File ../data/processed/compare.csv was written on 2017-02-13 15:27:53
 </code></pre>
 
 <h1>
@@ -1184,6 +1184,15 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 
 <h2>
 <a id="user-content-unadjusted" class="anchor" href="#unadjusted" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted</h2>
+
+<p>Summary from linear model estimating coaptation line length by case or control group status,
+<strong>unadjusted.</strong></p>
+
+<ul>
+<li>Model statistics</li>
+<li>ANOVA table</li>
+<li>Predicted values, and confidence and prediction intervals</li>
+</ul>
 
 <table>
 <thead>
@@ -1203,15 +1212,15 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </thead>
 <tbody>
 <tr>
-<td align="right">0.0072426</td>
-<td align="right">-0.0032074</td>
-<td align="right">3.881536</td>
-<td align="right">0.6930697</td>
-<td align="right">0.4072102</td>
+<td align="right">0.007</td>
+<td align="right">-0.003</td>
+<td align="right">3.882</td>
+<td align="right">0.693</td>
+<td align="right">0.407</td>
 <td align="right">2</td>
 <td align="right">-268.181</td>
 <td align="right">542.362</td>
-<td align="right">550.0861</td>
+<td align="right">550.086</td>
 <td align="right">1431.301</td>
 <td align="right">95</td>
 </tr>
@@ -1231,17 +1240,17 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tbody>
 <tr>
 <td align="left">(Intercept)</td>
-<td align="right">12.3795844</td>
-<td align="right">0.5602515</td>
-<td align="right">22.0964777</td>
-<td align="right">0.0000000</td>
+<td align="right">12.38</td>
+<td align="right">0.56</td>
+<td align="right">22.10</td>
+<td align="right">0.0000</td>
 </tr>
 <tr>
 <td align="left">typeControl</td>
-<td align="right">0.6562349</td>
-<td align="right">0.7882625</td>
-<td align="right">0.8325081</td>
-<td align="right">0.4072102</td>
+<td align="right">0.66</td>
+<td align="right">0.79</td>
+<td align="right">0.83</td>
+<td align="right">0.4072</td>
 </tr>
 </tbody>
 </table>
@@ -1251,53 +1260,54 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tr>
 <th align="left">type</th>
 <th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
+<th align="right">lowerConf</th>
+<th align="right">upperConf</th>
+<th align="right">lowerPred</th>
+<th align="right">upperPred</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Case</td>
-<td align="right">12.37958</td>
-<td align="right">11.26734</td>
-<td align="right">13.49182</td>
+<td align="right">12.38</td>
+<td align="right">11.27</td>
+<td align="right">13.49</td>
+<td align="right">4.59</td>
+<td align="right">20.17</td>
 </tr>
 <tr>
 <td align="left">Control</td>
-<td align="right">13.03582</td>
-<td align="right">11.93499</td>
-<td align="right">14.13665</td>
+<td align="right">13.04</td>
+<td align="right">11.93</td>
+<td align="right">14.14</td>
+<td align="right">5.25</td>
+<td align="right">20.82</td>
 </tr>
 </tbody>
 </table>
 
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="right">12.37958</td>
-<td align="right">4.593906</td>
-<td align="right">20.16526</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">13.03582</td>
-<td align="right">5.251762</td>
-<td align="right">20.81988</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Interpretation</strong>
+Coaptation line length in the control population is, on average,
+0.66 mm longer 
+(95% CI: 
+-0.89, 
+2.2;
+p-value:
+0.4072)
+than in the case population,
+unadjusted.</p>
 
 <h2>
 <a id="user-content-adjusted-for-body-surface-area" class="anchor" href="#adjusted-for-body-surface-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for body surface area</h2>
+
+<p>Summary from linear model estimating coaptation line length by case or control group status,
+<strong>adjusted for body surface area.</strong></p>
+
+<ul>
+<li>Model statistics</li>
+<li>ANOVA table</li>
+<li>Predicted values, and confidence and prediction intervals</li>
+</ul>
 
 <table>
 <thead>
@@ -1317,15 +1327,15 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </thead>
 <tbody>
 <tr>
-<td align="right">0.1173521</td>
-<td align="right">0.0985724</td>
-<td align="right">3.679372</td>
-<td align="right">6.248866</td>
-<td align="right">0.0028315</td>
+<td align="right">0.117</td>
+<td align="right">0.099</td>
+<td align="right">3.679</td>
+<td align="right">6.249</td>
+<td align="right">0.003</td>
 <td align="right">3</td>
-<td align="right">-262.4793</td>
-<td align="right">532.9587</td>
-<td align="right">543.2575</td>
+<td align="right">-262.479</td>
+<td align="right">532.959</td>
+<td align="right">543.258</td>
 <td align="right">1272.551</td>
 <td align="right">94</td>
 </tr>
@@ -1345,24 +1355,24 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tbody>
 <tr>
 <td align="left">(Intercept)</td>
-<td align="right">11.983427</td>
-<td align="right">0.5435260</td>
-<td align="right">22.047568</td>
-<td align="right">0.0000000</td>
+<td align="right">11.98</td>
+<td align="right">0.54</td>
+<td align="right">22.05</td>
+<td align="right">0.0000</td>
 </tr>
 <tr>
 <td align="left">typeControl</td>
-<td align="right">1.440464</td>
-<td align="right">0.7815147</td>
-<td align="right">1.843170</td>
-<td align="right">0.0684555</td>
+<td align="right">1.44</td>
+<td align="right">0.78</td>
+<td align="right">1.84</td>
+<td align="right">0.0685</td>
 </tr>
 <tr>
 <td align="left">bsaScaled</td>
-<td align="right">1.344983</td>
-<td align="right">0.3927664</td>
-<td align="right">3.424384</td>
-<td align="right">0.0009148</td>
+<td align="right">1.34</td>
+<td align="right">0.39</td>
+<td align="right">3.42</td>
+<td align="right">0.0009</td>
 </tr>
 </tbody>
 </table>
@@ -1374,8 +1384,10 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <th align="right">bsaScaled</th>
 <th align="left">scaling</th>
 <th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
+<th align="right">lowerConf</th>
+<th align="right">upperConf</th>
+<th align="right">lowerPred</th>
+<th align="right">upperPred</th>
 </tr>
 </thead>
 <tbody>
@@ -1383,118 +1395,87 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="left">Case</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">10.63844</td>
-<td align="right">9.178629</td>
-<td align="right">12.09826</td>
+<td align="right">10.64</td>
+<td align="right">9.18</td>
+<td align="right">12.10</td>
+<td align="right">3.19</td>
+<td align="right">18.09</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean BSA</td>
+<td align="right">11.98</td>
+<td align="right">10.90</td>
+<td align="right">13.06</td>
+<td align="right">4.60</td>
+<td align="right">19.37</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean BSA</td>
+<td align="right">13.33</td>
+<td align="right">12.14</td>
+<td align="right">14.52</td>
+<td align="right">5.93</td>
+<td align="right">20.73</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">12.07891</td>
-<td align="right">10.896950</td>
-<td align="right">13.26087</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">11.98343</td>
-<td align="right">10.904244</td>
-<td align="right">13.06261</td>
+<td align="right">12.08</td>
+<td align="right">10.90</td>
+<td align="right">13.26</td>
+<td align="right">4.68</td>
+<td align="right">19.48</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">13.42389</td>
-<td align="right">12.356271</td>
-<td align="right">14.49151</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">13.32841</td>
-<td align="right">12.139067</td>
-<td align="right">14.51775</td>
+<td align="right">13.42</td>
+<td align="right">12.36</td>
+<td align="right">14.49</td>
+<td align="right">6.04</td>
+<td align="right">20.81</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">14.76887</td>
-<td align="right">13.320108</td>
-<td align="right">16.21764</td>
+<td align="right">14.77</td>
+<td align="right">13.32</td>
+<td align="right">16.22</td>
+<td align="right">7.32</td>
+<td align="right">22.22</td>
 </tr>
 </tbody>
 </table>
 
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="right">bsaScaled</th>
-<th align="left">scaling</th>
-<th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">10.63844</td>
-<td align="right">3.188539</td>
-<td align="right">18.08835</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">12.07891</td>
-<td align="right">4.678432</td>
-<td align="right">19.47939</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">11.98343</td>
-<td align="right">4.598668</td>
-<td align="right">19.36819</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">13.42389</td>
-<td align="right">6.040813</td>
-<td align="right">20.80697</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">13.32841</td>
-<td align="right">5.926751</td>
-<td align="right">20.73007</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">14.76887</td>
-<td align="right">7.321127</td>
-<td align="right">22.21662</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Interpretation</strong>
+Coaptation line length in the control population is, on average,
+1.44 mm longer 
+(95% CI: 
+-0.09, 
+2.97;
+p-value:
+0.0685)
+than in the case population,
+adjusted for body surface area.</p>
 
 <h2>
 <a id="user-content-adjusted-for-orifice-area" class="anchor" href="#adjusted-for-orifice-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for orifice area</h2>
+
+<p>Summary from linear model estimating coaptation line length by case or control group status,
+<strong>adjusted for orifice area.</strong></p>
+
+<ul>
+<li>Model statistics</li>
+<li>ANOVA table</li>
+<li>Predicted values, and confidence and prediction intervals</li>
+</ul>
 
 <table>
 <thead>
@@ -1514,15 +1495,15 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </thead>
 <tbody>
 <tr>
-<td align="right">0.1944174</td>
-<td align="right">0.1772774</td>
-<td align="right">3.515078</td>
-<td align="right">11.34287</td>
-<td align="right">3.87e-05</td>
+<td align="right">0.194</td>
+<td align="right">0.177</td>
+<td align="right">3.515</td>
+<td align="right">11.343</td>
+<td align="right">0</td>
 <td align="right">3</td>
-<td align="right">-258.0483</td>
-<td align="right">524.0967</td>
-<td align="right">534.3955</td>
+<td align="right">-258.048</td>
+<td align="right">524.097</td>
+<td align="right">534.396</td>
 <td align="right">1161.443</td>
 <td align="right">94</td>
 </tr>
@@ -1542,24 +1523,24 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <tbody>
 <tr>
 <td align="left">(Intercept)</td>
-<td align="right">11.593290</td>
-<td align="right">0.5345275</td>
-<td align="right">21.688854</td>
-<td align="right">0.0000000</td>
+<td align="right">11.59</td>
+<td align="right">0.53</td>
+<td align="right">21.69</td>
+<td align="right">0.000</td>
 </tr>
 <tr>
 <td align="left">typeControl</td>
-<td align="right">2.212777</td>
-<td align="right">0.7877198</td>
-<td align="right">2.809091</td>
-<td align="right">0.0060435</td>
+<td align="right">2.21</td>
+<td align="right">0.79</td>
+<td align="right">2.81</td>
+<td align="right">0.006</td>
 </tr>
 <tr>
 <td align="left">orificeAreaScaled</td>
-<td align="right">1.850127</td>
-<td align="right">0.3958849</td>
-<td align="right">4.673396</td>
-<td align="right">0.0000099</td>
+<td align="right">1.85</td>
+<td align="right">0.40</td>
+<td align="right">4.67</td>
+<td align="right">0.000</td>
 </tr>
 </tbody>
 </table>
@@ -1571,8 +1552,10 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <th align="right">orificeAreaScaled</th>
 <th align="left">scaling</th>
 <th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
+<th align="right">lowerConf</th>
+<th align="right">upperConf</th>
+<th align="right">lowerPred</th>
+<th align="right">upperPred</th>
 </tr>
 </thead>
 <tbody>
@@ -1580,115 +1563,75 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="left">Case</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">9.743163</td>
-<td align="right">8.236703</td>
-<td align="right">11.24962</td>
+<td align="right">9.74</td>
+<td align="right">8.24</td>
+<td align="right">11.25</td>
+<td align="right">2.60</td>
+<td align="right">16.88</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="left">Mean orifice area</td>
+<td align="right">11.59</td>
+<td align="right">10.53</td>
+<td align="right">12.65</td>
+<td align="right">4.53</td>
+<td align="right">18.65</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean orifice area</td>
+<td align="right">13.44</td>
+<td align="right">12.34</td>
+<td align="right">14.55</td>
+<td align="right">6.38</td>
+<td align="right">20.51</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">11.955940</td>
-<td align="right">10.858407</td>
-<td align="right">13.05347</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">11.593290</td>
-<td align="right">10.531973</td>
-<td align="right">12.65461</td>
+<td align="right">11.96</td>
+<td align="right">10.86</td>
+<td align="right">13.05</td>
+<td align="right">4.89</td>
+<td align="right">19.02</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">13.806067</td>
-<td align="right">12.756698</td>
-<td align="right">14.85544</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">13.443417</td>
-<td align="right">12.339298</td>
-<td align="right">14.54754</td>
+<td align="right">13.81</td>
+<td align="right">12.76</td>
+<td align="right">14.86</td>
+<td align="right">6.75</td>
+<td align="right">20.86</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">15.656194</td>
-<td align="right">14.161708</td>
-<td align="right">17.15068</td>
+<td align="right">15.66</td>
+<td align="right">14.16</td>
+<td align="right">17.15</td>
+<td align="right">8.52</td>
+<td align="right">22.79</td>
 </tr>
 </tbody>
 </table>
 
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="right">orificeAreaScaled</th>
-<th align="left">scaling</th>
-<th align="right">fit</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">9.743163</td>
-<td align="right">2.603161</td>
-<td align="right">16.88317</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">11.955940</td>
-<td align="right">4.890900</td>
-<td align="right">19.02098</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">11.593290</td>
-<td align="right">4.533786</td>
-<td align="right">18.65279</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">13.806067</td>
-<td align="right">6.748349</td>
-<td align="right">20.86378</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">13.443417</td>
-<td align="right">6.377351</td>
-<td align="right">20.50948</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">15.656194</td>
-<td align="right">8.518708</td>
-<td align="right">22.79368</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Interpretation</strong>
+Coaptation line length in the control population is, on average,
+2.21 mm longer 
+(95% CI: 
+0.67, 
+3.76;
+p-value:
+0.006)
+than in the case population,
+adjusted for orifice area.</p>
 
 <h1>
 <a id="user-content-directional-analysis-of-coaptation-line" class="anchor" href="#directional-analysis-of-coaptation-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directional analysis of coaptation line</h1>
@@ -1720,8 +1663,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <p>I need to understand what package <code>Directional</code> is doing.
 So echo back the R code.</p>
 
-<p>Scatterplot matrix of coaptation line measures.
-Link to <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot.svg">SVG</a> version.</p>
+<p>Polar plot matrix of coaptation line angles: <a href="figures/polarplot-1.png">PNG</a> or <a href="figures/polarplot.svg">SVG</a></p>
 
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" alt="plot of chunk polarplot" style="max-width:100%;"></a></p>
 
@@ -2120,9 +2062,16 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Unadjusted.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.02 
+##    0.05    0.01    0.03 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -2140,6 +2089,10 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 285.9653 282.4707
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
+           <span class="pl-v">typeCase</span> <span class="pl-k">=</span> <span class="pl-smi">new</span>,
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2165,9 +2118,17 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Adjusted for body surface area.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.07    0.02    0.04 
+##    0.09    0.00    0.05 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -2187,6 +2148,13 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean BSA<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean BSA<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean BSA<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2246,9 +2214,17 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Adjusted for orifice area area.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.11    0.01    0.07 
+##    0.12    0.00    0.06 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -2268,6 +2244,13 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean orifice area<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean orifice area<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean orifice area<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2330,9 +2313,16 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Unadjusted.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##          Cosinus of y  Sinus of y
@@ -2350,6 +2340,10 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 163.7288 149.5096
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
+           <span class="pl-v">typeCase</span> <span class="pl-k">=</span> <span class="pl-smi">new</span>,
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2375,6 +2369,14 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Adjusted for body surface area.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##       0       0       0 
@@ -2397,6 +2399,13 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean BSA<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean BSA<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean BSA<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2456,9 +2465,17 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>Adjusted for orifice area area.</p>
 
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
 <pre><code>## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.02    0.01    0.02 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y
@@ -2478,6 +2495,13 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## $est
 ## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
 </code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean orifice area<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean orifice area<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean orifice area<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>

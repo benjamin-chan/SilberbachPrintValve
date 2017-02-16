@@ -17,8 +17,8 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
 1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
   * See function [`cart2sph`](../lib/cart2sph.R)
   * $\rho$ = radial distance
-  * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
-  * $\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
+  * $\theta$ = latitude (i.e., polar angle or inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians
+  * $\phi$ = langitude (i.e., azimuthal angle or direction) bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 1. Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)
 1. Normalize the orientation of the coaptation line to the unit sphere
@@ -109,25 +109,25 @@ df <-
   mutate(coapX = centroidBottomRotatedX - centroidCalcRotatedX,
          coapY = centroidBottomRotatedY - centroidCalcRotatedY,
          coapZ = centroidBottomZ - 0) %>% 
-  mutate(coapUnitX = coapX / radial,
-         coapUnitY = coapY / radial,
-         coapUnitZ = coapZ / radial) %>% 
+  mutate(coapUnitX = coapX / magnitude,
+         coapUnitY = coapY / magnitude,
+         coapUnitZ = coapZ / magnitude) %>% 
   mutate(bsaScaled = as.vector(scale(bsa)),
          orificeAreaScaled = as.vector(scale(orifice_area)))
 ```
 
-Check calculation of `radial` against given `coapt_line_length`; it should be 1.0
+Check calculation of `magnitude` against given `coapt_line_length`; it should be 1.0
 
 ```{r}
-message(sprintf("Correlation between coapt_line_length and calculated radial is: %.05f",
-                cor(df$coapt_line_length, df$radial, use = "complete.obs")))
+message(sprintf("Correlation between coapt_line_length and calculated magnitude is: %.05f",
+                cor(df$coapt_line_length, df$magnitude, use = "complete.obs")))
 ```
 
 Check correlation between body surface area, `bsa`, and other size variables.
 
 ```{r}
 df %>% 
-  select(matches("bsa|area|diam|size|radial")) %>% 
+  select(matches("bsa|area|diam|size|magnitude")) %>% 
   cor(use = "complete") %>% 
   data.frame %>%
   select(1) %>%
@@ -137,7 +137,7 @@ df %>%
 Output a subset for spot-checking.
 
 ```{r}
-var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|radial|polar|azimuthal"
+var <- "centroid[(Calc)|(Bottom)]|nstar|rotation|coapt|magnitude|latitude|longitude"
 f <- "../data/processed/sphericalCoordinates.csv"
 df %>%
   sample_n(5) %>%

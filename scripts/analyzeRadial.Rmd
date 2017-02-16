@@ -12,8 +12,8 @@ Summary from linear model estimating coaptation line length by case or control g
 ```{r}
 M <- 
   df %>%
-  select(matches("^type|Scaled|^radial$")) %>% 
-  lm(radial ~ type, data = .)
+  select(matches("^type|Scaled|^magnitude$")) %>% 
+  lm(magnitude ~ type, data = .)
 M %>% glance %>% kable(digits = 3)
 M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = df$type %>% factor %>% levels)
@@ -51,8 +51,8 @@ Summary from linear model estimating coaptation line length by case or control g
 ```{r}
 M <- 
   df %>%
-  select(matches("^type|Scaled|^radial$")) %>% 
-  lm(radial ~ type + bsaScaled, data = .)
+  select(matches("^type|Scaled|^magnitude$")) %>% 
+  lm(magnitude ~ type + bsaScaled, data = .)
 M %>% glance %>% kable(digits = 3)
 M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),
@@ -94,7 +94,7 @@ Summary from linear model estimating coaptation line length by case or control g
 ```{r}
 M <- 
   df %>%
-  lm(radial ~ type + orificeAreaScaled, data = .)
+  lm(magnitude ~ type + orificeAreaScaled, data = .)
 M %>% glance %>% kable(digits = 3)
 M %>% tidy %>% kable(digits = c(0, 2, 2, 2, 4))
 new <- data.frame(type = rep(df$type %>% factor %>% levels, 3),

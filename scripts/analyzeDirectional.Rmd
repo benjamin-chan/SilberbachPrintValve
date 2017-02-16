@@ -13,19 +13,19 @@ Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [
 
 ```{r polarplot, dpi = 300}
 df %>%
-  select(matches("^id|^type$|^(polar|azimuthal)$")) %>%
+  select(matches("^id|^type$|^(latitude|longitude)$")) %>%
   melt(id.vars = c("id", "type")) %>% 
   mutate(type = factor(type)) %>% 
-  merge(., df %>% select(matches("^id|^type|^radial$"))) %>% 
+  merge(., df %>% select(matches("^id|^type|^magnitude$"))) %>% 
   ggplot +
-    aes(x = value, y = radial, color = type, fill = type) +
+    aes(x = value, y = magnitude, color = type, fill = type) +
     geom_point(alpha = 1/2) +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
     scale_x_continuous("", breaks = seq(-180, 180, 30)) +
-    scale_y_log10("Length", breaks = c(5, 10, 20)) +
+    scale_y_sqrt("Length", breaks = (1:5)^2, limits = c(1, 25)) +
     facet_wrap(~ variable) +
-    coord_polar(start = pi / 2, direction = -1) +
+    coord_polar(start = pi, direction = -1) +
     theme_bw() +
     theme(legend.position = "bottom")
 ggsave("../figures/polarplot.svg", dpi = 300)
@@ -84,16 +84,16 @@ spherconc.test(matAll, factor(df$type))
 Calculate circular summary statistics.
 
 ```{r, echo = TRUE}
-cirCoord <- df %>% select(matches("^type$|polar|azimuthal"))
+cirCoord <- df %>% select(matches("^type$|latitude|longitude"))
 matAll <- cirCoord %>% select(-1) %>% as.matrix
 matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-matAll[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matAll[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matCases[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matCases[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matControls[, "polar"]%>% circ.summary(rads = FALSE, plot = FALSE)
-matControls[, "azimuthal"]%>% circ.summary(rads = FALSE, plot = FALSE)
+matAll[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matAll[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 Scatterplot matrix of coaptation line measures.
@@ -101,7 +101,7 @@ Scatterplot matrix of coaptation line measures.
  
 ```{r scatterplotMatrixCoaptationLine, dpi = 300} 
 df %>% 
-  select(matches("^id|^type$|^(radial|polar|azimuthal)$")) %>% 
+  select(matches("^id|^type$|^(magnitude|latitude|longitude)$")) %>% 
   melt(id.vars = c("id", "type")) %>%  
   mutate(type = factor(type)) %>%  
   merge(., ., by = c("id", "type")) %>%  
@@ -123,35 +123,35 @@ Output from `circ.cor1` and `circ.cor2` are quite different.
 **Need to reconcile.**
 
 ```{r, echo = TRUE}
-circ.cor1(df$polar, df$azimuthal, rads = FALSE)
-circ.cor2(df$polar, df$azimuthal, rads = FALSE)
-circlin.cor(df$polar, df[, c("radial", "bsa", "orifice_area")], rads = FALSE)
-circlin.cor(df$azimuthal, df[, c("radial", "bsa", "orifice_area")], rads = FALSE)
+circ.cor1(df$latitude, df$longitude, rads = FALSE)
+circ.cor2(df$latitude, df$longitude, rads = FALSE)
+circlin.cor(df$latitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
+circlin.cor(df$longitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
 ```
 
 ANOVA.
 
 ```{r, echo = TRUE}
-hcf.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
-lr.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
-embed.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
-het.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
-conc.test(matAll[, "polar"], factor(df$type), rads = FALSE)
-hcf.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
-lr.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
-embed.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
-het.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
-conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+hcf.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "latitude"], factor(df$type), rads = FALSE)
+hcf.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 
-## Circular regression for polar angle
+## Circular regression for latitude (polar angle)
 
 Unadjusted.
 
 ```{r, echo = TRUE}
 new <- df$typeCase %>% unique
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, "typeCase"]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -166,7 +166,7 @@ Adjusted for body surface area.
 ```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, c("typeCase", "bsaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -184,7 +184,7 @@ Adjusted for orifice area area.
 ```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -198,13 +198,13 @@ data.frame(type = rep(df$type %>% unique, 3),
 ```
 
 
-## Circular regression for azimuthal angle
+## Circular regression for longitude (azimuthal angle)
 
 Unadjusted.
 
 ```{r, echo = TRUE}
 new <- df$typeCase %>% unique
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, "typeCase"]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -219,7 +219,7 @@ Adjusted for body surface area.
 ```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, c("typeCase", "bsaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -237,7 +237,7 @@ Adjusted for orifice area area.
 ```{r, echo = TRUE}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))

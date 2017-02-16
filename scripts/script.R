@@ -1,6 +1,9 @@
 setwd("~/Projects/SilberbachPrintValve/scripts")
 
-library(checkpoint)
+if(!require(checkpoint)){
+  install.packages("checkpoint")
+  library(checkpoint)
+}
 checkpoint("2017-01-01", use.knitr = TRUE)
 
 Sys.time0 <- Sys.time()

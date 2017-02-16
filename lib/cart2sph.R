@@ -2,22 +2,52 @@ cart2sph <- function (v, v0 = data.frame(x= 0, y = 0, z = 0), units = "rad") {
   # See http://mathworld.wolfram.com/SphericalCoordinates.html and https://en.wikipedia.org/wiki/Spherical_coordinate_system
   # Use ISO convention
   # rho = radial distance
-  # theta = polar angle (inclination) bounded between [-pi / 2, pi / 2] or [-90, +90]; default units is radians
-  # phi = azimuthal angle bounded between [-pi, pi] or [-180, +180]; default units is radians
+  # theta = polar angle (inclination) bounded between [0, pi] or [0, 180]; default units is radians
+  # phi = azimuthal angle bounded between [0, 2 * pi] or [0, 360]; default units is radians
   x <- v[, 1] - v0[, 1]
   y <- v[, 2] - v0[, 2]
   z <- v[, 3] - v0[, 3]
   rho <- sqrt(x^2 + y^2 + z^2)
-  theta <- (pi / 2) - acos(z / rho)
+  theta <- acos(z / rho)
   phi <- atan2(y, x)
   if (units == "deg") {
     k <- 180 / pi
     theta <- theta * k
     phi <- phi * k
   }
-  data.frame(radial = rho, polar = theta, azimuthal = phi)
+  data.frame(magnitude = rho, latitude = theta, longitude = phi)
 }
 
-# > cart2sph(data.frame(x = 3.19, y = 6.23, z = -8.3), units = "deg")
-#     radial     polar azimuthal
-# 1 10.85721 -49.85977   62.8858
+# cart2sph(data.frame(x = 1, y = 0, z = 0), units = "deg")  # Reference longitude (e.g., GMT)
+# cart2sph(data.frame(x = 0, y = -1, z = 0), units = "deg")
+# cart2sph(data.frame(x = -1, y = 0, z = 0), units = "deg")
+# cart2sph(data.frame(x = 0, y = 1, z = 0), units = "deg")
+# > cart2sph(data.frame(x = 1, y = 0, z = 0), units = "deg")  # Reference longitude (e.g., GMT)
+# magnitude latitude longitude
+# 1         1       90         0
+# > cart2sph(data.frame(x = 0, y = -1, z = 0), units = "deg")
+# magnitude latitude longitude
+# 1         1       90       -90
+# > cart2sph(data.frame(x = -1, y = 0, z = 0), units = "deg")
+# magnitude latitude longitude
+# 1         1       90       180
+# > cart2sph(data.frame(x = 0, y = 1, z = 0), units = "deg")
+# magnitude latitude longitude
+# 1         1       90        90
+
+# cart2sph(data.frame(x = 0, y = 0, z = 1), units = "deg")
+# cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = sqrt(2) / 2), units = "deg")
+# cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = -sqrt(2) / 2), units = "deg")
+# cart2sph(data.frame(x = 0, y = 0, z = -1), units = "deg")
+# > cart2sph(data.frame(x = 0, y = 0, z = 1), units = "deg")
+# magnitude latitude longitude
+# 1         1        0         0
+# > cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = sqrt(2) / 2), units = "deg")
+# magnitude latitude longitude
+# 1         1       45         0
+# > cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = -sqrt(2) / 2), units = "deg")
+# magnitude latitude longitude
+# 1         1      135         0
+# > cart2sph(data.frame(x = 0, y = 0, z = -1), units = "deg")
+# magnitude latitude longitude
+# 1         1      180         0

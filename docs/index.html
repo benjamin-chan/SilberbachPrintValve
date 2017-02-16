@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-13 15:27:40"
+date: "2017-02-16 11:44:28"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -797,8 +797,8 @@ See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/
 <li>See function <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/lib/cart2sph.R"><code>cart2sph</code></a>
 </li>
 <li>$\rho$ = radial distance</li>
-<li>$\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians</li>
-<li>$\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians</li>
+<li>$\theta$ = latitude (i.e., polar angle or inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians</li>
+<li>$\phi$ = langitude (i.e., azimuthal angle or direction) bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians</li>
 <li>$\rho, \theta, \phi$ will be used to describe the coaptation line</li>
 </ul>
 </li>
@@ -812,9 +812,9 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" alt="Coaptation line" style="max-width:100%;"></a></p>
 
-<p>Check calculation of <code>radial</code> against given <code>coapt_line_length</code>; it should be 1.0</p>
+<p>Check calculation of <code>magnitude</code> against given <code>coapt_line_length</code>; it should be 1.0</p>
 
-<pre><code>## Correlation between coapt_line_length and calculated radial is: 1.00000
+<pre><code>## Correlation between coapt_line_length and calculated magnitude is: 1.00000
 </code></pre>
 
 <p>Check correlation between body surface area, <code>bsa</code>, and other size variables.</p>
@@ -864,7 +864,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 <td align="right">0.0338661</td>
 </tr>
 <tr>
-<td align="left">radial</td>
+<td align="left">magnitude</td>
 <td align="right">0.2923220</td>
 </tr>
 <tr>
@@ -880,7 +880,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-13 15:27:41
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-16 11:44:29
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -1144,22 +1144,22 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="left">FALSE</td>
 </tr>
 <tr>
-<td align="left">Polar angle of coaptation line (top to bottom</td>
+<td align="left">Latitude of coaptation line (top to bottom)</td>
 <td align="right">48</td>
-<td align="left">-73.418 (12.494)</td>
-<td align="left">(-88.720, -30.848)</td>
+<td align="left">163.418 (12.494)</td>
+<td align="left">(120.848, 178.720)</td>
 <td align="right">49</td>
-<td align="left">-76.861 (10.433)</td>
-<td align="left">(-88.508, -19.856)</td>
-<td align="right">3.4429561</td>
+<td align="left">166.861 (10.433)</td>
+<td align="left">(109.856, 178.508)</td>
+<td align="right">-3.4429561</td>
 <td align="right">2.3351759</td>
-<td align="right">1.4743883</td>
+<td align="right">-1.4743883</td>
 <td align="right">0.1436833</td>
 <td align="right">0.1959318</td>
 <td align="left">FALSE</td>
 </tr>
 <tr>
-<td align="left">Azimuthal angle of coaptation line</td>
+<td align="left">Longitude of coaptation line (direction)</td>
 <td align="right">48</td>
 <td align="left">4.684 (133.204)</td>
 <td align="left">(-178.788, 178.824)</td>
@@ -1176,7 +1176,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compare.csv was written on 2017-02-13 15:27:53
+<pre><code>## File ../data/processed/compare.csv was written on 2017-02-16 11:44:43
 </code></pre>
 
 <h1>
@@ -1822,17 +1822,17 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 
 <p>Calculate circular summary statistics.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">cirCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|polar|azimuthal<span class="pl-pds">"</span></span>))
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">cirCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|latitude|longitude<span class="pl-pds">"</span></span>))
 <span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
-<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] -75.34583
+## [1] 165.3458
 ## 
 ## $confint
-## [1] -75.41890 -75.27276
+## [1] 165.2728 165.4189
 ## 
 ## $kappa
 ## [1] 25.93036
@@ -1847,7 +1847,7 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 0.1983337
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
 ## [1] 156.0474
@@ -1868,13 +1868,13 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 1.428679
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] -73.58603
+## [1] 163.586
 ## 
 ## $confint
-## [1] -73.69852 -73.47354
+## [1] 163.4735 163.6985
 ## 
 ## $kappa
 ## [1] 22.25913
@@ -1889,7 +1889,7 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 0.2144269
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
 ## [1] 160.8957
@@ -1910,13 +1910,13 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 1.334409
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] -77.05687
+## [1] 167.0569
 ## 
 ## $confint
-## [1] -77.14801 -76.96573
+## [1] 166.9657 167.1480
 ## 
 ## $kappa
 ## [1] 32.72235
@@ -1931,7 +1931,7 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 0.1761839
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
 ## [1] 149.8446
@@ -1964,19 +1964,19 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite different.
 <strong>Need to reconcile.</strong></p>
 
-<div class="highlight highlight-source-r"><pre>circ.cor1(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>circ.cor1(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
-<pre><code>##        rho    p-value 
-## 0.18384547 0.07485033
+<pre><code>##         rho     p-value 
+## -0.18384547  0.07485033
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>circ.cor2(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>circ.cor2(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##        rho    p-value 
 ## 0.04200493 0.99654087
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>radial<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>magnitude<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##       R-squared      p-value
 ## [1,] 0.12007523 0.0000118665
@@ -1984,7 +1984,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## [3,] 0.04236606 0.0185962606
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>radial<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>circlin.cor(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, <span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>magnitude<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsa<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orifice_area<span class="pl-pds">"</span></span>)], <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##        R-squared   p-value
 ## [1,] 0.052024485 0.0074860
@@ -1994,31 +1994,31 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <p>ANOVA.</p>
 
-<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##       test    p-value      kappa 
 ##  2.2461896  0.1372596 25.9303615
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##       test    p-value      kappa 
 ##  2.2629933  0.1324977 25.9303615
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##       test    p-value      kappa 
 ##  2.2409746  0.1377114 25.9303615
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##      test   p-value 
 ## 2.3060975 0.1288672
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>polar<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mess
 ## [1] "The mean resultant length is more than 0.7. U3 was calculated"
@@ -2028,42 +2028,42 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 ## 1.7746721 0.1828049
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>hcf.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##     test  p-value    kappa 
 ##       NA       NA 0.773375
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>lr.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##      test   p-value     kappa 
 ## 0.2486268 0.6180437 0.7733750
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>embed.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##      test   p-value     kappa 
 ## 0.2202366 0.6399350 0.7733750
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>het.circaov(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>##      test   p-value 
 ## 0.2411616 0.6233684
 </code></pre>
 
-<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>azimuthal<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>conc.test(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>], <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
-<pre><code>## Error in conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE): object 'U3' not found
+<pre><code>## Error in conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE): object 'U3' not found
 </code></pre>
 
 <h2>
-<a id="user-content-circular-regression-for-polar-angle" class="anchor" href="#circular-regression-for-polar-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for polar angle</h2>
+<a id="user-content-circular-regression-for-latitude-polar-angle" class="anchor" href="#circular-regression-for-latitude-polar-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for latitude (polar angle)</h2>
 
 <p>Unadjusted.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2071,23 +2071,23 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.05    0.01    0.03 
+##    0.04    0.02    0.03 
 ## 
 ## $beta
-##          Cosinus of y Sinus of y
-##           1.331727706  -6.021609
-## typeCase  0.006409535   1.344292
+##          Cosinus of y  Sinus of y
+##             -6.021609 1.331727706
+## typeCase     1.344292 0.006409535
 ## 
 ## $seb
 ##          Cosinus of y Sinus of y
-##             0.1404381  0.1042759
-## typeCase    0.2035170  0.2031161
+##            0.09922338  0.1414975
+## typeCase   0.20295968  0.2024861
 ## 
 ## $loglik
 ## [1] 25.35768
 ## 
 ## $est
-## [1] 285.9653 282.4707
+## [1] 164.0347 167.5293
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
@@ -2106,12 +2106,12 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
-<td align="right">-74.03466</td>
+<td align="right">-195.9653</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
-<td align="right">-77.52930</td>
+<td align="right">-192.4707</td>
 </tr>
 </tbody>
 </table>
@@ -2120,7 +2120,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
                   <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2128,25 +2128,25 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.05 
+##    0.12    0.01    0.07 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
-##              1.7520884  -8.383290
-## typeCase    -0.3037059   3.356043
-## bsaScaled    0.3094801  -2.198097
+##              -8.383290  1.7520884
+## typeCase      3.356043 -0.3037059
+## bsaScaled    -2.198097  0.3094801
 ## 
 ## $seb
 ##           Cosinus of y Sinus of y
-##              0.1428666  0.1098323
-## typeCase     0.2143050  0.2125200
-## bsaScaled    0.1086668  0.1069531
+##              0.1016933  0.1456561
+## typeCase     0.2120909  0.2104136
+## bsaScaled    0.1061819  0.1044269
 ## 
 ## $loglik
 ## [1] 42.12291
 ## 
 ## $est
-## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
+## [1] 158.0723 166.8713 163.9280 168.1952 166.3261 168.9752
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
@@ -2172,42 +2172,42 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-68.07226</td>
+<td align="right">-201.9277</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-76.87128</td>
+<td align="right">-193.1287</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-73.92796</td>
+<td align="right">-196.0720</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-78.19523</td>
+<td align="right">-191.8048</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-76.32610</td>
+<td align="right">-193.6739</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-78.97519</td>
+<td align="right">-191.0248</td>
 </tr>
 </tbody>
 </table>
@@ -2216,7 +2216,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
                   <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">polar</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2224,25 +2224,25 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.12    0.00    0.06 
+##    0.09    0.00    0.05 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
-##                      1.6054003  -8.120715
-## typeCase            -0.1043417   3.106066
-## orificeAreaScaled    0.1893907  -2.454024
+##                      -8.120715  1.6054003
+## typeCase              3.106066 -0.1043417
+## orificeAreaScaled    -2.454024  0.1893907
 ## 
 ## $seb
 ##                   Cosinus of y Sinus of y
-##                      0.1462691  0.1160903
-## typeCase             0.2266974  0.2242708
-## orificeAreaScaled    0.1144086  0.1127463
+##                      0.1057656  0.1509385
+## typeCase             0.2236157  0.2212410
+## orificeAreaScaled    0.1122844  0.1106559
 ## 
 ## $loglik
 ## [1] 40.81098
 ## 
 ## $est
-## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
+## [1] 152.8764 165.9701 163.3357 168.8173 167.2466 170.3673
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
@@ -2268,53 +2268,53 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-62.87641</td>
+<td align="right">-207.1236</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-75.97007</td>
+<td align="right">-194.0299</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-73.33573</td>
+<td align="right">-196.6643</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-78.81728</td>
+<td align="right">-191.1827</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-77.24663</td>
+<td align="right">-192.7534</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-80.36730</td>
+<td align="right">-189.6327</td>
 </tr>
 </tbody>
 </table>
 
 <h2>
-<a id="user-content-circular-regression-for-azimuthal-angle" class="anchor" href="#circular-regression-for-azimuthal-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for azimuthal angle</h2>
+<a id="user-content-circular-regression-for-longitude-azimuthal-angle" class="anchor" href="#circular-regression-for-longitude-azimuthal-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for longitude (azimuthal angle)</h2>
 
 <p>Unadjusted.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2322,7 +2322,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.01 
+##       0       0       0 
 ## 
 ## $beta
 ##          Cosinus of y  Sinus of y
@@ -2371,7 +2371,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
                   <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2379,7 +2379,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##           Cosinus of y  Sinus of y
@@ -2467,7 +2467,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
                   <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">azimuthal</span>, 
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
               as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
               <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
               <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
@@ -2475,7 +2475,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.02    0.01    0.02 
+##       0       0       0 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y

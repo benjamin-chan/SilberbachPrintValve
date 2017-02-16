@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-13 15:27:40"
+date: "2017-02-16 11:44:28"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -27,8 +27,8 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
 1. Convert cartesian coordinates of rotated coaptation line to spherical coordinates
   * See function [`cart2sph`](../lib/cart2sph.R)
   * $\rho$ = radial distance
-  * $\theta$ = polar angle (inclination) bounded between $(\frac{-\pi}{2}, \frac{\pi}{2})$ or $(-90^{\circ}, +90^{\circ})$; default units is radians
-  * $\phi$ = azimuthal angle bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
+  * $\theta$ = latitude (i.e., polar angle or inclination) bounded between $(0, \pi)$ or $(0^{\circ}, 180^{\circ})$; default units is radians
+  * $\phi$ = langitude (i.e., azimuthal angle or direction) bounded between $(-\pi, \pi)$ or $(-180^{\circ}, +180^{\circ})$; default units is radians
   * $\rho, \theta, \phi$ will be used to describe the coaptation line
 1. Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)
 1. Normalize the orientation of the coaptation line to the unit sphere
@@ -41,11 +41,11 @@ An interactive representation of the coaptation line geometry is [here](https://
 
 
 
-Check calculation of `radial` against given `coapt_line_length`; it should be 1.0
+Check calculation of `magnitude` against given `coapt_line_length`; it should be 1.0
 
 
 ```
-## Correlation between coapt_line_length and calculated radial is: 1.00000
+## Correlation between coapt_line_length and calculated magnitude is: 1.00000
 ```
 
 Check correlation between body surface area, `bsa`, and other size variables.
@@ -62,7 +62,7 @@ Check correlation between body surface area, `bsa`, and other size variables.
 |a_coap_size_valve   | 0.3426494|
 |a_coap_orifice_area | 0.1744180|
 |a_coap_valve_area   | 0.0338661|
-|radial              | 0.2923220|
+|magnitude           | 0.2923220|
 |bsaScaled           | 1.0000000|
 |orificeAreaScaled   | 0.3803151|
 
@@ -70,7 +70,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-13 15:27:41
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-16 11:44:29
 ```
 
 Summarize the entire data set.
@@ -123,11 +123,11 @@ Results save as [CSV](../data/processed/compare.csv).
 |Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0121495|  0.0599023|  0.2028216| 0.8397082| 0.8397082|FALSE |
 |Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.0855492|  0.0400184| -2.1377445| 0.0351042| 0.0526563|FALSE |
 |Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -0.6562349|  0.7882625| -0.8325081| 0.4072102| 0.4362966|FALSE |
-|Polar angle of coaptation line (top to bottom          |     48|-73.418 (12.494)  |(-88.720, -30.848)  |        49|-76.861 (10.433)  |(-88.508, -19.856)  |   3.4429561|  2.3351759|  1.4743883| 0.1436833| 0.1959318|FALSE |
-|Azimuthal angle of coaptation line                     |     48|4.684 (133.204)   |(-178.788, 178.824) |        49|31.443 (116.612)  |(-167.841, 169.432) | -26.7591262| 25.4045403| -1.0533206| 0.2948658| 0.3402297|FALSE |
+|Latitude of coaptation line (top to bottom)            |     48|163.418 (12.494)  |(120.848, 178.720)  |        49|166.861 (10.433)  |(109.856, 178.508)  |  -3.4429561|  2.3351759| -1.4743883| 0.1436833| 0.1959318|FALSE |
+|Longitude of coaptation line (direction)               |     48|4.684 (133.204)   |(-178.788, 178.824) |        49|31.443 (116.612)  |(-167.841, 169.432) | -26.7591262| 25.4045403| -1.0533206| 0.2948658| 0.3402297|FALSE |
 
 ```
-## File ../data/processed/compare.csv was written on 2017-02-13 15:27:53
+## File ../data/processed/compare.csv was written on 2017-02-16 11:44:43
 ```
 # Linear model of coaptation line length
 
@@ -412,19 +412,19 @@ Calculate circular summary statistics.
 
 
 ```r
-cirCoord <- df %>% select(matches("^type$|polar|azimuthal"))
+cirCoord <- df %>% select(matches("^type$|latitude|longitude"))
 matAll <- cirCoord %>% select(-1) %>% as.matrix
 matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-matAll[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matAll[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
 ## $mesos
-## [1] -75.34583
+## [1] 165.3458
 ## 
 ## $confint
-## [1] -75.41890 -75.27276
+## [1] 165.2728 165.4189
 ## 
 ## $kappa
 ## [1] 25.93036
@@ -440,7 +440,7 @@ matAll[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```r
-matAll[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matAll[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
@@ -464,15 +464,15 @@ matAll[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```r
-matCases[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
 ## $mesos
-## [1] -73.58603
+## [1] 163.586
 ## 
 ## $confint
-## [1] -73.69852 -73.47354
+## [1] 163.4735 163.6985
 ## 
 ## $kappa
 ## [1] 22.25913
@@ -488,7 +488,7 @@ matCases[, "polar"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```r
-matCases[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
+matCases[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
@@ -512,15 +512,15 @@ matCases[, "azimuthal"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```r
-matControls[, "polar"]%>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
 ## $mesos
-## [1] -77.05687
+## [1] 167.0569
 ## 
 ## $confint
-## [1] -77.14801 -76.96573
+## [1] 166.9657 167.1480
 ## 
 ## $kappa
 ## [1] 32.72235
@@ -536,7 +536,7 @@ matControls[, "polar"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```r
-matControls[, "azimuthal"]%>% circ.summary(rads = FALSE, plot = FALSE)
+matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
 ```
@@ -574,16 +574,16 @@ Output from `circ.cor1` and `circ.cor2` are quite different.
 
 
 ```r
-circ.cor1(df$polar, df$azimuthal, rads = FALSE)
+circ.cor1(df$latitude, df$longitude, rads = FALSE)
 ```
 
 ```
-##        rho    p-value 
-## 0.18384547 0.07485033
+##         rho     p-value 
+## -0.18384547  0.07485033
 ```
 
 ```r
-circ.cor2(df$polar, df$azimuthal, rads = FALSE)
+circ.cor2(df$latitude, df$longitude, rads = FALSE)
 ```
 
 ```
@@ -592,7 +592,7 @@ circ.cor2(df$polar, df$azimuthal, rads = FALSE)
 ```
 
 ```r
-circlin.cor(df$polar, df[, c("radial", "bsa", "orifice_area")], rads = FALSE)
+circlin.cor(df$latitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
 ```
 
 ```
@@ -603,7 +603,7 @@ circlin.cor(df$polar, df[, c("radial", "bsa", "orifice_area")], rads = FALSE)
 ```
 
 ```r
-circlin.cor(df$azimuthal, df[, c("radial", "bsa", "orifice_area")], rads = FALSE)
+circlin.cor(df$longitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
 ```
 
 ```
@@ -617,7 +617,7 @@ ANOVA.
 
 
 ```r
-hcf.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+hcf.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -626,7 +626,7 @@ hcf.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-lr.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -635,7 +635,7 @@ lr.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-embed.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -644,7 +644,7 @@ embed.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-het.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -653,7 +653,7 @@ het.circaov(matAll[, "polar"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-conc.test(matAll[, "polar"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "latitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -666,7 +666,7 @@ conc.test(matAll[, "polar"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-hcf.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+hcf.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -675,7 +675,7 @@ hcf.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-lr.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+lr.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -684,7 +684,7 @@ lr.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-embed.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+embed.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -693,7 +693,7 @@ embed.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-het.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+het.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
@@ -702,22 +702,22 @@ het.circaov(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
 ```
 
 ```r
-conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE)
+conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE)
 ```
 
 ```
-## Error in conc.test(matAll[, "azimuthal"], factor(df$type), rads = FALSE): object 'U3' not found
+## Error in conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE): object 'U3' not found
 ```
 
 
-## Circular regression for polar angle
+## Circular regression for latitude (polar angle)
 
 Unadjusted.
 
 
 ```r
 new <- df$typeCase %>% unique
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, "typeCase"]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -727,23 +727,23 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.05    0.01    0.03 
+##    0.04    0.02    0.03 
 ## 
 ## $beta
-##          Cosinus of y Sinus of y
-##           1.331727706  -6.021609
-## typeCase  0.006409535   1.344292
+##          Cosinus of y  Sinus of y
+##             -6.021609 1.331727706
+## typeCase     1.344292 0.006409535
 ## 
 ## $seb
 ##          Cosinus of y Sinus of y
-##             0.1404381  0.1042759
-## typeCase    0.2035170  0.2031161
+##            0.09922338  0.1414975
+## typeCase   0.20295968  0.2024861
 ## 
 ## $loglik
 ## [1] 25.35768
 ## 
 ## $est
-## [1] 285.9653 282.4707
+## [1] 164.0347 167.5293
 ```
 
 ```r
@@ -756,8 +756,8 @@ data.frame(type = df$type %>% unique,
 
 |type    |typeCase |      pred|
 |:-------|:--------|---------:|
-|Case    |TRUE     | -74.03466|
-|Control |FALSE    | -77.52930|
+|Case    |TRUE     | -195.9653|
+|Control |FALSE    | -192.4707|
 
 Adjusted for body surface area.
 
@@ -765,7 +765,7 @@ Adjusted for body surface area.
 ```r
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, c("typeCase", "bsaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -775,25 +775,25 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.05 
+##    0.12    0.01    0.07 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
-##              1.7520884  -8.383290
-## typeCase    -0.3037059   3.356043
-## bsaScaled    0.3094801  -2.198097
+##              -8.383290  1.7520884
+## typeCase      3.356043 -0.3037059
+## bsaScaled    -2.198097  0.3094801
 ## 
 ## $seb
 ##           Cosinus of y Sinus of y
-##              0.1428666  0.1098323
-## typeCase     0.2143050  0.2125200
-## bsaScaled    0.1086668  0.1069531
+##              0.1016933  0.1456561
+## typeCase     0.2120909  0.2104136
+## bsaScaled    0.1061819  0.1044269
 ## 
 ## $loglik
 ## [1] 42.12291
 ## 
 ## $est
-## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
+## [1] 158.0723 166.8713 163.9280 168.1952 166.3261 168.9752
 ```
 
 ```r
@@ -809,12 +809,12 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 |type    |typeCase | bsaScaled|scaling             |      pred|
 |:-------|:--------|---------:|:-------------------|---------:|
-|Case    |TRUE     |        -1|-1 SD from mean BSA | -68.07226|
-|Control |FALSE    |        -1|-1 SD from mean BSA | -76.87128|
-|Case    |TRUE     |         0|Mean BSA            | -73.92796|
-|Control |FALSE    |         0|Mean BSA            | -78.19523|
-|Case    |TRUE     |         1|+1 SD from mean BSA | -76.32610|
-|Control |FALSE    |         1|+1 SD from mean BSA | -78.97519|
+|Case    |TRUE     |        -1|-1 SD from mean BSA | -201.9277|
+|Control |FALSE    |        -1|-1 SD from mean BSA | -193.1287|
+|Case    |TRUE     |         0|Mean BSA            | -196.0720|
+|Control |FALSE    |         0|Mean BSA            | -191.8048|
+|Case    |TRUE     |         1|+1 SD from mean BSA | -193.6739|
+|Control |FALSE    |         1|+1 SD from mean BSA | -191.0248|
 
 Adjusted for orifice area area.
 
@@ -822,7 +822,7 @@ Adjusted for orifice area area.
 ```r
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$polar, 
+M <- spml.reg(df$latitude, 
               as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -832,25 +832,25 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.12    0.00    0.06 
+##    0.09    0.00    0.05 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
-##                      1.6054003  -8.120715
-## typeCase            -0.1043417   3.106066
-## orificeAreaScaled    0.1893907  -2.454024
+##                      -8.120715  1.6054003
+## typeCase              3.106066 -0.1043417
+## orificeAreaScaled    -2.454024  0.1893907
 ## 
 ## $seb
 ##                   Cosinus of y Sinus of y
-##                      0.1462691  0.1160903
-## typeCase             0.2266974  0.2242708
-## orificeAreaScaled    0.1144086  0.1127463
+##                      0.1057656  0.1509385
+## typeCase             0.2236157  0.2212410
+## orificeAreaScaled    0.1122844  0.1106559
 ## 
 ## $loglik
 ## [1] 40.81098
 ## 
 ## $est
-## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
+## [1] 152.8764 165.9701 163.3357 168.8173 167.2466 170.3673
 ```
 
 ```r
@@ -866,22 +866,22 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 |type    |typeCase | orificeAreaScaled|scaling                      |      pred|
 |:-------|:--------|-----------------:|:----------------------------|---------:|
-|Case    |TRUE     |                -1|-1 SD from mean orifice area | -62.87641|
-|Control |FALSE    |                -1|-1 SD from mean orifice area | -75.97007|
-|Case    |TRUE     |                 0|Mean orifice area            | -73.33573|
-|Control |FALSE    |                 0|Mean orifice area            | -78.81728|
-|Case    |TRUE     |                 1|+1 SD from mean orifice area | -77.24663|
-|Control |FALSE    |                 1|+1 SD from mean orifice area | -80.36730|
+|Case    |TRUE     |                -1|-1 SD from mean orifice area | -207.1236|
+|Control |FALSE    |                -1|-1 SD from mean orifice area | -194.0299|
+|Case    |TRUE     |                 0|Mean orifice area            | -196.6643|
+|Control |FALSE    |                 0|Mean orifice area            | -191.1827|
+|Case    |TRUE     |                 1|+1 SD from mean orifice area | -192.7534|
+|Control |FALSE    |                 1|+1 SD from mean orifice area | -189.6327|
 
 
-## Circular regression for azimuthal angle
+## Circular regression for longitude (azimuthal angle)
 
 Unadjusted.
 
 
 ```r
 new <- df$typeCase %>% unique
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, "typeCase"]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -891,7 +891,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.01 
+##       0       0       0 
 ## 
 ## $beta
 ##          Cosinus of y  Sinus of y
@@ -929,7 +929,7 @@ Adjusted for body surface area.
 ```r
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, c("typeCase", "bsaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -939,7 +939,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##           Cosinus of y  Sinus of y
@@ -986,7 +986,7 @@ Adjusted for orifice area area.
 ```r
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$azimuthal, 
+M <- spml.reg(df$longitude, 
               as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
               rads = FALSE, 
               xnew = as.matrix(new))
@@ -996,7 +996,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.02    0.01    0.02 
+##       0       0       0 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y

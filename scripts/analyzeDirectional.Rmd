@@ -122,28 +122,6 @@ matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
-Scatterplot matrix of coaptation line measures.
-**Not useful; candidate for deletion.** 
- 
-```{r scatterplotMatrixCoaptationLine, dpi = 300} 
-df %>% 
-  select(matches("^id|^type$|^(magnitude|latitude|longitude)$")) %>% 
-  melt(id.vars = c("id", "type")) %>%  
-  mutate(type = factor(type)) %>%  
-  merge(., ., by = c("id", "type")) %>%  
-  filter(variable.x != variable.y) %>%  
-  ggplot + 
-    aes(x = value.x, y = value.y, color = type) + 
-    geom_point(alpha = 1/2) + 
-    geom_smooth(method = "lm", se = FALSE) + 
-    scale_color_brewer("", palette = "Set1") + 
-    scale_x_continuous("") + 
-    scale_y_continuous("") + 
-    facet_grid(variable.y ~ variable.x, scales = "free") + 
-    theme_bw() 
-ggsave("../figures/scatterplotMatrixCoaptationLine.svg", dpi = 300) 
-``` 
- 
 Correlations.
 Output from `circ.cor1` and `circ.cor2` are quite different.
 **Need to reconcile.**

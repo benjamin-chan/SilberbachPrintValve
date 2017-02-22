@@ -2,24 +2,6 @@
 
 The case-control variable is `type`.
 
-```{r}
-results <- rbind(compare("bsa", "Body surface area"),
-                 compare("nr_frac", "NR fraction"),
-                 compare("rl_frac", "RL fraction"),
-                 compare("ln_frac", "LN fraction"),
-                 compare("total_area_value", "Total coaptation area, value"),
-                 compare("total_area", "Total coaptation area, calculated"),
-                 compare("orifice_area", "Orifice area"),
-                 compare("valve_diameter", "Valve diameter"),
-                 compare("valve_area", "Valve area"),
-                 compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
-                 compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
-                 compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
-                 compare("magnitude", "Coaptation line length"),
-                 compare("latitude", "Latitude of coaptation line (top to bottom)"),
-                 compare("longitude", "Longitude of coaptation line (direction)"))
-```
-
 Plot comparisons.
 Use multiple visualizations, density plots and scatterplots.
 Each has their advantages and disadvantages.
@@ -75,8 +57,37 @@ Calculate differences in means.
 Adjust p-values for multiple comparisons.
 
 ```{r}
-results <-
-  results %>%
+results <- 
+  rbind(compare("bsa", "Body surface area"),
+        compare("nr_frac", "NR fraction"),
+        compare("rl_frac", "RL fraction"),
+        compare("ln_frac", "LN fraction"),
+        compare("total_area_value", "Total coaptation area, value"),
+        compare("total_area", "Total coaptation area, calculated"),
+        compare("orifice_area", "Orifice area"),
+        compare("valve_diameter", "Valve diameter"),
+        compare("valve_area", "Valve area"),
+        compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
+        compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
+        compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
+        compare("magnitude", "Coaptation line length"),
+        compare("latitude", "Latitude of coaptation line (top to bottom)"),
+        compare("longitude", "Longitude of coaptation line (direction)")) %>%
+  mutate(pAdjust = p.adjust(pValue, method = "BH"),
+         sig = pAdjust < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]
+```
+
+Output results.
+Results save as [CSV](../data/processed/compareUnadjusted.csv).
+
+```{r}
+results %>% kable
+f <- "../data/processed/compareUnadjusted.csv"
+results %>% write.csv(file = f, row.names = FALSE, na = "")
+message(sprintf("File %s was written on %s", f, file.mtime(f)))
+```
+
 ## Adjusted comparisons
 
 Adjusted for **orifice area.**

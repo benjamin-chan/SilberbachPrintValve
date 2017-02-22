@@ -113,7 +113,8 @@ df <-
          coapUnitY = coapY / magnitude,
          coapUnitZ = coapZ / magnitude) %>% 
   mutate(bsaScaled = as.vector(scale(bsa)),
-         orificeAreaScaled = as.vector(scale(orifice_area)))
+         orificeAreaScaled = as.vector(scale(orifice_area)),
+         magnitudeScaled = as.vector(scale(magnitude)))
 ```
 
 Check calculation of `magnitude` against given `coapt_line_length`; it should be 1.0

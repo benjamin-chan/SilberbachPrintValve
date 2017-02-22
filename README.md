@@ -40,16 +40,13 @@ suitable for a peer-reviewed manuscript or grant submission.
 Summary from linear model estimating coaptation line length by case or control group status,
 **adjusted for orifice area.**
 
-* Model statistics
-* ANOVA table
-* Predicted values, and 95% confidence intervals for the mean, and 95% prediction intervals
-
+**Model statistics**
 
 | r.squared| adj.r.squared| sigma| statistic| p.value| df|   logLik|     AIC|     BIC| deviance| df.residual|
 |---------:|-------------:|-----:|---------:|-------:|--:|--------:|-------:|-------:|--------:|-----------:|
 |     0.194|         0.177| 3.515|    11.343|       0|  3| -258.048| 524.097| 534.396| 1161.443|          94|
 
-
+**ANOVA table**
 
 |term              | estimate| std.error| statistic| p.value|
 |:-----------------|--------:|---------:|---------:|-------:|
@@ -57,7 +54,7 @@ Summary from linear model estimating coaptation line length by case or control g
 |typeControl       |     2.21|      0.79|      2.81|   0.006|
 |orificeAreaScaled |     1.85|      0.40|      4.67|   0.000|
 
-
+**Predicted values**, and 95% confidence intervals for the mean, and 95% prediction intervals
 
 |type    | orificeAreaScaled|scaling                      |   fit| lowerConf| upperConf| lowerPred| upperPred|
 |:-------|-----------------:|:----------------------------|-----:|---------:|---------:|---------:|---------:|
@@ -82,9 +79,10 @@ adjusted for orifice area.
 
 ### Coaptation line direction
 
-Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [SVG](figures/polarplot.svg)
+Polar plots of coaptation line angles
 
-![plot of chunk polarplot](figures/polarplot-1.png)
+![Latitude](figures/plotLatitude.png)
+![Longitude](figures/plotLongitude.png)
 
 **NEED TO FILL IN**
 
@@ -94,12 +92,14 @@ Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [
 Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is [here](https://ggbm.at/CeF95YMN).
 
-![Coaptation line](figures/CoaptationLine.png)
+![Line of coaptation](figures/Line_of_coaptation.png)
 
 
 ## Outputs
 
-* Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [SVG](figures/polarplot.svg)
+* Polar plots of coaptation line angles
+  * Latitude: [PNG](figures/plotLatitude.png), [SVG](figures/plotLatitude.svg)  
+  * Longitude: [PNG](figures/plotLongitude.png), [SVG](figures/plotLongitude.svg)  
 * Complete analysis: [HTML](docs/index.html) or [Markdown](docs/index.md)
 
 

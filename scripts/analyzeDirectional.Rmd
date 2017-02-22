@@ -58,42 +58,32 @@ ggsave("../figures/plotLongitude.svg", dpi = 300)
 ```
 
 Calculate median cartesian coordinates and latitude and longitude.
-**These calculations look incorrect; need to troubleshoot.**
 
 ```{r, echo = TRUE}
 cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
 matAll <- cartCoord %>% select(-1) %>% as.matrix
 matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-merge(rbind(matAll %>% mediandir,
-            matCases %>% mediandir,
-            matControls %>% mediandir) %>%
-        data.frame %>%
-        rename(x = X1, y = X2, z = X3) %>%
-        cbind(group = c("All", "Cases", "Controls"), .),
-      rbind(matAll %>% mediandir %>% euclid.inv,
-            matCases %>% mediandir %>% euclid.inv,
-            matControls %>% mediandir %>% euclid.inv) %>%
-        data.frame %>%
-        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
+rbind(matAll %>% mediandir,
+      matCases %>% mediandir,
+      matControls %>% mediandir) %>%
+  data.frame %>%
+  rename(x = X1, y = X2, z = X3) %>%
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  bind_cols(cart2sph(cbind(.$x, .$y, .$z), units = "deg")) %>% 
   kable
 ```
 
 Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
-**These calculations look incorrect; need to troubleshoot.**
 
 ```{r, echo = TRUE}
-merge(rbind(matAll %>% vmf %>% .[["mu"]],
-            matCases %>% vmf %>% .[["mu"]],
-            matControls %>% vmf %>% .[["mu"]]) %>%
-        data.frame %>% 
-        rename(x = X1, y = X2, z = X3) %>% 
-        cbind(group = c("All", "Cases", "Controls"), .),
-      rbind(matAll %>% vmf %>% .[["mu"]] %>% euclid.inv,
-            matCases %>% vmf %>% .[["mu"]] %>% euclid.inv,
-            matControls %>% vmf %>% .[["mu"]] %>% euclid.inv) %>%
-        data.frame %>% 
-        cbind(group = c("All", "Cases", "Controls"), .)) %>% 
+rbind(matAll %>% vmf %>% .[["mu"]],
+      matCases %>% vmf %>% .[["mu"]],
+      matControls %>% vmf %>% .[["mu"]]) %>%
+  data.frame %>%
+  rename(x = X1, y = X2, z = X3) %>%
+  cbind(group = c("All", "Cases", "Controls"), .) %>% 
+  bind_cols(cart2sph(cbind(.$x, .$y, .$z), units = "deg")) %>% 
   kable
 ```
 

@@ -9,26 +9,52 @@ citation("Directional")
 I need to understand what package `Directional` is doing.
 So echo back the R code.
 
-Polar plot matrix of coaptation line angles: [PNG](figures/polarplot-1.png) or [SVG](figures/polarplot.svg)
+Polar plots of coaptation line angles
 
-```{r polarplot, dpi = 300}
+* Latitude: [PNG](figures/plotLatitude.png), [SVG](figures/plotLatitude.svg)
+* Longitude: [PNG](figures/plotLongitude.png), [SVG](figures/plotLongitude.svg)
+
+```{r plotLatitude, dpi = 300, fig.show = "hide"}
 df %>%
-  select(matches("^id|^type$|^(latitude|longitude)$")) %>%
+  select(matches("^id|^type$|^latitude$")) %>%
   melt(id.vars = c("id", "type")) %>% 
   mutate(type = factor(type)) %>% 
   merge(., df %>% select(matches("^id|^type|^magnitude$"))) %>% 
   ggplot +
+    labs(title = "Latitude") + 
     aes(x = value, y = magnitude, color = type, fill = type) +
     geom_point(alpha = 1/2) +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
-    scale_x_continuous("", breaks = seq(-180, 180, 30)) +
+    scale_x_continuous("", breaks = seq(-90, 90, 10), limits = c(-180, 180)) +
     scale_y_sqrt("Length", breaks = (1:5)^2, limits = c(1, 25)) +
-    facet_wrap(~ variable) +
-    coord_polar(start = pi, direction = -1) +
+    coord_polar(start = pi / 2, direction = 1) +
     theme_bw() +
-    theme(legend.position = "bottom")
-ggsave("../figures/polarplot.svg", dpi = 300)
+    theme(panel.grid.minor = element_blank(),
+          plot.title = element_text(hjust = 0.5))
+ggsave("../figures/plotLatitude.png", dpi = 300)
+ggsave("../figures/plotLatitude.svg", dpi = 300)
+```
+
+```{r plotLongitude, dpi = 300, fig.show = "hide"}
+df %>%
+  select(matches("^id|^type$|^longitude$")) %>%
+  melt(id.vars = c("id", "type")) %>% 
+  mutate(type = factor(type)) %>% 
+  merge(., df %>% select(matches("^id|^type|^magnitude$"))) %>% 
+  ggplot +
+    labs(title = "Longitude") + 
+    aes(x = value, y = magnitude, color = type, fill = type) +
+    geom_point(alpha = 1/2) +
+    scale_color_brewer("", palette = "Set1") +
+    scale_fill_brewer("", palette = "Set1") +
+    scale_x_continuous("", breaks = seq(0, 360, 30), limits = c(0, 359)) +
+    scale_y_sqrt("Length", breaks = (1:5)^2, limits = c(1, 25)) +
+    coord_polar(start = 0, direction = 1) +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/plotLongitude.png", dpi = 300)
+ggsave("../figures/plotLongitude.svg", dpi = 300)
 ```
 
 Calculate median cartesian coordinates and latitude and longitude.

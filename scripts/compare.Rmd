@@ -77,16 +77,43 @@ Adjust p-values for multiple comparisons.
 ```{r}
 results <-
   results %>%
+## Adjusted comparisons
+
+Adjusted for **orifice area.**
+
+Calculate mean (SD) and ranges.
+Calculate differences in means.
+Adjust p-values for multiple comparisons.
+
+```{r}
+covar <- "orificeAreaScaled"
+results <- 
+  rbind(compare("bsa", "Body surface area", covar = covar),
+        compare("nr_frac", "NR fraction", covar = covar),
+        compare("rl_frac", "RL fraction", covar = covar),
+        compare("ln_frac", "LN fraction", covar = covar),
+        compare("total_area_value", "Total coaptation area, value", covar = covar),
+        compare("total_area", "Total coaptation area, calculated", covar = covar),
+        # compare("orifice_area", "Orifice area", covar = covar),
+        compare("valve_diameter", "Valve diameter", covar = covar),
+        compare("valve_area", "Valve area", covar = covar),
+        compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter", covar = covar),
+        compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area", covar = covar),
+        compare("a_coap_valve_area", "Total valve coaptation area relative to valve area", covar = covar),
+        compare("magnitude", "Coaptation line length", covar = covar),
+        compare("latitude", "Latitude of coaptation line (top to bottom)", covar = covar),
+        compare("longitude", "Longitude of coaptation line (direction)", covar = covar)) %>%
   mutate(pAdjust = p.adjust(pValue, method = "BH"),
-         sig = pAdjust < 0.05)
+         sig = pAdjust < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]
 ```
 
 Output results.
-Results save as [CSV](../data/processed/compare.csv).
+Results save as [CSV](../data/processed/compareAdjusted.csv).
 
 ```{r}
 results %>% kable
-f <- "../data/processed/compare.csv"
+f <- "../data/processed/compareAdjusted.csv"
 results %>% write.csv(file = f, row.names = FALSE, na = "")
 message(sprintf("File %s was written on %s", f, file.mtime(f)))
 ```

@@ -223,6 +223,23 @@ data.frame(type = rep(df$type %>% unique, 3),
            pred = as.vector(M$est) - 360) %>% kable
 ```
 
+Adjusted for coaptation line length.
+
+```{r, echo = TRUE}
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  magnitudeScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$latitude, 
+              as.matrix(df[, c("typeCase", "magnitudeScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean coaptation line length",
+                           "Mean coaptation line length",
+                           "+1 SD from mean coaptation line length"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
+```
 
 ## Circular regression for longitude (azimuthal angle)
 
@@ -273,5 +290,23 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean orifice area",
                            "Mean orifice area",
                            "+1 SD from mean orifice area"), each = 2),
+           pred = as.vector(M$est) - 360) %>% kable
+```
+
+Adjusted for coaptation line length.
+
+```{r, echo = TRUE}
+new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
+                  magnitudeScaled = rep(-1:1, each = 2))
+M <- spml.reg(df$longitude, 
+              as.matrix(df[, c("typeCase", "magnitudeScaled")]), 
+              rads = FALSE, 
+              xnew = as.matrix(new))
+M
+data.frame(type = rep(df$type %>% unique, 3),
+           new,
+           scaling = rep(c("-1 SD from mean coaptation line length",
+                           "Mean coaptation line length",
+                           "+1 SD from mean coaptation line length"), each = 2),
            pred = as.vector(M$est) - 360) %>% kable
 ```

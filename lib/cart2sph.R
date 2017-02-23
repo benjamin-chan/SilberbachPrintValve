@@ -4,13 +4,13 @@ cart2sph <- function (v, v0 = c(0, 0, 0), units = "rad") {
   # rho = radial distance
   # theta = polar angle (inclination) bounded between [-pi/2, +pi/2] or [-90, +90]; default units is radians
   # phi = azimuthal angle bounded between [0, 2 * pi] or [0, 360]; default units is radians
-  phi <- pi - atan2(y, x)
   v <- matrix(v, ncol = 3)
   v0 <- matrix(v0, ncol = 3)
   if (nrow(v) != nrow(v0)) {v0 <- matrix(rep(v0, nrow(v)), ncol = 3, byrow = TRUE)}
   vstar <- v - v0
   rho <- sqrt(vstar[, 1]^2 + vstar[, 2]^2 + vstar[, 3]^2)
   theta <- pi / 2 - acos(vstar[, 3] / rho)
+  phi <- atan2(vstar[, 2], vstar[, 1]) %% (2 * pi)
   if (units == "deg") {
     k <- 180 / pi
     theta <- theta * k

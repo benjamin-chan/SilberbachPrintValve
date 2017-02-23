@@ -102,10 +102,17 @@ df <-
          centroidCalcRotatedX = centroidCalcX * cos(rotation) - centroidCalcY * sin(rotation),
          centroidCalcRotatedY = centroidCalcX * sin(rotation) + centroidCalcY * cos(rotation),
          centroidBottomRotatedX = centroidBottomX * cos(rotation) - centroidBottomY * sin(rotation),
-         centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>% 
-  bind_cols(cart2sph(cbind(.$centroidCalcRotatedX, .$centroidCalcRotatedY, .$centroidBottomZ),
-                     cbind(.$centroidBottomRotatedX, .$centroidBottomRotatedY, 0),
-                     units = "deg")) %>%
+         centroidBottomRotatedY = centroidBottomX * sin(rotation) + centroidBottomY * cos(rotation)) %>%
+  bind_cols(cart2sph(.[, c("centroidCalcRotatedX",
+                           "centroidCalcRotatedY",
+                           "centroidBottomZ")] %>% as.matrix,
+                     cbind(.[, c("centroidBottomRotatedX",
+                                 "centroidBottomRotatedY")],
+                           0) %>% as.matrix,
+                     units = "deg") %>% data.frame) %>% 
+  rename(magnitude= rho,
+         latitude = theta,
+         longitude = phi) %>% 
   mutate(coapX = centroidBottomRotatedX - centroidCalcRotatedX,
          coapY = centroidBottomRotatedY - centroidCalcRotatedY,
          coapZ = centroidBottomZ - 0) %>% 

@@ -72,7 +72,8 @@ rbind(matAll %>% mediandir,
   data.frame %>%
   rename(x = X1, y = X2, z = X3) %>%
   cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(cbind(.$x, .$y, .$z), units = "deg")) %>% 
+  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
+  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
   kable
 ```
 
@@ -85,7 +86,8 @@ rbind(matAll %>% vmf %>% .[["mu"]],
   data.frame %>%
   rename(x = X1, y = X2, z = X3) %>%
   cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(cbind(.$x, .$y, .$z), units = "deg")) %>% 
+  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
+  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
   kable
 ```
 

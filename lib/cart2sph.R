@@ -19,36 +19,41 @@ cart2sph <- function (v, v0 = c(0, 0, 0), units = "rad") {
   cbind(rho, theta, phi)
 }
 
-# cart2sph(data.frame(x = -1, y = 0, z = 0), units = "deg")  # Reference longitude (e.g., GMT)
-# cart2sph(data.frame(x = 0, y = 1, z = 0), units = "deg")
-# cart2sph(data.frame(x = 1, y = 0, z = 0), units = "deg")
-# cart2sph(data.frame(x = 0, y = -1, z = 0), units = "deg")
-# > cart2sph(data.frame(x = -1, y = 0, z = 0), units = "deg")  # Reference longitude (e.g., GMT)
-# magnitude latitude longitude
-# 1         1        0         0
-# > cart2sph(data.frame(x = 0, y = 1, z = 0), units = "deg")
-# magnitude latitude longitude
-# 1         1        0        90
-# > cart2sph(data.frame(x = 1, y = 0, z = 0), units = "deg")
-# magnitude latitude longitude
-# 1         1        0       180
-# > cart2sph(data.frame(x = 0, y = -1, z = 0), units = "deg")
-# magnitude latitude longitude
-# 1         1        0       270
+# cart2sph(matrix(c( 1,  0, 0,  # Reference longitude (e.g., GMT)
+#                    0,  1, 0,
+#                   -1,  0, 0,
+#                    0, -1, 0),
+#                 ncol = 3, byrow = TRUE),
+#          units = "deg")
+# > cart2sph(matrix(c( 1,  0, 0,  # Reference longitude (e.g., GMT)
+# +                    0,  1, 0,
+# +                   -1,  0, 0,
+# +                    0, -1, 0),
+# +                 ncol = 3, byrow = TRUE),
+# +          units = "deg")
+#      rho theta phi
+# [1,]   1     0   0
+# [2,]   1     0  90
+# [3,]   1     0 180
+# [4,]   1     0 270
 
-# cart2sph(data.frame(x = 0, y = 0, z = 1), units = "deg")
-# cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = sqrt(2) / 2), units = "deg")
-# cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = -sqrt(2) / 2), units = "deg")
-# cart2sph(data.frame(x = 0, y = 0, z = -1), units = "deg")
-# > cart2sph(data.frame(x = 0, y = 0, z = 1), units = "deg")
-# magnitude latitude longitude
-# 1         1       90       180
-# > cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = sqrt(2) / 2), units = "deg")
-# magnitude latitude longitude
-# 1         1       45       180
-# > cart2sph(data.frame(x = sqrt(2) / 2, y = 0, z = -sqrt(2) / 2), units = "deg")
-# magnitude latitude longitude
-# 1         1      -45       180
-# > cart2sph(data.frame(x = 0, y = 0, z = -1), units = "deg")
-# magnitude latitude longitude
-# 1         1      -90       180
+# cart2sph(matrix(c(0, 0, 1,
+#                   sqrt(2) / 2, 0, sqrt(2) / 2,
+#                   1, 0, 0,
+#                   sqrt(2) / 2, 0, -sqrt(2) / 2,
+#                   0, 0, -1),
+#                 ncol = 3, byrow = TRUE),
+#          units = "deg")
+# > cart2sph(matrix(c(0, 0, 1,
+# +                   sqrt(2) / 2, 0, sqrt(2) / 2,
+# +                   1, 0, 0,
+# +                   sqrt(2) / 2, 0, -sqrt(2) / 2,
+# +                   0, 0, -1),
+# +                 ncol = 3, byrow = TRUE),
+# +          units = "deg")
+#      rho theta phi
+# [1,]   1    90   0
+# [2,]   1    45   0
+# [3,]   1     0   0
+# [4,]   1   -45   0
+# [5,]   1   -90   0

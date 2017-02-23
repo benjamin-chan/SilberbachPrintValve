@@ -1,4 +1,4 @@
-compare <- function (var, label) {
+compare <- function (var, label, covar = NULL) {
   summary <- 
     df %>% 
     group_by(type) %>% 
@@ -11,7 +11,11 @@ compare <- function (var, label) {
            range = sprintf("(%.03f, %.03f)", min, max)) %>% 
     mutate(variable = label) %>% 
     select(variable, everything())
-  formula <- sprintf("%s ~ type", var)
+  if (is.null(covar)) {
+    formula <- sprintf("%s ~ type", var)
+  } else {
+    formula <- sprintf("%s ~ type + %s", var, paste(covar, collapse = " + "))
+  }
   statistics <-
     df %>% 
     mutate(type = factor(type, levels = c("Control", "Case"))) %>%
@@ -35,6 +39,7 @@ compare <- function (var, label) {
            nControls = n.y,
            meanSDControls = meanSD.y,
            rangeControls = range.y) %>% 
-    cbind(., statistics)
+    cbind(., statistics) %>% 
+    mutate(formula = formula)
   results
 }

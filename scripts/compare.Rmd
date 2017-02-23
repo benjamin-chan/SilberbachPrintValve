@@ -2,32 +2,17 @@
 
 The case-control variable is `type`.
 
-```{r}
-results <- rbind(compare("bsa", "Body surface area"),
-                 compare("nr_frac", "NR fraction"),
-                 compare("rl_frac", "RL fraction"),
-                 compare("ln_frac", "LN fraction"),
-                 compare("total_area_value", "Total coaptation area, value"),
-                 compare("total_area", "Total coaptation area, calculated"),
-                 compare("orifice_area", "Orifice area"),
-                 compare("valve_diameter", "Valve diameter"),
-                 compare("valve_area", "Valve area"),
-                 compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
-                 compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
-                 compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
-                 compare("magnitude", "Coaptation line length"),
-                 compare("latitude", "Latitude of coaptation line (top to bottom)"),
-                 compare("longitude", "Longitude of coaptation line (direction)"))
-```
-
 Plot comparisons.
 Use multiple visualizations, density plots and scatterplots.
 Each has their advantages and disadvantages.
 
-Images are saved as [PNG](../figures/densityplots-1.png) and [SVG](../figures/densityplots.svg) files.
+Images are saved as
 
-```{r densityplots, dpi = 300, fig.height = 6, fig.width = 9}
-var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^(magnitude|latitude|longitude)$"
+* Density plots: [PNG](../figures/densityplots.png), [SVG](../figures/densityplots.svg)
+* Scatterplots: [PNG](../figures/scatterplots.png), [SVG](../figures/scatterplots.svg)
+
+```{r densityplots, fig.show = "hide"}
+var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^magnitude$"
 df1 <-
   df %>%
   select(matches(var)) %>%
@@ -47,10 +32,11 @@ g <-
     theme(legend.position = "bottom",
           panel.grid = element_blank())
 g
+ggsave("../figures/densityplots.png", dpi = 300, height = 6, width = 9, units = "in")
 ggsave("../figures/densityplots.svg", dpi = 300, height = 6, width = 9, units = "in")
 ```
 
-```{r scatterplots, dpi = 300, fig.height = 6, fig.width = 9}
+```{r scatterplots, fig.show = "hide"}
 g <-
   df1 %>% 
   ggplot +
@@ -65,6 +51,7 @@ g <-
     theme(legend.position = "bottom",
           panel.grid = element_blank())
 g
+ggsave("../figures/scatterplots.png", dpi = 300, height = 6, width = 9, units = "in")
 ggsave("../figures/scatterplots.svg", dpi = 300, height = 6, width = 9, units = "in")
 ```
 
@@ -75,18 +62,74 @@ Calculate differences in means.
 Adjust p-values for multiple comparisons.
 
 ```{r}
-results <-
-  results %>%
+results <- 
+  rbind(compare("bsa", "Body surface area"),
+        compare("nr_frac", "NR fraction"),
+        compare("rl_frac", "RL fraction"),
+        compare("ln_frac", "LN fraction"),
+        compare("total_area_value", "Total coaptation area, value"),
+        compare("total_area", "Total coaptation area, calculated"),
+        compare("orifice_area", "Orifice area"),
+        compare("valve_diameter", "Valve diameter"),
+        compare("valve_area", "Valve area"),
+        compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
+        compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
+        compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
+        compare("magnitude", "Coaptation line length"),
+        compare("latitude", "Latitude of coaptation line (top to bottom)"),
+        compare("longitude", "Longitude of coaptation line (direction)")) %>%
   mutate(pAdjust = p.adjust(pValue, method = "BH"),
-         sig = pAdjust < 0.05)
+         sig = pAdjust < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]
 ```
 
 Output results.
-Results save as [CSV](../data/processed/compare.csv).
+Results save as [CSV](../data/processed/compareUnadjusted.csv).
 
 ```{r}
 results %>% kable
-f <- "../data/processed/compare.csv"
+f <- "../data/processed/compareUnadjusted.csv"
+results %>% write.csv(file = f, row.names = FALSE, na = "")
+message(sprintf("File %s was written on %s", f, file.mtime(f)))
+```
+
+## Adjusted comparisons
+
+Adjusted for **orifice area.**
+
+Calculate mean (SD) and ranges.
+Calculate differences in means.
+Adjust p-values for multiple comparisons.
+
+```{r}
+covar <- "orificeAreaScaled"
+results <- 
+  rbind(compare("bsa", "Body surface area", covar = covar),
+        compare("nr_frac", "NR fraction", covar = covar),
+        compare("rl_frac", "RL fraction", covar = covar),
+        compare("ln_frac", "LN fraction", covar = covar),
+        compare("total_area_value", "Total coaptation area, value", covar = covar),
+        compare("total_area", "Total coaptation area, calculated", covar = covar),
+        # compare("orifice_area", "Orifice area", covar = covar),
+        compare("valve_diameter", "Valve diameter", covar = covar),
+        compare("valve_area", "Valve area", covar = covar),
+        compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter", covar = covar),
+        compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area", covar = covar),
+        compare("a_coap_valve_area", "Total valve coaptation area relative to valve area", covar = covar),
+        compare("magnitude", "Coaptation line length", covar = covar),
+        compare("latitude", "Latitude of coaptation line (top to bottom)", covar = covar),
+        compare("longitude", "Longitude of coaptation line (direction)", covar = covar)) %>%
+  mutate(pAdjust = p.adjust(pValue, method = "BH"),
+         sig = pAdjust < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]
+```
+
+Output results.
+Results save as [CSV](../data/processed/compareAdjusted.csv).
+
+```{r}
+results %>% kable
+f <- "../data/processed/compareAdjusted.csv"
 results %>% write.csv(file = f, row.names = FALSE, na = "")
 message(sprintf("File %s was written on %s", f, file.mtime(f)))
 ```

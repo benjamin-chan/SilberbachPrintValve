@@ -11,8 +11,10 @@ So echo back the R code.
 
 Polar plots of coaptation line angles
 
-* Latitude: [PNG](figures/plotLatitude.png), [SVG](figures/plotLatitude.svg)
-* Longitude: [PNG](figures/plotLongitude.png), [SVG](figures/plotLongitude.svg)
+* Latitude: [PNG](../figures/plotLatitude.png), [SVG](../figures/plotLatitude.svg)  
+  ![Latitude](../figures/plotLatitude.png)
+* Longitude: [PNG](figures/plotLongitude.png), [SVG](../figures/plotLongitude.svg)  
+  ![Longitude](../figures/plotLongitude.png)
 
 ```{r plotLatitude, dpi = 300, fig.show = "hide"}
 df %>%

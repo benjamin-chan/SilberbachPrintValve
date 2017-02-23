@@ -282,3 +282,56 @@ data.frame(type = rep(df$type %>% unique, 3),
                            "+1 SD from mean coaptation line length"), each = 2),
            pred = as.vector(M$est) - 360) %>% kable
 ```
+
+
+## Wood MLE
+
+```{r, echo = TRUE}
+df %>% 
+  select(matches("^(lat|lon)")) %>% 
+  as.matrix %>% 
+  wood.mle
+```
+
+## Kent MLE
+
+All
+
+```{r, echo = TRUE}
+mle <- 
+  df %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  kent.mle
+mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
+rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
+mle
+```
+
+Cases
+
+```{r, echo = TRUE}
+mle <- 
+  df %>% 
+  filter(type == "Case") %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  kent.mle
+mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
+rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
+mle
+```
+
+Controls
+
+```{r, echo = TRUE}
+mle <- 
+  df %>% 
+  filter(type == "Control") %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  kent.mle
+mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
+rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
+mle
+```

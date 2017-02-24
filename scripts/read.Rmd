@@ -130,7 +130,8 @@ df <-
                   "Mild" = "Mild-Severe",
                   "Severe" = "Mild-Severe",
                   .missing = "None") %>% 
-           factor(levels = c("None", "Mild-Severe"))) %>% 
+           factor(levels = c("None", "Mild-Severe"),
+                  labels = c("No aortic stenosis", "Mild-severe aortic stenosis"))) %>% 
   mutate(ar = 
            recode(ar,
                   "Trivial" = "None",
@@ -139,7 +140,8 @@ df <-
                   "Mod" = "Mild-Severe",
                   "Severe" = "Mild-Severe",
                   .missing = "None") %>% 
-           factor(levels = c("None", "Mild-Severe")))
+           factor(levels = c("None", "Mild-Severe"),
+                  labels = c("No aortic regurgitation", "Mild-severe aortic regurgitation")))
 ```
 
 Check calculation of `magnitude` against given `coapt_line_length`; it should be 1.0

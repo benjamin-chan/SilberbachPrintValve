@@ -251,7 +251,7 @@ M <- spml.reg(df$longitude,
 M
 data.frame(type = df$type %>% unique, 
            typeCase = new,
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 Adjusted for body surface area.
@@ -269,7 +269,7 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean BSA",
                            "Mean BSA",
                            "+1 SD from mean BSA"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 Adjusted for orifice area area.
@@ -287,7 +287,7 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean orifice area",
                            "Mean orifice area",
                            "+1 SD from mean orifice area"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 Adjusted for coaptation line length.
@@ -305,7 +305,7 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean coaptation line length",
                            "Mean coaptation line length",
                            "+1 SD from mean coaptation line length"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 

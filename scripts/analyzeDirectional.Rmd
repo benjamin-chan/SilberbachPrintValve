@@ -284,7 +284,36 @@ data.frame(type = rep(df$type %>% unique, 3),
 ```
 
 
-## Wood MLE
+## MLEs
+
+### Angular central Gaussian
+
+```{r, echo = TRUE}
+mle <- 
+  df %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  acg
+mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
+rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
+mle
+cov2cor(mle[["cova"]])
+```
+
+### von Mises-Fisher
+
+```{r, echo = TRUE}
+mle <- 
+  df %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  vmf
+mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
+rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
+mle
+```
+
+### Wood
 
 ```{r, echo = TRUE}
 df %>% 
@@ -293,7 +322,7 @@ df %>%
   wood.mle
 ```
 
-## Kent MLE
+### Kent
 
 All
 

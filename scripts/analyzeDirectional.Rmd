@@ -9,54 +9,26 @@ citation("Directional")
 I need to understand what package `Directional` is doing.
 So echo back the R code.
 
-Polar plots of coaptation line angles
+Spherical coordinates of coaptation lines: [PNG](../figures/plotSphericalCoordinates.png), [SVG](../figures/plotSphericalCoordinates.svg)
 
-* Latitude: [PNG](../figures/plotLatitude.png), [SVG](../figures/plotLatitude.svg)  
-  ![Latitude](../figures/plotLatitude.png)
-* Longitude: [PNG](figures/plotLongitude.png), [SVG](../figures/plotLongitude.svg)  
-  ![Longitude](../figures/plotLongitude.png)
+![Spherical coordinates](../figures/plotSphericalCoordinates.png)
 
-```{r plotLatitude, dpi = 300, fig.show = "hide"}
+```{r plotSphericalCoordinates, dpi = 300, fig.show = "hide"}
 df %>%
-  select(matches("^id|^type$|^latitude$")) %>%
-  melt(id.vars = c("id", "type")) %>% 
-  mutate(type = factor(type)) %>% 
-  merge(., df %>% select(matches("^id|^type|^magnitude$"))) %>% 
+  select(matches("^id|^type$|^(lat|long|magn)itude$")) %>%
   ggplot +
-    labs(title = "Latitude") + 
-    aes(x = value, y = magnitude, color = type, fill = type) +
-    geom_point(alpha = 1/2) +
-    scale_color_brewer("", palette = "Set1") +
-    scale_fill_brewer("", palette = "Set1") +
-    scale_x_continuous("", breaks = seq(-90, 90, 10), limits = c(-180, 180)) +
-    scale_y_sqrt("Length", breaks = (1:5)^2, limits = c(1, 25)) +
-    coord_polar(start = pi / 2, direction = 1) +
-    theme_bw() +
-    theme(panel.grid.minor = element_blank(),
-          plot.title = element_text(hjust = 0.5))
-ggsave("../figures/plotLatitude.png", dpi = 300)
-ggsave("../figures/plotLatitude.svg", dpi = 300)
-```
-
-```{r plotLongitude, dpi = 300, fig.show = "hide"}
-df %>%
-  select(matches("^id|^type$|^longitude$")) %>%
-  melt(id.vars = c("id", "type")) %>% 
-  mutate(type = factor(type)) %>% 
-  merge(., df %>% select(matches("^id|^type|^magnitude$"))) %>% 
-  ggplot +
-    labs(title = "Longitude") + 
-    aes(x = value, y = magnitude, color = type, fill = type) +
-    geom_point(alpha = 1/2) +
-    scale_color_brewer("", palette = "Set1") +
-    scale_fill_brewer("", palette = "Set1") +
-    scale_x_continuous("", breaks = seq(0, 360, 30), limits = c(0, 359)) +
-    scale_y_sqrt("Length", breaks = (1:5)^2, limits = c(1, 25)) +
-    coord_polar(start = -pi / 2, direction = -1) +
-    theme_bw() +
-    theme(plot.title = element_text(hjust = 0.5))
-ggsave("../figures/plotLongitude.png", dpi = 300)
-ggsave("../figures/plotLongitude.svg", dpi = 300)
+  aes(x = longitude, y = -latitude, size = magnitude, color = type) +
+  geom_point(alpha = 1/2) +
+  scale_color_brewer("", palette = "Set1") +
+  scale_x_continuous("Longitude", breaks = seq(0, 360, 30), limits = c(0, 359)) +
+  scale_y_continuous("\u2212Latitude", breaks = seq(0, 90, 10), limits = c(0, 90)) +
+  scale_size_area("Coaptation\nline length\n(mm)") +
+  coord_polar(start = -pi / 2, direction = -1) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+ggsave("../figures/plotSphericalCoordinates.png", dpi = 300)
+ggsave("../figures/plotSphericalCoordinates.svg", dpi = 300)
 ```
 
 Calculate median cartesian coordinates and latitude and longitude.

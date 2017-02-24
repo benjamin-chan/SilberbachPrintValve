@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-22 22:49:32"
+date: "2017-02-24 15:32:41"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -33,6 +33,7 @@ See [`read.Rmd`](../scripts/read.Rmd) for full details.
 1. Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)
 1. Normalize the orientation of the coaptation line to the unit sphere
 1. Scale body size measures, `bsa` and `orifice_area`, to have mean = 0 and SD = 1
+1. Lump categories of aortic stenosis, `as`, and aortic regurgitation (insufficiency), `ar`
 
 Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is [here](https://ggbm.at/CeF95YMN).
@@ -71,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-22 22:49:33
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-24 15:32:43
 ```
 
 Summarize the entire data set.
@@ -129,7 +130,7 @@ Results save as [CSV](../data/processed/compareUnadjusted.csv).
 |Longitude of coaptation line (direction)               |     48|169.684 (78.201)  |(31.631, 344.865)   |        49|163.688 (87.229)  |(0.271, 357.693)    |   5.9959759| 16.8324551|  0.3562152| 0.7224693| 0.7740743|FALSE |longitude ~ type           |
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-02-22 22:49:50
+## File ../data/processed/compareUnadjusted.csv was written on 2017-02-24 15:32:56
 ```
 
 ## Adjusted comparisons
@@ -164,7 +165,7 @@ Results save as [CSV](../data/processed/compareAdjusted.csv).
 |Longitude of coaptation line (direction)               |     48|169.684 (78.201)  |(31.631, 344.865)   |        49|163.688 (87.229)  |(0.271, 357.693)    |   3.4170373| 18.6624351|  0.1830971| 0.8551162| 0.8551162|FALSE |longitude ~ type + orificeAreaScaled           |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-02-22 22:49:51
+## File ../data/processed/compareAdjusted.csv was written on 2017-02-24 15:32:56
 ```
 # Linear model of coaptation line length
 
@@ -306,7 +307,7 @@ Citation for package `Directional`.
 ## To cite package 'Directional' in publications use:
 ## 
 ##   Michail Tsagris, Giorgos Athineou and Anamul Sajib (2016).
-##   Directional: Directional Statistics. R package version 2.4.
+##   Directional: Directional Statistics. R package version 2.3.
 ##   https://CRAN.R-project.org/package=Directional
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -315,7 +316,7 @@ Citation for package `Directional`.
 ##     title = {Directional: Directional Statistics},
 ##     author = {Michail Tsagris and Giorgos Athineou and Anamul Sajib},
 ##     year = {2016},
-##     note = {R package version 2.4},
+##     note = {R package version 2.3},
 ##     url = {https://CRAN.R-project.org/package=Directional},
 ##   }
 ## 
@@ -327,12 +328,20 @@ Citation for package `Directional`.
 I need to understand what package `Directional` is doing.
 So echo back the R code.
 
-Polar plots of coaptation line angles
+Spherical coordinates of coaptation lines: 
+* Overall: [PNG](../figures/plotSpherical.png), [SVG](../figures/plotSpherical.svg)
+* By aortic stenosis: [PNG](../figures/plotSphericalStenosis.png), [SVG](../figures/plotSphericalStenosis.svg)
+* By aortic regurgitation: [PNG](../figures/plotSphericalRegurgitation.png), [SVG](../figures/plotSphericalRegurgitation.svg)
 
-* Latitude: [PNG](../figures/plotLatitude.png), [SVG](../figures/plotLatitude.svg)  
-  ![Latitude](../figures/plotLatitude.png)
-* Longitude: [PNG](figures/plotLongitude.png), [SVG](../figures/plotLongitude.svg)  
-  ![Longitude](../figures/plotLongitude.png)
+![Spherical coordinates](../figures/plotSpherical.png)
+![Spherical coordinates by aortic stenosis](../figures/plotSphericalStenosis.png)
+![Spherical coordinates by aortic regurgitation](../figures/plotSphericalRegurgitation.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 
 ```
@@ -758,27 +767,23 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.03 
-## 
-## $iters
-## [1] 153
+##    0.03    0.00    0.02 
 ## 
 ## $beta
-##              Cosinus of y Sinus of y
-## (Intercept)   1.332087733  -6.023247
-## typeCaseTRUE  0.006054411   1.345913
+##          Cosinus of y Sinus of y
+##           1.331727706  -6.021609
+## typeCase  0.006409535   1.344292
 ## 
 ## $seb
-##              Cosinus of y Sinus of y
-## (Intercept)     0.1404363  0.1042777
-## typeCaseTRUE    0.2035175  0.2031162
+##          Cosinus of y Sinus of y
+##             0.1404381  0.1042759
+## typeCase    0.2035170  0.2031161
 ## 
 ## $loglik
-## [1] 25.35769
+## [1] 25.35768
 ## 
 ## $est
-##        1        2 
-## 285.9653 282.4707
+## [1] 285.9653 282.4707
 ```
 
 ```r
@@ -792,7 +797,7 @@ data.frame(type = df$type %>% unique,
 |type    |typeCase |      pred|
 |:-------|:--------|---------:|
 |Case    |TRUE     | -74.03466|
-|Control |FALSE    | -77.52933|
+|Control |FALSE    | -77.52930|
 
 Adjusted for body surface area.
 
@@ -810,29 +815,25 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.05    0.00    0.05 
-## 
-## $iters
-## [1] 285
+##    0.09    0.00    0.05 
 ## 
 ## $beta
-##             Cosinus of y Sinus of y
-## (Intercept)    1.7527464  -8.386436
-## typeCase      -0.3042094   3.358571
-## bsaScaled      0.3097216  -2.199257
+##           Cosinus of y Sinus of y
+##              1.7520884  -8.383290
+## typeCase    -0.3037059   3.356043
+## bsaScaled    0.3094801  -2.198097
 ## 
 ## $seb
-##             Cosinus of y Sinus of y
-## (Intercept)    0.1428650  0.1098337
-## typeCase       0.2143059  0.2125201
-## bsaScaled      0.1086672  0.1069531
+##           Cosinus of y Sinus of y
+##              0.1428666  0.1098323
+## typeCase     0.2143050  0.2125200
+## bsaScaled    0.1086668  0.1069531
 ## 
 ## $loglik
-## [1] 42.12293
+## [1] 42.12291
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 291.9300 283.1283 286.0718 281.8048 283.6736 281.0251
+## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 ```
 
 ```r
@@ -848,12 +849,12 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 |type    |typeCase | bsaScaled|scaling             |      pred|
 |:-------|:--------|---------:|:-------------------|---------:|
-|Case    |TRUE     |        -1|-1 SD from mean BSA | -68.06997|
-|Control |FALSE    |        -1|-1 SD from mean BSA | -76.87169|
-|Case    |TRUE     |         0|Mean BSA            | -73.92821|
+|Case    |TRUE     |        -1|-1 SD from mean BSA | -68.07226|
+|Control |FALSE    |        -1|-1 SD from mean BSA | -76.87128|
+|Case    |TRUE     |         0|Mean BSA            | -73.92796|
 |Control |FALSE    |         0|Mean BSA            | -78.19523|
-|Case    |TRUE     |         1|+1 SD from mean BSA | -76.32637|
-|Control |FALSE    |         1|+1 SD from mean BSA | -78.97488|
+|Case    |TRUE     |         1|+1 SD from mean BSA | -76.32610|
+|Control |FALSE    |         1|+1 SD from mean BSA | -78.97519|
 
 Adjusted for orifice area area.
 
@@ -871,29 +872,25 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.05    0.00    0.04 
-## 
-## $iters
-## [1] 283
+##    0.08    0.02    0.04 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
-## (Intercept)          1.6059161  -8.123376
-## typeCase            -0.1046220   3.107793
-## orificeAreaScaled    0.1896782  -2.455721
+##                      1.6054003  -8.120715
+## typeCase            -0.1043417   3.106066
+## orificeAreaScaled    0.1893907  -2.454024
 ## 
 ## $seb
 ##                   Cosinus of y Sinus of y
-## (Intercept)          0.1462676  0.1160917
-## typeCase             0.2266984  0.2242709
-## orificeAreaScaled    0.1144092  0.1127463
+##                      0.1462691  0.1160903
+## typeCase             0.2266974  0.2242708
+## orificeAreaScaled    0.1144086  0.1127463
 ## 
 ## $loglik
-## [1] 40.81099
+## [1] 40.81098
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 297.1296 284.0298 286.6638 281.1827 282.7528 279.6330
+## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 ```
 
 ```r
@@ -909,12 +906,12 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 |type    |typeCase | orificeAreaScaled|scaling                      |      pred|
 |:-------|:--------|-----------------:|:----------------------------|---------:|
-|Case    |TRUE     |                -1|-1 SD from mean orifice area | -62.87042|
-|Control |FALSE    |                -1|-1 SD from mean orifice area | -75.97019|
-|Case    |TRUE     |                 0|Mean orifice area            | -73.33619|
-|Control |FALSE    |                 0|Mean orifice area            | -78.81735|
-|Case    |TRUE     |                 1|+1 SD from mean orifice area | -77.24716|
-|Control |FALSE    |                 1|+1 SD from mean orifice area | -80.36697|
+|Case    |TRUE     |                -1|-1 SD from mean orifice area | -62.87641|
+|Control |FALSE    |                -1|-1 SD from mean orifice area | -75.97007|
+|Case    |TRUE     |                 0|Mean orifice area            | -73.33573|
+|Control |FALSE    |                 0|Mean orifice area            | -78.81728|
+|Case    |TRUE     |                 1|+1 SD from mean orifice area | -77.24663|
+|Control |FALSE    |                 1|+1 SD from mean orifice area | -80.36730|
 
 Adjusted for coaptation line length.
 
@@ -932,29 +929,25 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.01    0.00    0.03 
-## 
-## $iters
-## [1] 258
+##    0.09    0.00    0.04 
 ## 
 ## $beta
 ##                 Cosinus of y Sinus of y
-## (Intercept)      1.587262775  -7.242059
-## typeCase         0.001304506   1.077406
-## magnitudeScaled  0.265486498  -1.948097
+##                  1.586798896  -7.239862
+## typeCase         0.001468562   1.076555
+## magnitudeScaled  0.265255221  -1.947143
 ## 
 ## $seb
 ##                 Cosinus of y Sinus of y
-## (Intercept)        0.1427790  0.1050470
-## typeCase           0.2044085  0.2038451
-## magnitudeScaled    0.1054566  0.1026070
+##                    0.1427796  0.1050458
+## typeCase           0.2044080  0.2038451
+## magnitudeScaled    0.1054557  0.1026069
 ## 
 ## $loglik
-## [1] 43.11254
+## [1] 43.11253
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 287.4209 284.0188 284.4502 282.3622 282.8731 281.3981
+## [1] 287.4216 284.0196 284.4506 282.3623 282.8730 281.3978
 ```
 
 ```r
@@ -970,12 +963,12 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 |type    |typeCase | magnitudeScaled|scaling                                |      pred|
 |:-------|:--------|---------------:|:--------------------------------------|---------:|
-|Case    |TRUE     |              -1|-1 SD from mean coaptation line length | -72.57906|
-|Control |FALSE    |              -1|-1 SD from mean coaptation line length | -75.98122|
-|Case    |TRUE     |               0|Mean coaptation line length            | -75.54985|
-|Control |FALSE    |               0|Mean coaptation line length            | -77.63779|
-|Case    |TRUE     |               1|+1 SD from mean coaptation line length | -77.12694|
-|Control |FALSE    |               1|+1 SD from mean coaptation line length | -78.60187|
+|Case    |TRUE     |              -1|-1 SD from mean coaptation line length | -72.57839|
+|Control |FALSE    |              -1|-1 SD from mean coaptation line length | -75.98043|
+|Case    |TRUE     |               0|Mean coaptation line length            | -75.54943|
+|Control |FALSE    |               0|Mean coaptation line length            | -77.63766|
+|Case    |TRUE     |               1|+1 SD from mean coaptation line length | -77.12698|
+|Control |FALSE    |               1|+1 SD from mean coaptation line length | -78.60222|
 
 ## Circular regression for longitude (azimuthal angle)
 
@@ -996,39 +989,35 @@ M
 ##    user  system elapsed 
 ##       0       0       0 
 ## 
-## $iters
-## [1] 10
-## 
 ## $beta
-##              Cosinus of y  Sinus of y
-## (Intercept)    -0.4600717  0.27089921
-## typeCaseTRUE   -0.2294509 -0.06965078
+##          Cosinus of y  Sinus of y
+##            -0.4600674  0.27089631
+## typeCase   -0.2294334 -0.06964816
 ## 
 ## $seb
-##              Cosinus of y Sinus of y
-## (Intercept)     0.1192806  0.1347441
-## typeCaseTRUE    0.1991927  0.2034727
+##          Cosinus of y Sinus of y
+##             0.1192794  0.1347447
+## typeCase    0.1991933  0.2034726
 ## 
 ## $loglik
 ## [1] -164.3917
 ## 
 ## $est
-##        1        2 
-## 163.7293 149.5096
+## [1] 163.7288 149.5096
 ```
 
 ```r
 data.frame(type = df$type %>% unique, 
            typeCase = new,
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 
 
-|type    |typeCase |      pred|
-|:-------|:--------|---------:|
-|Case    |TRUE     | -196.2707|
-|Control |FALSE    | -210.4904|
+|type    |typeCase |     pred|
+|:-------|:--------|--------:|
+|Case    |TRUE     | 163.7288|
+|Control |FALSE    | 149.5096|
 
 Adjusted for body surface area.
 
@@ -1048,27 +1037,23 @@ M
 ##    user  system elapsed 
 ##       0       0       0 
 ## 
-## $iters
-## [1] 10
-## 
 ## $beta
-##             Cosinus of y  Sinus of y
-## (Intercept)   -0.4277947  0.27503946
-## typeCase      -0.3015809 -0.07924198
-## bsaScaled      0.1144527  0.01654734
+##           Cosinus of y  Sinus of y
+##             -0.4277925  0.27503757
+## typeCase    -0.3015519 -0.07924063
+## bsaScaled    0.1144437  0.01654991
 ## 
 ## $seb
-##             Cosinus of y Sinus of y
-## (Intercept)    0.1275085  0.1376257
-## typeCase       0.2062479  0.2128107
-## bsaScaled      0.1050175  0.1066545
+##           Cosinus of y Sinus of y
+##              0.1275069  0.1376270
+## typeCase     0.2062491  0.2128108
+## bsaScaled    0.1050178  0.1066545
 ## 
 ## $loglik
 ## [1] -163.9478
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 168.0072 154.5126 164.9735 147.2621 160.9492 137.0597
+## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
 ```
 
 ```r
@@ -1077,19 +1062,19 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean BSA",
                            "Mean BSA",
                            "+1 SD from mean BSA"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 
 
-|type    |typeCase | bsaScaled|scaling             |      pred|
-|:-------|:--------|---------:|:-------------------|---------:|
-|Case    |TRUE     |        -1|-1 SD from mean BSA | -191.9928|
-|Control |FALSE    |        -1|-1 SD from mean BSA | -205.4874|
-|Case    |TRUE     |         0|Mean BSA            | -195.0265|
-|Control |FALSE    |         0|Mean BSA            | -212.7379|
-|Case    |TRUE     |         1|+1 SD from mean BSA | -199.0508|
-|Control |FALSE    |         1|+1 SD from mean BSA | -222.9403|
+|type    |typeCase | bsaScaled|scaling             |     pred|
+|:-------|:--------|---------:|:-------------------|--------:|
+|Case    |TRUE     |        -1|-1 SD from mean BSA | 168.0069|
+|Control |FALSE    |        -1|-1 SD from mean BSA | 154.5125|
+|Case    |TRUE     |         0|Mean BSA            | 164.9729|
+|Control |FALSE    |         0|Mean BSA            | 147.2621|
+|Case    |TRUE     |         1|+1 SD from mean BSA | 160.9484|
+|Control |FALSE    |         1|+1 SD from mean BSA | 137.0602|
 
 Adjusted for orifice area area.
 
@@ -1109,27 +1094,23 @@ M
 ##    user  system elapsed 
 ##       0       0       0 
 ## 
-## $iters
-## [1] 11
-## 
 ## $beta
 ##                   Cosinus of y  Sinus of y
-## (Intercept)         -0.3582177  0.25928104
-## typeCase            -0.4623150 -0.05843703
-## orificeAreaScaled    0.2644896 -0.02736868
+##                     -0.3582187  0.25927990
+## typeCase            -0.4622895 -0.05843433
+## orificeAreaScaled    0.2644774 -0.02736773
 ## 
 ## $seb
 ##                   Cosinus of y Sinus of y
-## (Intercept)          0.1395534  0.1447746
-## typeCase             0.2122463  0.2241783
-## orificeAreaScaled    0.1048301  0.1117893
+##                      0.1395525  0.1447753
+## typeCase             0.2122474  0.2241783
+## orificeAreaScaled    0.1048306  0.1117893
 ## 
 ## $loglik
 ## [1] -162.4629
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 168.1221 155.2821 166.2460 144.1027 162.6730 112.0063
+## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
 ```
 
 ```r
@@ -1138,19 +1119,19 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean orifice area",
                            "Mean orifice area",
                            "+1 SD from mean orifice area"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 
 
-|type    |typeCase | orificeAreaScaled|scaling                      |      pred|
-|:-------|:--------|-----------------:|:----------------------------|---------:|
-|Case    |TRUE     |                -1|-1 SD from mean orifice area | -191.8779|
-|Control |FALSE    |                -1|-1 SD from mean orifice area | -204.7179|
-|Case    |TRUE     |                 0|Mean orifice area            | -193.7540|
-|Control |FALSE    |                 0|Mean orifice area            | -215.8973|
-|Case    |TRUE     |                 1|+1 SD from mean orifice area | -197.3270|
-|Control |FALSE    |                 1|+1 SD from mean orifice area | -247.9937|
+|type    |typeCase | orificeAreaScaled|scaling                      |     pred|
+|:-------|:--------|-----------------:|:----------------------------|--------:|
+|Case    |TRUE     |                -1|-1 SD from mean orifice area | 168.1217|
+|Control |FALSE    |                -1|-1 SD from mean orifice area | 155.2818|
+|Case    |TRUE     |                 0|Mean orifice area            | 166.2455|
+|Control |FALSE    |                 0|Mean orifice area            | 144.1029|
+|Case    |TRUE     |                 1|+1 SD from mean orifice area | 162.6724|
+|Control |FALSE    |                 1|+1 SD from mean orifice area | 112.0090|
 
 Adjusted for coaptation line length.
 
@@ -1170,27 +1151,23 @@ M
 ##    user  system elapsed 
 ##       0       0       0 
 ## 
-## $iters
-## [1] 12
-## 
 ## $beta
 ##                 Cosinus of y  Sinus of y
-## (Intercept)       -0.4974320  0.26513138
-## typeCase          -0.2111310 -0.06780857
-## magnitudeScaled    0.2630257  0.17460258
+##                   -0.4974260  0.26512957
+## typeCase          -0.2111204 -0.06780247
+## magnitudeScaled    0.2630104  0.17459808
 ## 
 ## $seb
 ##                 Cosinus of y Sinus of y
-## (Intercept)       0.12375849  0.1357444
-## typeCase          0.20127282  0.2041262
-## magnitudeScaled   0.09460977  0.1020063
+##                   0.12375762  0.1357451
+## typeCase          0.20127301  0.2041262
+## magnitudeScaled   0.09461067  0.1020062
 ## 
 ## $loglik
 ## [1] -161.1152
 ## 
 ## $est
-##        1        2        3        4        5        6 
-## 178.6604 173.2112 164.4384 151.9424 140.1456 118.0605
+## [1] 178.6598 173.2108 164.4377 151.9422 140.1455 118.0617
 ```
 
 ```r
@@ -1199,22 +1176,93 @@ data.frame(type = rep(df$type %>% unique, 3),
            scaling = rep(c("-1 SD from mean coaptation line length",
                            "Mean coaptation line length",
                            "+1 SD from mean coaptation line length"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
+           pred = as.vector(M$est)) %>% kable
 ```
 
 
 
-|type    |typeCase | magnitudeScaled|scaling                                |      pred|
-|:-------|:--------|---------------:|:--------------------------------------|---------:|
-|Case    |TRUE     |              -1|-1 SD from mean coaptation line length | -181.3396|
-|Control |FALSE    |              -1|-1 SD from mean coaptation line length | -186.7888|
-|Case    |TRUE     |               0|Mean coaptation line length            | -195.5616|
-|Control |FALSE    |               0|Mean coaptation line length            | -208.0576|
-|Case    |TRUE     |               1|+1 SD from mean coaptation line length | -219.8544|
-|Control |FALSE    |               1|+1 SD from mean coaptation line length | -241.9395|
+|type    |typeCase | magnitudeScaled|scaling                                |     pred|
+|:-------|:--------|---------------:|:--------------------------------------|--------:|
+|Case    |TRUE     |              -1|-1 SD from mean coaptation line length | 178.6598|
+|Control |FALSE    |              -1|-1 SD from mean coaptation line length | 173.2108|
+|Case    |TRUE     |               0|Mean coaptation line length            | 164.4377|
+|Control |FALSE    |               0|Mean coaptation line length            | 151.9422|
+|Case    |TRUE     |               1|+1 SD from mean coaptation line length | 140.1455|
+|Control |FALSE    |               1|+1 SD from mean coaptation line length | 118.0617|
 
 
-## Wood MLE
+## MLEs
+
+### Angular central Gaussian
+
+
+```r
+mle <- 
+  df %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  acg
+mle
+```
+
+```
+## $iter
+## [1] 38
+## 
+## $cova
+##              coapUnitX    coapUnitY  coapUnitZ
+## coapUnitX  0.070280061 -0.008857001 -0.2987941
+## coapUnitY -0.008857001  0.035529747  0.1416559
+## coapUnitZ -0.298794119  0.141655938  2.8941902
+```
+
+```r
+cov2cor(mle[["cova"]])
+```
+
+```
+##            coapUnitX  coapUnitY  coapUnitZ
+## coapUnitX  1.0000000 -0.1772452 -0.6625100
+## coapUnitY -0.1772452  1.0000000  0.4417486
+## coapUnitZ -0.6625100  0.4417486  1.0000000
+```
+
+### von Mises-Fisher
+
+
+```r
+mle <- 
+  df %>% 
+  select(matches("^coapUnit[XYZ]")) %>% 
+  as.matrix %>% 
+  vmf
+mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
+rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
+mle
+```
+
+```
+## $mu
+## [1]  0.10196223 -0.02250687 -0.99453363
+## 
+## $kappa
+## [1] 21.66473
+## 
+## $MRL
+## [1] 0.953842
+## 
+## $vark
+## [1] 0.2233477
+## 
+## $loglik
+## [1] 23.06743
+## 
+## $mu_sph
+##      rho     theta      phi
+## [1,]   1 -84.00644 347.5523
+```
+
+### Wood
 
 
 ```r
@@ -1230,7 +1278,7 @@ df %>%
 ## gamma 173.48448   172.4738275  174.495133
 ## delta 166.16465   158.7997398  173.529557
 ## alpha   2.85920     0.4401259    5.278274
-## beta  -63.98730 -2095.4838256 1967.509229
+## beta  -63.98730 -2095.4838253 1967.509229
 ## kappa  22.21628    17.7951483   26.637416
 ## 
 ## $modes
@@ -1248,7 +1296,7 @@ df %>%
 ## [1] 25.506
 ```
 
-## Kent MLE
+### Kent
 
 All
 
@@ -1283,7 +1331,7 @@ mle
 ## 
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.03 
+##    0.07    0.00    0.03 
 ## 
 ## $G_sph
 ##       rho      theta      phi
@@ -1326,7 +1374,7 @@ mle
 ## 
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.05 
+##    0.06    0.00    0.03 
 ## 
 ## $G_sph
 ##       rho      theta      phi
@@ -1369,7 +1417,7 @@ mle
 ## 
 ## $runtime
 ##    user  system elapsed 
-##    0.05    0.00    0.05 
+##    0.02    0.02    0.01 
 ## 
 ## $G_sph
 ##       rho      theta      phi

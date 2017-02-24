@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-16 11:44:28"
+date: "2017-02-24 15:32:41"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -805,12 +805,14 @@ See <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/
 <li>Shift cartesian coordinates of the coaptation line to start at (0, 0, 0)</li>
 <li>Normalize the orientation of the coaptation line to the unit sphere</li>
 <li>Scale body size measures, <code>bsa</code> and <code>orifice_area</code>, to have mean = 0 and SD = 1</li>
+<li>Lump categories of aortic stenosis, <code>as</code>, and aortic regurgitation (insufficiency), <code>ar</code>
+</li>
 </ol>
 
 <p>Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is <a href="https://ggbm.at/CeF95YMN">here</a>.</p>
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" alt="Coaptation line" style="max-width:100%;"></a></p>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" alt="Line of coaptation" style="max-width:100%;"></a></p>
 
 <p>Check calculation of <code>magnitude</code> against given <code>coapt_line_length</code>; it should be 1.0</p>
 
@@ -875,12 +877,16 @@ An interactive representation of the coaptation line geometry is <a href="https:
 <td align="left">orificeAreaScaled</td>
 <td align="right">0.3803151</td>
 </tr>
+<tr>
+<td align="left">magnitudeScaled</td>
+<td align="right">0.2923220</td>
+</tr>
 </tbody>
 </table>
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-16 11:44:29
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-24 15:32:43
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -913,11 +919,14 @@ An interactive representation of the coaptation line geometry is <a href="https:
 Use multiple visualizations, density plots and scatterplots.
 Each has their advantages and disadvantages.</p>
 
-<p>Images are saved as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots-1.png">PNG</a> and <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.svg">SVG</a> files.</p>
+<p>Images are saved as</p>
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots-1.png" alt="plot of chunk densityplots" style="max-width:100%;"></a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots-1.png" alt="plot of chunk scatterplots" style="max-width:100%;"></a></p>
+<ul>
+<li>Density plots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.svg">SVG</a>
+</li>
+<li>Scatterplots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.svg">SVG</a>
+</li>
+</ul>
 
 <h2>
 <a id="user-content-unadjustedunscaled-comparisons" class="anchor" href="#unadjustedunscaled-comparisons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted/unscaled comparisons</h2>
@@ -927,7 +936,7 @@ Calculate differences in means.
 Adjust p-values for multiple comparisons.</p>
 
 <p>Output results.
-Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/data/processed/compare.csv">CSV</a>.</p>
+Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/data/processed/compareUnadjusted.csv">CSV</a>.</p>
 
 <table>
 <thead>
@@ -945,6 +954,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <th align="right">pValue</th>
 <th align="right">pAdjust</th>
 <th align="left">sig</th>
+<th align="left">formula</th>
 </tr>
 </thead>
 <tbody>
@@ -962,6 +972,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0035808</td>
 <td align="right">0.0076732</td>
 <td align="left">TRUE</td>
+<td align="left">bsa ~ type</td>
 </tr>
 <tr>
 <td align="left">NR fraction</td>
@@ -977,6 +988,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0056126</td>
 <td align="right">0.0105236</td>
 <td align="left">TRUE</td>
+<td align="left">nr_frac ~ type</td>
 </tr>
 <tr>
 <td align="left">RL fraction</td>
@@ -992,6 +1004,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0000212</td>
 <td align="right">0.0000795</td>
 <td align="left">TRUE</td>
+<td align="left">rl_frac ~ type</td>
 </tr>
 <tr>
 <td align="left">LN fraction</td>
@@ -1007,6 +1020,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0101284</td>
 <td align="right">0.0168807</td>
 <td align="left">TRUE</td>
+<td align="left">ln_frac ~ type</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, value</td>
@@ -1022,6 +1036,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0020747</td>
 <td align="right">0.0052041</td>
 <td align="left">TRUE</td>
+<td align="left">total_area_value ~ type</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, calculated</td>
@@ -1037,6 +1052,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0020816</td>
 <td align="right">0.0052041</td>
 <td align="left">TRUE</td>
+<td align="left">total_area ~ type</td>
 </tr>
 <tr>
 <td align="left">Orifice area</td>
@@ -1052,6 +1068,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0000160</td>
 <td align="right">0.0000795</td>
 <td align="left">TRUE</td>
+<td align="left">orifice_area ~ type</td>
 </tr>
 <tr>
 <td align="left">Valve diameter</td>
@@ -1067,6 +1084,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0000001</td>
 <td align="right">0.0000009</td>
 <td align="left">TRUE</td>
+<td align="left">valve_diameter ~ type</td>
 </tr>
 <tr>
 <td align="left">Valve area</td>
@@ -1082,6 +1100,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0000002</td>
 <td align="right">0.0000012</td>
 <td align="left">TRUE</td>
+<td align="left">valve_area ~ type</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve diameter</td>
@@ -1097,6 +1116,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.1910110</td>
 <td align="right">0.2387638</td>
 <td align="left">FALSE</td>
+<td align="left">a_coap_size_valve ~ type</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to orifice area</td>
@@ -1112,6 +1132,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.8397082</td>
 <td align="right">0.8397082</td>
 <td align="left">FALSE</td>
+<td align="left">a_coap_orifice_area ~ type</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve area</td>
@@ -1127,6 +1148,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0351042</td>
 <td align="right">0.0526563</td>
 <td align="left">FALSE</td>
+<td align="left">a_coap_valve_area ~ type</td>
 </tr>
 <tr>
 <td align="left">Coaptation line length</td>
@@ -1140,43 +1162,308 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.7882625</td>
 <td align="right">-0.8325081</td>
 <td align="right">0.4072102</td>
-<td align="right">0.4362966</td>
+<td align="right">0.4698579</td>
 <td align="left">FALSE</td>
+<td align="left">magnitude ~ type</td>
 </tr>
 <tr>
 <td align="left">Latitude of coaptation line (top to bottom)</td>
 <td align="right">48</td>
-<td align="left">163.418 (12.494)</td>
-<td align="left">(120.848, 178.720)</td>
+<td align="left">-73.418 (12.494)</td>
+<td align="left">(-88.720, -30.848)</td>
 <td align="right">49</td>
-<td align="left">166.861 (10.433)</td>
-<td align="left">(109.856, 178.508)</td>
-<td align="right">-3.4429561</td>
+<td align="left">-76.861 (10.433)</td>
+<td align="left">(-88.508, -19.856)</td>
+<td align="right">3.4429561</td>
 <td align="right">2.3351759</td>
-<td align="right">-1.4743883</td>
+<td align="right">1.4743883</td>
 <td align="right">0.1436833</td>
 <td align="right">0.1959318</td>
 <td align="left">FALSE</td>
+<td align="left">latitude ~ type</td>
 </tr>
 <tr>
 <td align="left">Longitude of coaptation line (direction)</td>
 <td align="right">48</td>
-<td align="left">4.684 (133.204)</td>
-<td align="left">(-178.788, 178.824)</td>
+<td align="left">169.684 (78.201)</td>
+<td align="left">(31.631, 344.865)</td>
 <td align="right">49</td>
-<td align="left">31.443 (116.612)</td>
-<td align="left">(-167.841, 169.432)</td>
-<td align="right">-26.7591262</td>
-<td align="right">25.4045403</td>
-<td align="right">-1.0533206</td>
-<td align="right">0.2948658</td>
-<td align="right">0.3402297</td>
+<td align="left">163.688 (87.229)</td>
+<td align="left">(0.271, 357.693)</td>
+<td align="right">5.9959759</td>
+<td align="right">16.8324551</td>
+<td align="right">0.3562152</td>
+<td align="right">0.7224693</td>
+<td align="right">0.7740743</td>
 <td align="left">FALSE</td>
+<td align="left">longitude ~ type</td>
 </tr>
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compare.csv was written on 2017-02-16 11:44:43
+<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-02-24 15:32:56
+</code></pre>
+
+<h2>
+<a id="user-content-adjusted-comparisons" class="anchor" href="#adjusted-comparisons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted comparisons</h2>
+
+<p>Adjusted for <strong>orifice area.</strong></p>
+
+<p>Calculate mean (SD) and ranges.
+Calculate differences in means.
+Adjust p-values for multiple comparisons.</p>
+
+<p>Output results.
+Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/data/processed/compareAdjusted.csv">CSV</a>.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">variable</th>
+<th align="right">nCases</th>
+<th align="left">meanSDCases</th>
+<th align="left">rangeCases</th>
+<th align="right">nControls</th>
+<th align="left">meanSDControls</th>
+<th align="left">rangeControls</th>
+<th align="right">difference</th>
+<th align="right">seDiff</th>
+<th align="right">tStatistic</th>
+<th align="right">pValue</th>
+<th align="right">pAdjust</th>
+<th align="left">sig</th>
+<th align="left">formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Body surface area</td>
+<td align="right">48</td>
+<td align="left">2.026 (0.202)</td>
+<td align="left">(1.572, 2.497)</td>
+<td align="right">49</td>
+<td align="left">1.866 (0.313)</td>
+<td align="left">(0.964, 2.782)</td>
+<td align="right">0.0880013</td>
+<td align="right">0.0568092</td>
+<td align="right">1.5490692</td>
+<td align="right">0.1247254</td>
+<td align="right">0.1940173</td>
+<td align="left">FALSE</td>
+<td align="left">bsa ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">NR fraction</td>
+<td align="right">48</td>
+<td align="left">0.391 (0.120)</td>
+<td align="left">(0.037, 0.637)</td>
+<td align="right">49</td>
+<td align="left">0.335 (0.068)</td>
+<td align="left">(0.157, 0.481)</td>
+<td align="right">0.0594769</td>
+<td align="right">0.0219383</td>
+<td align="right">2.7110929</td>
+<td align="right">0.0079731</td>
+<td align="right">0.0190584</td>
+<td align="left">TRUE</td>
+<td align="left">nr_frac ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">RL fraction</td>
+<td align="right">48</td>
+<td align="left">0.228 (0.133)</td>
+<td align="left">(0.009, 0.559)</td>
+<td align="right">49</td>
+<td align="left">0.331 (0.091)</td>
+<td align="left">(0.067, 0.616)</td>
+<td align="right">-0.1106108</td>
+<td align="right">0.0254582</td>
+<td align="right">-4.3448074</td>
+<td align="right">0.0000352</td>
+<td align="right">0.0004931</td>
+<td align="left">TRUE</td>
+<td align="left">rl_frac ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">LN fraction</td>
+<td align="right">48</td>
+<td align="left">0.381 (0.094)</td>
+<td align="left">(0.152, 0.602)</td>
+<td align="right">49</td>
+<td align="left">0.334 (0.081)</td>
+<td align="left">(0.088, 0.504)</td>
+<td align="right">0.0511340</td>
+<td align="right">0.0197959</td>
+<td align="right">2.5830569</td>
+<td align="right">0.0113350</td>
+<td align="right">0.0211396</td>
+<td align="left">TRUE</td>
+<td align="left">ln_frac ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, value</td>
+<td align="right">48</td>
+<td align="left">648.704 (189.488)</td>
+<td align="left">(398.000, 1171.000)</td>
+<td align="right">49</td>
+<td align="left">515.095 (224.243)</td>
+<td align="left">(206.000, 1087.660)</td>
+<td align="right">24.1502198</td>
+<td align="right">38.4466254</td>
+<td align="right">0.6281493</td>
+<td align="right">0.5314294</td>
+<td align="right">0.5732264</td>
+<td align="left">FALSE</td>
+<td align="left">total_area_value ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, calculated</td>
+<td align="right">48</td>
+<td align="left">649.323 (189.494)</td>
+<td align="left">(398.560, 1171.491)</td>
+<td align="right">49</td>
+<td align="left">515.761 (224.234)</td>
+<td align="left">(206.820, 1088.279)</td>
+<td align="right">24.0990858</td>
+<td align="right">38.4451682</td>
+<td align="right">0.6268430</td>
+<td align="right">0.5322816</td>
+<td align="right">0.5732264</td>
+<td align="left">FALSE</td>
+<td align="left">total_area ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Valve diameter</td>
+<td align="right">48</td>
+<td align="left">32.110 (4.487)</td>
+<td align="left">(22.450, 47.260)</td>
+<td align="right">49</td>
+<td align="left">26.676 (4.594)</td>
+<td align="left">(18.480, 36.680)</td>
+<td align="right">3.2558008</td>
+<td align="right">0.8744716</td>
+<td align="right">3.7231636</td>
+<td align="right">0.0003352</td>
+<td align="right">0.0023465</td>
+<td align="left">TRUE</td>
+<td align="left">valve_diameter ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Valve area</td>
+<td align="right">48</td>
+<td align="left">825.262 (234.532)</td>
+<td align="left">(395.843, 1754.193)</td>
+<td align="right">49</td>
+<td align="left">575.142 (199.141)</td>
+<td align="left">(268.222, 1056.692)</td>
+<td align="right">146.9124618</td>
+<td align="right">42.0033528</td>
+<td align="right">3.4976365</td>
+<td align="right">0.0007188</td>
+<td align="right">0.0033544</td>
+<td align="left">TRUE</td>
+<td align="left">valve_area ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve diameter</td>
+<td align="right">48</td>
+<td align="left">20.084 (4.365)</td>
+<td align="left">(12.528, 32.113)</td>
+<td align="right">49</td>
+<td align="left">18.743 (5.574)</td>
+<td align="left">(9.409, 34.659)</td>
+<td align="right">-0.7948366</td>
+<td align="right">1.0019113</td>
+<td align="right">-0.7933204</td>
+<td align="right">0.4295891</td>
+<td align="right">0.5467498</td>
+<td align="left">FALSE</td>
+<td align="left">a_coap_size_valve ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to orifice area</td>
+<td align="right">48</td>
+<td align="left">1.059 (0.266)</td>
+<td align="left">(0.559, 1.577)</td>
+<td align="right">49</td>
+<td align="left">1.047 (0.321)</td>
+<td align="left">(0.449, 1.725)</td>
+<td align="right">0.0650553</td>
+<td align="right">0.0651872</td>
+<td align="right">0.9979759</td>
+<td align="right">0.3208532</td>
+<td align="right">0.4491944</td>
+<td align="left">FALSE</td>
+<td align="left">a_coap_orifice_area ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve area</td>
+<td align="right">48</td>
+<td align="left">0.807 (0.191)</td>
+<td align="left">(0.471, 1.338)</td>
+<td align="right">49</td>
+<td align="left">0.893 (0.203)</td>
+<td align="left">(0.407, 1.405)</td>
+<td align="right">-0.1123824</td>
+<td align="right">0.0439091</td>
+<td align="right">-2.5594337</td>
+<td align="right">0.0120798</td>
+<td align="right">0.0211396</td>
+<td align="left">TRUE</td>
+<td align="left">a_coap_valve_area ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Coaptation line length</td>
+<td align="right">48</td>
+<td align="left">12.380 (3.753)</td>
+<td align="left">(3.129, 22.951)</td>
+<td align="right">49</td>
+<td align="left">13.036 (4.003)</td>
+<td align="left">(5.630, 23.724)</td>
+<td align="right">-2.2127766</td>
+<td align="right">0.7877198</td>
+<td align="right">-2.8090910</td>
+<td align="right">0.0060435</td>
+<td align="right">0.0190584</td>
+<td align="left">TRUE</td>
+<td align="left">magnitude ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Latitude of coaptation line (top to bottom)</td>
+<td align="right">48</td>
+<td align="left">-73.418 (12.494)</td>
+<td align="left">(-88.720, -30.848)</td>
+<td align="right">49</td>
+<td align="left">-76.861 (10.433)</td>
+<td align="left">(-88.508, -19.856)</td>
+<td align="right">6.6697294</td>
+<td align="right">2.4680395</td>
+<td align="right">2.7024403</td>
+<td align="right">0.0081679</td>
+<td align="right">0.0190584</td>
+<td align="left">TRUE</td>
+<td align="left">latitude ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Longitude of coaptation line (direction)</td>
+<td align="right">48</td>
+<td align="left">169.684 (78.201)</td>
+<td align="left">(31.631, 344.865)</td>
+<td align="right">49</td>
+<td align="left">163.688 (87.229)</td>
+<td align="left">(0.271, 357.693)</td>
+<td align="right">3.4170373</td>
+<td align="right">18.6624351</td>
+<td align="right">0.1830971</td>
+<td align="right">0.8551162</td>
+<td align="right">0.8551162</td>
+<td align="left">FALSE</td>
+<td align="left">longitude ~ type + orificeAreaScaled</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-02-24 15:32:56
 </code></pre>
 
 <h1>
@@ -1663,31 +1950,47 @@ adjusted for orifice area.</p>
 <p>I need to understand what package <code>Directional</code> is doing.
 So echo back the R code.</p>
 
-<p>Polar plot matrix of coaptation line angles: <a href="figures/polarplot-1.png">PNG</a> or <a href="figures/polarplot.svg">SVG</a></p>
+<p>Spherical coordinates of coaptation lines: </p>
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" alt="plot of chunk polarplot" style="max-width:100%;"></a></p>
+<ul>
+<li>Overall: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.svg">SVG</a>
+</li>
+<li>By aortic stenosis: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.svg">SVG</a>
+</li>
+<li>By aortic regurgitation: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.svg">SVG</a>
+</li>
+</ul>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" alt="Spherical coordinates" style="max-width:100%;"></a>
+<a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" alt="Spherical coordinates by aortic stenosis" style="max-width:100%;"></a>
+<a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" alt="Spherical coordinates by aortic regurgitation" style="max-width:100%;"></a></p>
 
 <pre><code>## Saving 7 x 7 in image
+## Saving 7 x 7 in image
 </code></pre>
 
-<p>Calculate median cartesian coordinates and latitude and longitude.
-<strong>These calculations look incorrect; need to troubleshoot.</strong></p>
+<pre><code>## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+</code></pre>
+
+<pre><code>## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+</code></pre>
+
+<p>Calculate median cartesian coordinates and latitude and longitude.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">cartCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|coapUnit[XYZ]<span class="pl-pds">"</span></span>))
 <span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
 <span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cartCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
-merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
-            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
-            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>) %<span class="pl-k">&gt;</span>%
-        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
-        rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>%
-        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .),
-      rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
-        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
-        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .)) %<span class="pl-k">&gt;</span>% 
+rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>,
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">mediandir</span>) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
+  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>%
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  bind_cols(cart2sph(.[, c(<span class="pl-s"><span class="pl-pds">"</span>x<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>y<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>z<span class="pl-pds">"</span></span>)] %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>, <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>) %<span class="pl-k">&gt;</span>% 
+  rename(<span class="pl-v">magnitude</span><span class="pl-k">=</span> <span class="pl-smi">rho</span>, <span class="pl-v">latitude</span> <span class="pl-k">=</span> <span class="pl-smi">theta</span>, <span class="pl-v">longitude</span> <span class="pl-k">=</span> <span class="pl-smi">phi</span>) %<span class="pl-k">&gt;</span>% 
   <span class="pl-smi">kable</span></pre></div>
 
 <table>
@@ -1697,8 +2000,9 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <th align="right">x</th>
 <th align="right">y</th>
 <th align="right">z</th>
-<th align="right">Lat</th>
-<th align="right">Long</th>
+<th align="right">magnitude</th>
+<th align="right">latitude</th>
+<th align="right">longitude</th>
 </tr>
 </thead>
 <tbody>
@@ -1707,42 +2011,41 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <td align="right">0.1035612</td>
 <td align="right">-0.0428729</td>
 <td align="right">-0.9936986</td>
-<td align="right">84.05572</td>
-<td align="right">267.5295</td>
+<td align="right">1</td>
+<td align="right">-83.56449</td>
+<td align="right">337.5111</td>
 </tr>
 <tr>
 <td align="left">Cases</td>
 <td align="right">0.1307252</td>
 <td align="right">-0.0319395</td>
 <td align="right">-0.9909040</td>
-<td align="right">82.48850</td>
-<td align="right">268.1538</td>
+<td align="right">1</td>
+<td align="right">-82.26622</td>
+<td align="right">346.2702</td>
 </tr>
 <tr>
 <td align="left">Controls</td>
 <td align="right">0.0788606</td>
 <td align="right">-0.0474871</td>
 <td align="right">-0.9957540</td>
-<td align="right">85.47692</td>
-<td align="right">267.2697</td>
+<td align="right">1</td>
+<td align="right">-84.71819</td>
+<td align="right">328.9451</td>
 </tr>
 </tbody>
 </table>
 
-<p>Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
-<strong>These calculations look incorrect; need to troubleshoot.</strong></p>
+<p>Calculate maximum likelihood estimates of the von Mises-Fisher distribution.</p>
 
-<div class="highlight highlight-source-r"><pre>merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
-            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
-            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]]) %<span class="pl-k">&gt;</span>%
-        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-        rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>% 
-        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .),
-      rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-            <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>,
-            <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">euclid.inv</span>) %<span class="pl-k">&gt;</span>%
-        <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>% 
-        cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .)) %<span class="pl-k">&gt;</span>% 
+<div class="highlight highlight-source-r"><pre>rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+      <span class="pl-smi">matCases</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]],
+      <span class="pl-smi">matControls</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">vmf</span> %<span class="pl-k">&gt;</span>% .[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]]) %<span class="pl-k">&gt;</span>%
+  <span class="pl-smi">data.frame</span> %<span class="pl-k">&gt;</span>%
+  rename(<span class="pl-v">x</span> <span class="pl-k">=</span> <span class="pl-smi">X1</span>, <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">X2</span>, <span class="pl-v">z</span> <span class="pl-k">=</span> <span class="pl-smi">X3</span>) %<span class="pl-k">&gt;</span>%
+  cbind(<span class="pl-v">group</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>), .) %<span class="pl-k">&gt;</span>% 
+  bind_cols(cart2sph(.[, c(<span class="pl-s"><span class="pl-pds">"</span>x<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>y<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>z<span class="pl-pds">"</span></span>)] %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>, <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>) %<span class="pl-k">&gt;</span>% 
+  rename(<span class="pl-v">magnitude</span><span class="pl-k">=</span> <span class="pl-smi">rho</span>, <span class="pl-v">latitude</span> <span class="pl-k">=</span> <span class="pl-smi">theta</span>, <span class="pl-v">longitude</span> <span class="pl-k">=</span> <span class="pl-smi">phi</span>) %<span class="pl-k">&gt;</span>% 
   <span class="pl-smi">kable</span></pre></div>
 
 <table>
@@ -1752,8 +2055,9 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <th align="right">x</th>
 <th align="right">y</th>
 <th align="right">z</th>
-<th align="right">Lat</th>
-<th align="right">Long</th>
+<th align="right">magnitude</th>
+<th align="right">latitude</th>
+<th align="right">longitude</th>
 </tr>
 </thead>
 <tbody>
@@ -1762,24 +2066,27 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <td align="right">0.1019622</td>
 <td align="right">-0.0225069</td>
 <td align="right">-0.9945336</td>
-<td align="right">84.14782</td>
-<td align="right">268.7036</td>
+<td align="right">1</td>
+<td align="right">-84.00644</td>
+<td align="right">347.5523</td>
 </tr>
 <tr>
 <td align="left">Cases</td>
 <td align="right">0.1426048</td>
 <td align="right">-0.0346619</td>
 <td align="right">-0.9891726</td>
-<td align="right">81.80140</td>
-<td align="right">267.9931</td>
+<td align="right">1</td>
+<td align="right">-81.56097</td>
+<td align="right">346.3385</td>
 </tr>
 <tr>
 <td align="left">Controls</td>
 <td align="right">0.0625443</td>
 <td align="right">-0.0107320</td>
 <td align="right">-0.9979845</td>
-<td align="right">86.41413</td>
-<td align="right">269.3839</td>
+<td align="right">1</td>
+<td align="right">-86.36166</td>
+<td align="right">350.2635</td>
 </tr>
 </tbody>
 </table>
@@ -1829,10 +2136,10 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] 165.3458
+## [1] -75.34583
 ## 
 ## $confint
-## [1] 165.2728 165.4189
+## [1] -75.41890 -75.27276
 ## 
 ## $kappa
 ## [1] 25.93036
@@ -1871,10 +2178,10 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] 163.586
+## [1] -73.58603
 ## 
 ## $confint
-## [1] 163.4735 163.6985
+## [1] -73.69852 -73.47354
 ## 
 ## $kappa
 ## [1] 22.25913
@@ -1913,10 +2220,10 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 <div class="highlight highlight-source-r"><pre><span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>]%<span class="pl-k">&gt;</span>% circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
 <pre><code>## $mesos
-## [1] 167.0569
+## [1] -77.05687
 ## 
 ## $confint
-## [1] 166.9657 167.1480
+## [1] -77.14801 -76.96573
 ## 
 ## $kappa
 ## [1] 32.72235
@@ -1952,22 +2259,14 @@ merge(rbind(<span class="pl-smi">matAll</span> %<span class="pl-k">&gt;</span>% 
 ## [1] 1.520896
 </code></pre>
 
-<p>Scatterplot matrix of coaptation line measures.
-<strong>Not useful; candidate for deletion.</strong> </p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplotMatrixCoaptationLine-1.png" alt="plot of chunk scatterplotMatrixCoaptationLine" style="max-width:100%;"></a></p>
-
-<pre><code>## Saving 7 x 7 in image
-</code></pre>
-
 <p>Correlations.
 Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite different.
 <strong>Need to reconcile.</strong></p>
 
 <div class="highlight highlight-source-r"><pre>circ.cor1(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
 
-<pre><code>##         rho     p-value 
-## -0.18384547  0.07485033
+<pre><code>##        rho    p-value 
+## 0.18384547 0.07485033
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre>circ.cor2(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)</pre></div>
@@ -2071,23 +2370,23 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.04    0.02    0.03 
+##    0.03    0.00    0.02 
 ## 
 ## $beta
-##          Cosinus of y  Sinus of y
-##             -6.021609 1.331727706
-## typeCase     1.344292 0.006409535
+##          Cosinus of y Sinus of y
+##           1.331727706  -6.021609
+## typeCase  0.006409535   1.344292
 ## 
 ## $seb
 ##          Cosinus of y Sinus of y
-##            0.09922338  0.1414975
-## typeCase   0.20295968  0.2024861
+##             0.1404381  0.1042759
+## typeCase    0.2035170  0.2031161
 ## 
 ## $loglik
 ## [1] 25.35768
 ## 
 ## $est
-## [1] 164.0347 167.5293
+## [1] 285.9653 282.4707
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
@@ -2106,12 +2405,12 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
-<td align="right">-195.9653</td>
+<td align="right">-74.03466</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
-<td align="right">-192.4707</td>
+<td align="right">-77.52930</td>
 </tr>
 </tbody>
 </table>
@@ -2128,25 +2427,25 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.12    0.01    0.07 
+##    0.09    0.00    0.05 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
-##              -8.383290  1.7520884
-## typeCase      3.356043 -0.3037059
-## bsaScaled    -2.198097  0.3094801
+##              1.7520884  -8.383290
+## typeCase    -0.3037059   3.356043
+## bsaScaled    0.3094801  -2.198097
 ## 
 ## $seb
 ##           Cosinus of y Sinus of y
-##              0.1016933  0.1456561
-## typeCase     0.2120909  0.2104136
-## bsaScaled    0.1061819  0.1044269
+##              0.1428666  0.1098323
+## typeCase     0.2143050  0.2125200
+## bsaScaled    0.1086668  0.1069531
 ## 
 ## $loglik
 ## [1] 42.12291
 ## 
 ## $est
-## [1] 158.0723 166.8713 163.9280 168.1952 166.3261 168.9752
+## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
@@ -2172,42 +2471,42 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-201.9277</td>
+<td align="right">-68.07226</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-193.1287</td>
+<td align="right">-76.87128</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-196.0720</td>
+<td align="right">-73.92796</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-191.8048</td>
+<td align="right">-78.19523</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-193.6739</td>
+<td align="right">-76.32610</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-191.0248</td>
+<td align="right">-78.97519</td>
 </tr>
 </tbody>
 </table>
@@ -2224,25 +2523,25 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.05 
+##    0.08    0.02    0.04 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
-##                      -8.120715  1.6054003
-## typeCase              3.106066 -0.1043417
-## orificeAreaScaled    -2.454024  0.1893907
+##                      1.6054003  -8.120715
+## typeCase            -0.1043417   3.106066
+## orificeAreaScaled    0.1893907  -2.454024
 ## 
 ## $seb
 ##                   Cosinus of y Sinus of y
-##                      0.1057656  0.1509385
-## typeCase             0.2236157  0.2212410
-## orificeAreaScaled    0.1122844  0.1106559
+##                      0.1462691  0.1160903
+## typeCase             0.2266974  0.2242708
+## orificeAreaScaled    0.1144086  0.1127463
 ## 
 ## $loglik
 ## [1] 40.81098
 ## 
 ## $est
-## [1] 152.8764 165.9701 163.3357 168.8173 167.2466 170.3673
+## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 </code></pre>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
@@ -2268,42 +2567,138 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-207.1236</td>
+<td align="right">-62.87641</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-194.0299</td>
+<td align="right">-75.97007</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-196.6643</td>
+<td align="right">-73.33573</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-191.1827</td>
+<td align="right">-78.81728</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-192.7534</td>
+<td align="right">-77.24663</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-189.6327</td>
+<td align="right">-80.36730</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for coaptation line length.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">magnitudeScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>magnitudeScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##    0.09    0.00    0.04 
+## 
+## $beta
+##                 Cosinus of y Sinus of y
+##                  1.586798896  -7.239862
+## typeCase         0.001468562   1.076555
+## magnitudeScaled  0.265255221  -1.947143
+## 
+## $seb
+##                 Cosinus of y Sinus of y
+##                    0.1427796  0.1050458
+## typeCase           0.2044080  0.2038451
+## magnitudeScaled    0.1054557  0.1026069
+## 
+## $loglik
+## [1] 43.11253
+## 
+## $est
+## [1] 287.4216 284.0196 284.4506 282.3623 282.8730 281.3978
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean coaptation line length<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean coaptation line length<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean coaptation line length<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">magnitudeScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean coaptation line length</td>
+<td align="right">-72.57839</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean coaptation line length</td>
+<td align="right">-75.98043</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean coaptation line length</td>
+<td align="right">-75.54943</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean coaptation line length</td>
+<td align="right">-77.63766</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean coaptation line length</td>
+<td align="right">-77.12698</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean coaptation line length</td>
+<td align="right">-78.60222</td>
 </tr>
 </tbody>
 </table>
@@ -2343,7 +2738,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
            <span class="pl-v">typeCase</span> <span class="pl-k">=</span> <span class="pl-smi">new</span>,
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2357,12 +2752,12 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
-<td align="right">-196.2712</td>
+<td align="right">163.7288</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
-<td align="right">-210.4904</td>
+<td align="right">149.5096</td>
 </tr>
 </tbody>
 </table>
@@ -2379,7 +2774,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.01 
+##       0       0       0 
 ## 
 ## $beta
 ##           Cosinus of y  Sinus of y
@@ -2405,7 +2800,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
            <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean BSA<span class="pl-pds">"</span></span>,
                            <span class="pl-s"><span class="pl-pds">"</span>Mean BSA<span class="pl-pds">"</span></span>,
                            <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean BSA<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2423,42 +2818,42 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-191.9931</td>
+<td align="right">168.0069</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean BSA</td>
-<td align="right">-205.4875</td>
+<td align="right">154.5125</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-195.0271</td>
+<td align="right">164.9729</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean BSA</td>
-<td align="right">-212.7379</td>
+<td align="right">147.2621</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-199.0516</td>
+<td align="right">160.9484</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean BSA</td>
-<td align="right">-222.9398</td>
+<td align="right">137.0602</td>
 </tr>
 </tbody>
 </table>
@@ -2501,7 +2896,7 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
            <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean orifice area<span class="pl-pds">"</span></span>,
                            <span class="pl-s"><span class="pl-pds">"</span>Mean orifice area<span class="pl-pds">"</span></span>,
                            <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean orifice area<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2519,43 +2914,352 @@ Output from <code>circ.cor1</code> and <code>circ.cor2</code> are quite differen
 <td align="left">TRUE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-191.8783</td>
+<td align="right">168.1217</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">-1</td>
 <td align="left">-1 SD from mean orifice area</td>
-<td align="right">-204.7182</td>
+<td align="right">155.2818</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-193.7545</td>
+<td align="right">166.2455</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">0</td>
 <td align="left">Mean orifice area</td>
-<td align="right">-215.8971</td>
+<td align="right">144.1029</td>
 </tr>
 <tr>
 <td align="left">Case</td>
 <td align="left">TRUE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-197.3276</td>
+<td align="right">162.6724</td>
 </tr>
 <tr>
 <td align="left">Control</td>
 <td align="left">FALSE</td>
 <td align="right">1</td>
 <td align="left">+1 SD from mean orifice area</td>
-<td align="right">-247.9910</td>
+<td align="right">112.0090</td>
 </tr>
 </tbody>
 </table>
+
+<p>Adjusted for coaptation line length.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
+                  <span class="pl-v">magnitudeScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
+<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
+              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>magnitudeScaled<span class="pl-pds">"</span></span>)]), 
+              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
+              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
+<span class="pl-smi">M</span></pre></div>
+
+<pre><code>## $runtime
+##    user  system elapsed 
+##       0       0       0 
+## 
+## $beta
+##                 Cosinus of y  Sinus of y
+##                   -0.4974260  0.26512957
+## typeCase          -0.2111204 -0.06780247
+## magnitudeScaled    0.2630104  0.17459808
+## 
+## $seb
+##                 Cosinus of y Sinus of y
+##                   0.12375762  0.1357451
+## typeCase          0.20127301  0.2041262
+## magnitudeScaled   0.09461067  0.1020062
+## 
+## $loglik
+## [1] -161.1152
+## 
+## $est
+## [1] 178.6598 173.2108 164.4377 151.9422 140.1455 118.0617
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
+           <span class="pl-smi">new</span>,
+           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean coaptation line length<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>Mean coaptation line length<span class="pl-pds">"</span></span>,
+                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean coaptation line length<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
+           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">typeCase</th>
+<th align="right">magnitudeScaled</th>
+<th align="left">scaling</th>
+<th align="right">pred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean coaptation line length</td>
+<td align="right">178.6598</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">-1</td>
+<td align="left">-1 SD from mean coaptation line length</td>
+<td align="right">173.2108</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">0</td>
+<td align="left">Mean coaptation line length</td>
+<td align="right">164.4377</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">0</td>
+<td align="left">Mean coaptation line length</td>
+<td align="right">151.9422</td>
+</tr>
+<tr>
+<td align="left">Case</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean coaptation line length</td>
+<td align="right">140.1455</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="left">+1 SD from mean coaptation line length</td>
+<td align="right">118.0617</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="user-content-mles" class="anchor" href="#mles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MLEs</h2>
+
+<h3>
+<a id="user-content-angular-central-gaussian" class="anchor" href="#angular-central-gaussian" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular central Gaussian</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">mle</span> <span class="pl-k">&lt;-</span> 
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^coapUnit[XYZ]<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">acg</span>
+<span class="pl-smi">mle</span></pre></div>
+
+<pre><code>## $iter
+## [1] 38
+## 
+## $cova
+##              coapUnitX    coapUnitY  coapUnitZ
+## coapUnitX  0.070280061 -0.008857001 -0.2987941
+## coapUnitY -0.008857001  0.035529747  0.1416559
+## coapUnitZ -0.298794119  0.141655938  2.8941902
+</code></pre>
+
+<div class="highlight highlight-source-r"><pre>cov2cor(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>cova<span class="pl-pds">"</span></span>]])</pre></div>
+
+<pre><code>##            coapUnitX  coapUnitY  coapUnitZ
+## coapUnitX  1.0000000 -0.1772452 -0.6625100
+## coapUnitY -0.1772452  1.0000000  0.4417486
+## coapUnitZ -0.6625100  0.4417486  1.0000000
+</code></pre>
+
+<h3>
+<a id="user-content-von-mises-fisher" class="anchor" href="#von-mises-fisher" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>von Mises-Fisher</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">mle</span> <span class="pl-k">&lt;-</span> 
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^coapUnit[XYZ]<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">vmf</span>
+<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>mu_sph<span class="pl-pds">"</span></span>]] <span class="pl-k">&lt;-</span> cart2sph(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]], <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>)
+rownames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>mu_sph<span class="pl-pds">"</span></span>]]) <span class="pl-k">&lt;-</span> colnames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>mu<span class="pl-pds">"</span></span>]])
+<span class="pl-smi">mle</span></pre></div>
+
+<pre><code>## $mu
+## [1]  0.10196223 -0.02250687 -0.99453363
+## 
+## $kappa
+## [1] 21.66473
+## 
+## $MRL
+## [1] 0.953842
+## 
+## $vark
+## [1] 0.2233477
+## 
+## $loglik
+## [1] 23.06743
+## 
+## $mu_sph
+##      rho     theta      phi
+## [1,]   1 -84.00644 347.5523
+</code></pre>
+
+<h3>
+<a id="user-content-wood" class="anchor" href="#wood" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wood</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^(lat|lon)<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">wood.mle</span></pre></div>
+
+<pre><code>## $info
+##        estimate          2.5%       97.5%
+## gamma 173.48448   172.4738275  174.495133
+## delta 166.16465   158.7997398  173.529557
+## alpha   2.85920     0.4401259    5.278274
+## beta  -63.98730 -2095.4838253 1967.509229
+## kappa  22.21628    17.7951483   26.637416
+## 
+## $modes
+##        co-latitude longitude
+## mode 1      2.8592 -31.99365
+## mode 2      2.8592 148.00635
+## 
+## $unitvectors
+##            mu 1       mu 2        mu 3
+## [1,]  0.9647155 -0.2391326 -0.11018016
+## [2,] -0.2375881 -0.9709869  0.02713494
+## [3,] -0.1134723  0.0000000 -0.99354116
+## 
+## $loglik
+## [1] 25.506
+</code></pre>
+
+<h3>
+<a id="user-content-kent" class="anchor" href="#kent" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kent</h3>
+
+<p>All</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">mle</span> <span class="pl-k">&lt;-</span> 
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^coapUnit[XYZ]<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kent.mle</span>
+<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]] <span class="pl-k">&lt;-</span> cart2sph(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">t</span>, <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>)
+rownames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]]) <span class="pl-k">&lt;-</span> colnames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]])
+<span class="pl-smi">mle</span></pre></div>
+
+<pre><code>## $G
+##             mean      major       minor
+## [1,]  0.10196223 -0.9534816 -0.28368401
+## [2,] -0.02250687 -0.2873083  0.95757369
+## [3,] -0.99453363 -0.0912515 -0.05075449
+## 
+## $para
+##     kappa      beta 
+## 24.307240  4.464159 
+## 
+## $logcon
+## [1] 23.01696
+## 
+## $loglik
+## [1] 28.99946
+## 
+## $runtime
+##    user  system elapsed 
+##    0.07    0.00    0.03 
+## 
+## $G_sph
+##       rho      theta      phi
+## mean    1 -84.006437 347.5523
+## major   1  -5.235609 196.7689
+## minor   1  -2.909268 106.5021
+</code></pre>
+
+<p>Cases</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">mle</span> <span class="pl-k">&lt;-</span> 
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^coapUnit[XYZ]<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kent.mle</span>
+<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]] <span class="pl-k">&lt;-</span> cart2sph(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">t</span>, <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>)
+rownames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]]) <span class="pl-k">&lt;-</span> colnames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]])
+<span class="pl-smi">mle</span></pre></div>
+
+<pre><code>## $G
+##            mean      major       minor
+## [1,]  0.1426048 -0.9433017 -0.29974299
+## [2,] -0.0346619 -0.3074118  0.95094507
+## [3,] -0.9891726 -0.1252196 -0.07653502
+## 
+## $para
+##     kappa      beta 
+## 24.963651  6.834421 
+## 
+## $logcon
+## [1] 23.73228
+## 
+## $loglik
+## [1] 12.30188
+## 
+## $runtime
+##    user  system elapsed 
+##    0.06    0.00    0.03 
+## 
+## $G_sph
+##       rho      theta      phi
+## mean    1 -81.560974 346.3385
+## major   1  -7.193439 198.0502
+## minor   1  -4.389426 107.4951
+</code></pre>
+
+<p>Controls</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">mle</span> <span class="pl-k">&lt;-</span> 
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% 
+  select(matches(<span class="pl-s"><span class="pl-pds">"</span>^coapUnit[XYZ]<span class="pl-pds">"</span></span>)) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">kent.mle</span>
+<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]] <span class="pl-k">&lt;-</span> cart2sph(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]] %<span class="pl-k">&gt;</span>% <span class="pl-smi">t</span>, <span class="pl-v">units</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>deg<span class="pl-pds">"</span></span>)
+rownames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G_sph<span class="pl-pds">"</span></span>]]) <span class="pl-k">&lt;-</span> colnames(<span class="pl-smi">mle</span>[[<span class="pl-s"><span class="pl-pds">"</span>G<span class="pl-pds">"</span></span>]])
+<span class="pl-smi">mle</span></pre></div>
+
+<pre><code>## $G
+##             mean       major      minor
+## [1,]  0.06254433 -0.95154637 -0.3010776
+## [2,] -0.01073195 -0.30229195  0.9531550
+## [3,] -0.99798448 -0.05638329 -0.0291186
+## 
+## $para
+##     kappa      beta 
+## 26.384041  1.739658 
+## 
+## $logcon
+## [1] 24.9572
+## 
+## $loglik
+## [1] 20.93819
+## 
+## $runtime
+##    user  system elapsed 
+##    0.02    0.02    0.01 
+## 
+## $G_sph
+##       rho      theta      phi
+## mean    1 -86.361657 350.2635
+## major   1  -3.232239 197.6243
+## minor   1  -1.668609 107.5300
+</code></pre>
 </article></body></html>

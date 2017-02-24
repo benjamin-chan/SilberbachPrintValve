@@ -319,8 +319,6 @@ mle <-
   select(matches("^coapUnit[XYZ]")) %>% 
   as.matrix %>% 
   acg
-mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
-rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
 mle
 cov2cor(mle[["cova"]])
 ```

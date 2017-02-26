@@ -84,46 +84,17 @@ ggsave("../figures/plotSphericalRegurgitation.png", dpi = 300)
 ggsave("../figures/plotSphericalRegurgitation.svg", dpi = 300)
 ```
 
-Calculate median cartesian coordinates and latitude and longitude.
 
 ```{r, echo = TRUE}
-cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
-matAll <- cartCoord %>% select(-1) %>% as.matrix
-matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
-matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-rbind(matAll %>% mediandir,
-      matCases %>% mediandir,
-      matControls %>% mediandir) %>%
-  data.frame %>%
-  rename(x = X1, y = X2, z = X3) %>%
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
-  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
-  kable
 ```
 
-Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
 
 ```{r, echo = TRUE}
-rbind(matAll %>% vmf %>% .[["mu"]],
-      matCases %>% vmf %>% .[["mu"]],
-      matControls %>% vmf %>% .[["mu"]]) %>%
-  data.frame %>%
-  rename(x = X1, y = X2, z = X3) %>%
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
-  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
-  kable
 ```
 
 ANOVA.
 
 ```{r, echo = TRUE}
-hcf.aov(matAll, factor(df$type))
-lr.aov(matAll, factor(df$type))
-embed.aov(matAll, factor(df$type))
-het.aov(matAll, factor(df$type))
-spherconc.test(matAll, factor(df$type))
 ```
 
 Calculate circular summary statistics.
@@ -306,84 +277,4 @@ data.frame(type = rep(df$type %>% unique, 3),
                            "Mean coaptation line length",
                            "+1 SD from mean coaptation line length"), each = 2),
            pred = as.vector(M$est)) %>% kable
-```
-
-
-## MLEs
-
-### Angular central Gaussian
-
-```{r, echo = TRUE}
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  acg
-mle
-cov2cor(mle[["cova"]])
-```
-
-### von Mises-Fisher
-
-```{r, echo = TRUE}
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  vmf
-mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
-rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
-mle
-```
-
-### Wood
-
-```{r, echo = TRUE}
-df %>% 
-  select(matches("^(lat|lon)")) %>% 
-  as.matrix %>% 
-  wood.mle
-```
-
-### Kent
-
-All
-
-```{r, echo = TRUE}
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
-```
-
-Cases
-
-```{r, echo = TRUE}
-mle <- 
-  df %>% 
-  filter(type == "Case") %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
-```
-
-Controls
-
-```{r, echo = TRUE}
-mle <- 
-  df %>% 
-  filter(type == "Control") %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
 ```

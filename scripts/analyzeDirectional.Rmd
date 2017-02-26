@@ -84,8 +84,14 @@ ggsave("../figures/plotSphericalRegurgitation.png", dpi = 300)
 ggsave("../figures/plotSphericalRegurgitation.svg", dpi = 300)
 ```
 
+Create data matrices.
 
 ```{r, echo = TRUE}
+vecCoord <- df %>% select(matches("^type$|(coapUnit[XYZ])"))
+cirCoord <- df %>% select(matches("^type$|((lat)|(long))itude"))
+matAll <- cirCoord %>% select(-1) %>% as.matrix
+matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
+matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
 ```
 
 Test whether Kent's ovalness parameter (beta) is equal to zero.
@@ -102,33 +108,53 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
 Calculate circular summary statistics.
 
 ```{r, echo = TRUE}
-cirCoord <- df %>% select(matches("^type$|latitude|longitude"))
-matAll <- cirCoord %>% select(-1) %>% as.matrix
-matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
-matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-matAll[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matAll[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matCases[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matCases[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
-matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
+data.frame(type = c("All", "Cases", "Controls"),
+           latitude = c(matAll[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matCases[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matControls[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]]),
+           longitude = c(matAll[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]],
+                         matCases[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]],
+                         matControls[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]])) %>% kable
 ```
 
 ANOVA.
 
 ```{r, echo = TRUE}
-hcf.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-lr.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-embed.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-het.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-conc.test(matAll[, "latitude"], factor(df$type), rads = FALSE)
-hcf.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-lr.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-embed.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-het.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE)
+data.frame(variable = rep(c("Latitude", "Longitude"), 3),
+           effect = c(rep("Case/Control", 2), 
+                      rep("Aortic stenosis", 2), 
+                      rep("Aortic regurgitation", 2)),
+           bind_rows(matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
+                       t %>% data.frame)) %>% 
+  kable
 ```
 
 

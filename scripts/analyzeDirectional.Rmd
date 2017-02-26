@@ -99,11 +99,6 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
                 ifelse(test[["Bootstrap p-value"]] < 0.05, "Reject", "Fail to reject")))
 ```
 
-ANOVA.
-
-```{r, echo = TRUE}
-```
-
 Calculate circular summary statistics.
 
 ```{r, echo = TRUE}
@@ -119,15 +114,6 @@ matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
-Correlations.
-Output from `circ.cor1` and `circ.cor2` are quite different.
-**Need to reconcile.**
-
-```{r, echo = TRUE}
-circ.cor1(df$latitude, df$longitude, rads = FALSE)
-circ.cor2(df$latitude, df$longitude, rads = FALSE)
-circlin.cor(df$latitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
-circlin.cor(df$longitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
 ```
 
 ANOVA.

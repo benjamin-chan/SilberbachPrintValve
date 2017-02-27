@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-24 15:32:41"
+date: "2017-02-27 11:26:29"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-24 15:32:43
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-27 11:26:31
 ```
 
 Summarize the entire data set.
@@ -90,12 +90,19 @@ Plot comparisons.
 Use multiple visualizations, density plots and scatterplots.
 Each has their advantages and disadvantages.
 
-Images are saved as
+## Density plots
 
-* Density plots: [PNG](../figures/densityplots.png), [SVG](../figures/densityplots.svg)
-* Scatterplots: [PNG](../figures/scatterplots.png), [SVG](../figures/scatterplots.svg)
+[PNG](../figures/densityplots.png), [SVG](../figures/densityplots.svg)
+
+![Density plot](../figures/densityplots.png)
 
 
+
+## Scatterplots
+
+[PNG](../figures/scatterplots.png), [SVG](../figures/scatterplots.svg)
+
+![Scatterplots](../figures/scatterplots.png)
 
 
 
@@ -113,24 +120,22 @@ Results save as [CSV](../data/processed/compareUnadjusted.csv).
 
 |variable                                               | nCases|meanSDCases       |rangeCases          | nControls|meanSDControls    |rangeControls       |  difference|     seDiff| tStatistic|    pValue|   pAdjust|sig   |formula                    |
 |:------------------------------------------------------|------:|:-----------------|:-------------------|---------:|:-----------------|:-------------------|-----------:|----------:|----------:|---------:|---------:|:-----|:--------------------------|
-|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.1601531|  0.0536110|  2.9873184| 0.0035808| 0.0076732|TRUE  |bsa ~ type                 |
-|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0560878|  0.0197899|  2.8341556| 0.0056126| 0.0105236|TRUE  |nr_frac ~ type             |
-|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1029746|  0.0230101| -4.4751853| 0.0000212| 0.0000795|TRUE  |rl_frac ~ type             |
-|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0468868|  0.0178691|  2.6239108| 0.0101284| 0.0168807|TRUE  |ln_frac ~ type             |
-|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) | 133.6092730| 42.1952467|  3.1664532| 0.0020747| 0.0052041|TRUE  |total_area_value ~ type    |
-|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) | 133.5623861| 42.1947005|  3.1653830| 0.0020816| 0.0052041|TRUE  |total_area ~ type          |
-|Orifice area                                           |     48|636.750 (196.511) |(341.000, 1221.000) |        49|486.755 (119.977) |(299.000, 812.000)  | 149.9948980| 32.9828869|  4.5476583| 0.0000160| 0.0000795|TRUE  |orifice_area ~ type        |
-|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   5.4336692|  0.9223465|  5.8911368| 0.0000001| 0.0000009|TRUE  |valve_diameter ~ type      |
-|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 250.1206244| 44.1437443|  5.6660491| 0.0000002| 0.0000012|TRUE  |valve_area ~ type          |
-|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |   1.3406005|  1.0179301|  1.3169868| 0.1910110| 0.2387638|FALSE |a_coap_size_valve ~ type   |
+|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.1601531|  0.0536110|  2.9873184| 0.0035808| 0.0066501|TRUE  |bsa ~ type                 |
+|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0560878|  0.0197899|  2.8341556| 0.0056126| 0.0091205|TRUE  |nr_frac ~ type             |
+|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1029746|  0.0230101| -4.4751853| 0.0000212| 0.0000689|TRUE  |rl_frac ~ type             |
+|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0468868|  0.0178691|  2.6239108| 0.0101284| 0.0146299|TRUE  |ln_frac ~ type             |
+|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) | 133.6092730| 42.1952467|  3.1664532| 0.0020747| 0.0045102|TRUE  |total_area_value ~ type    |
+|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) | 133.5623861| 42.1947005|  3.1653830| 0.0020816| 0.0045102|TRUE  |total_area ~ type          |
+|Orifice area                                           |     48|636.750 (196.511) |(341.000, 1221.000) |        49|486.755 (119.977) |(299.000, 812.000)  | 149.9948980| 32.9828869|  4.5476583| 0.0000160| 0.0000689|TRUE  |orifice_area ~ type        |
+|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   5.4336692|  0.9223465|  5.8911368| 0.0000001| 0.0000008|TRUE  |valve_diameter ~ type      |
+|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 250.1206244| 44.1437443|  5.6660491| 0.0000002| 0.0000010|TRUE  |valve_area ~ type          |
+|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |   1.3406005|  1.0179301|  1.3169868| 0.1910110| 0.2257403|FALSE |a_coap_size_valve ~ type   |
 |Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0121495|  0.0599023|  0.2028216| 0.8397082| 0.8397082|FALSE |a_coap_orifice_area ~ type |
-|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.0855492|  0.0400184| -2.1377445| 0.0351042| 0.0526563|FALSE |a_coap_valve_area ~ type   |
-|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -0.6562349|  0.7882625| -0.8325081| 0.4072102| 0.4698579|FALSE |magnitude ~ type           |
-|Latitude of coaptation line (top to bottom)            |     48|-73.418 (12.494)  |(-88.720, -30.848)  |        49|-76.861 (10.433)  |(-88.508, -19.856)  |   3.4429561|  2.3351759|  1.4743883| 0.1436833| 0.1959318|FALSE |latitude ~ type            |
-|Longitude of coaptation line (direction)               |     48|169.684 (78.201)  |(31.631, 344.865)   |        49|163.688 (87.229)  |(0.271, 357.693)    |   5.9959759| 16.8324551|  0.3562152| 0.7224693| 0.7740743|FALSE |longitude ~ type           |
+|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.0855492|  0.0400184| -2.1377445| 0.0351042| 0.0456355|TRUE  |a_coap_valve_area ~ type   |
+|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -0.6562349|  0.7882625| -0.8325081| 0.4072102| 0.4411444|FALSE |magnitude ~ type           |
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-02-24 15:32:56
+## File ../data/processed/compareUnadjusted.csv was written on 2017-02-27 11:26:49
 ```
 
 ## Adjusted comparisons
@@ -149,23 +154,21 @@ Results save as [CSV](../data/processed/compareAdjusted.csv).
 
 |variable                                               | nCases|meanSDCases       |rangeCases          | nControls|meanSDControls    |rangeControls       |  difference|     seDiff| tStatistic|    pValue|   pAdjust|sig   |formula                                        |
 |:------------------------------------------------------|------:|:-----------------|:-------------------|---------:|:-----------------|:-------------------|-----------:|----------:|----------:|---------:|---------:|:-----|:----------------------------------------------|
-|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.0880013|  0.0568092|  1.5490692| 0.1247254| 0.1940173|FALSE |bsa ~ type + orificeAreaScaled                 |
-|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0594769|  0.0219383|  2.7110929| 0.0079731| 0.0190584|TRUE  |nr_frac ~ type + orificeAreaScaled             |
-|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1106108|  0.0254582| -4.3448074| 0.0000352| 0.0004931|TRUE  |rl_frac ~ type + orificeAreaScaled             |
-|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0511340|  0.0197959|  2.5830569| 0.0113350| 0.0211396|TRUE  |ln_frac ~ type + orificeAreaScaled             |
-|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) |  24.1502198| 38.4466254|  0.6281493| 0.5314294| 0.5732264|FALSE |total_area_value ~ type + orificeAreaScaled    |
-|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) |  24.0990858| 38.4451682|  0.6268430| 0.5322816| 0.5732264|FALSE |total_area ~ type + orificeAreaScaled          |
-|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   3.2558008|  0.8744716|  3.7231636| 0.0003352| 0.0023465|TRUE  |valve_diameter ~ type + orificeAreaScaled      |
-|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 146.9124618| 42.0033528|  3.4976365| 0.0007188| 0.0033544|TRUE  |valve_area ~ type + orificeAreaScaled          |
-|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |  -0.7948366|  1.0019113| -0.7933204| 0.4295891| 0.5467498|FALSE |a_coap_size_valve ~ type + orificeAreaScaled   |
-|Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0650553|  0.0651872|  0.9979759| 0.3208532| 0.4491944|FALSE |a_coap_orifice_area ~ type + orificeAreaScaled |
-|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.1123824|  0.0439091| -2.5594337| 0.0120798| 0.0211396|TRUE  |a_coap_valve_area ~ type + orificeAreaScaled   |
-|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -2.2127766|  0.7877198| -2.8090910| 0.0060435| 0.0190584|TRUE  |magnitude ~ type + orificeAreaScaled           |
-|Latitude of coaptation line (top to bottom)            |     48|-73.418 (12.494)  |(-88.720, -30.848)  |        49|-76.861 (10.433)  |(-88.508, -19.856)  |   6.6697294|  2.4680395|  2.7024403| 0.0081679| 0.0190584|TRUE  |latitude ~ type + orificeAreaScaled            |
-|Longitude of coaptation line (direction)               |     48|169.684 (78.201)  |(31.631, 344.865)   |        49|163.688 (87.229)  |(0.271, 357.693)    |   3.4170373| 18.6624351|  0.1830971| 0.8551162| 0.8551162|FALSE |longitude ~ type + orificeAreaScaled           |
+|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.0880013|  0.0568092|  1.5490692| 0.1247254| 0.1870882|FALSE |bsa ~ type + orificeAreaScaled                 |
+|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0594769|  0.0219383|  2.7110929| 0.0079731| 0.0191353|TRUE  |nr_frac ~ type + orificeAreaScaled             |
+|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1106108|  0.0254582| -4.3448074| 0.0000352| 0.0004227|TRUE  |rl_frac ~ type + orificeAreaScaled             |
+|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0511340|  0.0197959|  2.5830569| 0.0113350| 0.0207082|TRUE  |ln_frac ~ type + orificeAreaScaled             |
+|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) |  24.1502198| 38.4466254|  0.6281493| 0.5314294| 0.5322816|FALSE |total_area_value ~ type + orificeAreaScaled    |
+|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) |  24.0990858| 38.4451682|  0.6268430| 0.5322816| 0.5322816|FALSE |total_area ~ type + orificeAreaScaled          |
+|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   3.2558008|  0.8744716|  3.7231636| 0.0003352| 0.0020113|TRUE  |valve_diameter ~ type + orificeAreaScaled      |
+|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 146.9124618| 42.0033528|  3.4976365| 0.0007188| 0.0028752|TRUE  |valve_area ~ type + orificeAreaScaled          |
+|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |  -0.7948366|  1.0019113| -0.7933204| 0.4295891| 0.5155070|FALSE |a_coap_size_valve ~ type + orificeAreaScaled   |
+|Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0650553|  0.0651872|  0.9979759| 0.3208532| 0.4278042|FALSE |a_coap_orifice_area ~ type + orificeAreaScaled |
+|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.1123824|  0.0439091| -2.5594337| 0.0120798| 0.0207082|TRUE  |a_coap_valve_area ~ type + orificeAreaScaled   |
+|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -2.2127766|  0.7877198| -2.8090910| 0.0060435| 0.0181304|TRUE  |magnitude ~ type + orificeAreaScaled           |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-02-24 15:32:56
+## File ../data/processed/compareAdjusted.csv was written on 2017-02-27 11:26:50
 ```
 # Linear model of coaptation line length
 
@@ -325,16 +328,39 @@ Citation for package `Directional`.
 ## 'help("citation")'.
 ```
 
-I need to understand what package `Directional` is doing.
-So echo back the R code.
 
-Spherical coordinates of coaptation lines: 
-* Overall: [PNG](../figures/plotSpherical.png), [SVG](../figures/plotSpherical.svg)
-* By aortic stenosis: [PNG](../figures/plotSphericalStenosis.png), [SVG](../figures/plotSphericalStenosis.svg)
-* By aortic regurgitation: [PNG](../figures/plotSphericalRegurgitation.png), [SVG](../figures/plotSphericalRegurgitation.svg)
+## Plots
+
+Spherical coordinates of coaptation lines
+
+### Overall 
+
+[PNG](../figures/plotSpherical.png), [SVG](../figures/plotSpherical.svg)
 
 ![Spherical coordinates](../figures/plotSpherical.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
+
+### By aortic stenosis
+
+[PNG](../figures/plotSphericalStenosis.png), [SVG](../figures/plotSphericalStenosis.svg)
+
 ![Spherical coordinates by aortic stenosis](../figures/plotSphericalStenosis.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
+
+### By aortic regurgitation
+
+[PNG](../figures/plotSphericalRegurgitation.png), [SVG](../figures/plotSphericalRegurgitation.svg)
+
 ![Spherical coordinates by aortic regurgitation](../figures/plotSphericalRegurgitation.png)
 
 
@@ -343,411 +369,107 @@ Spherical coordinates of coaptation lines:
 ## Saving 7 x 7 in image
 ```
 
-
-```
-## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-```
-
-
-```
-## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-```
-
-Calculate median cartesian coordinates and latitude and longitude.
+Create data matrices.
 
 
 ```r
-cartCoord <- df %>% select(matches("^type$|coapUnit[XYZ]"))
-matAll <- cartCoord %>% select(-1) %>% as.matrix
-matCases <- cartCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
-matControls <- cartCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-rbind(matAll %>% mediandir,
-      matCases %>% mediandir,
-      matControls %>% mediandir) %>%
-  data.frame %>%
-  rename(x = X1, y = X2, z = X3) %>%
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
-  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
-  kable
-```
-
-
-
-|group    |         x|          y|          z| magnitude|  latitude| longitude|
-|:--------|---------:|----------:|----------:|---------:|---------:|---------:|
-|All      | 0.1035612| -0.0428729| -0.9936986|         1| -83.56449|  337.5111|
-|Cases    | 0.1307252| -0.0319395| -0.9909040|         1| -82.26622|  346.2702|
-|Controls | 0.0788606| -0.0474871| -0.9957540|         1| -84.71819|  328.9451|
-
-Calculate maximum likelihood estimates of the von Mises-Fisher distribution.
-
-
-```r
-rbind(matAll %>% vmf %>% .[["mu"]],
-      matCases %>% vmf %>% .[["mu"]],
-      matControls %>% vmf %>% .[["mu"]]) %>%
-  data.frame %>%
-  rename(x = X1, y = X2, z = X3) %>%
-  cbind(group = c("All", "Cases", "Controls"), .) %>% 
-  bind_cols(cart2sph(.[, c("x", "y", "z")] %>% as.matrix, units = "deg") %>% data.frame) %>% 
-  rename(magnitude= rho, latitude = theta, longitude = phi) %>% 
-  kable
-```
-
-
-
-|group    |         x|          y|          z| magnitude|  latitude| longitude|
-|:--------|---------:|----------:|----------:|---------:|---------:|---------:|
-|All      | 0.1019622| -0.0225069| -0.9945336|         1| -84.00644|  347.5523|
-|Cases    | 0.1426048| -0.0346619| -0.9891726|         1| -81.56097|  346.3385|
-|Controls | 0.0625443| -0.0107320| -0.9979845|         1| -86.36166|  350.2635|
-
-ANOVA.
-
-
-```r
-hcf.aov(matAll, factor(df$type))
-```
-
-```
-##       test    p-value      kappa 
-##  1.7657268  0.1738577 21.6647313
-```
-
-```r
-lr.aov(matAll, factor(df$type))
-```
-
-```
-##         w   p-value 
-## 3.5742089 0.1674443
-```
-
-```r
-embed.aov(matAll, factor(df$type))
-```
-
-```
-##         F   p-value 
-## 1.7768999 0.1719612
-```
-
-```r
-het.aov(matAll, factor(df$type))
-```
-
-```
-##      test   p-value 
-## 3.5920396 0.1659581
-```
-
-```r
-spherconc.test(matAll, factor(df$type))
-```
-
-```
-## $mess
-## [1] "The mean resultant length is more than 0.67. U3 was calculated"
-## 
-## $res
-##      test   p-value 
-## 2.2234523 0.1359288
-```
-
-Calculate circular summary statistics.
-
-
-```r
-cirCoord <- df %>% select(matches("^type$|latitude|longitude"))
+vecCoord <- df %>% select(matches("^type$|(coapUnit[XYZ])"))
+cirCoord <- df %>% select(matches("^type$|((lat)|(long))itude"))
 matAll <- cirCoord %>% select(-1) %>% as.matrix
 matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
 matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-matAll[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
 ```
 
-```
-## $mesos
-## [1] -75.34583
-## 
-## $confint
-## [1] -75.41890 -75.27276
-## 
-## $kappa
-## [1] 25.93036
-## 
-## $MRL
-## [1] 0.980524
-## 
-## $circvariance
-## [1] 0.01947597
-## 
-## $circstd
-## [1] 0.1983337
-```
-
-```r
-matAll[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
-```
-## $mesos
-## [1] 156.0474
-## 
-## $confint
-## [1] 155.3553 156.7395
-## 
-## $kappa
-## [1] 0.773375
-## 
-## $MRL
-## [1] 0.3603926
-## 
-## $circvariance
-## [1] 0.6396074
-## 
-## $circstd
-## [1] 1.428679
-```
-
-```r
-matCases[, "latitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
-```
-## $mesos
-## [1] -73.58603
-## 
-## $confint
-## [1] -73.69852 -73.47354
-## 
-## $kappa
-## [1] 22.25913
-## 
-## $MRL
-## [1] 0.9772728
-## 
-## $circvariance
-## [1] 0.0227272
-## 
-## $circstd
-## [1] 0.2144269
-```
-
-```r
-matCases[, "longitude"] %>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
-```
-## $mesos
-## [1] 160.8957
-## 
-## $confint
-## [1] 160.0409 161.7505
-## 
-## $kappa
-## [1] 0.9018208
-## 
-## $MRL
-## [1] 0.4105231
-## 
-## $circvariance
-## [1] 0.5894769
-## 
-## $circstd
-## [1] 1.334409
-```
-
-```r
-matControls[, "latitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
-```
-## $mesos
-## [1] -77.05687
-## 
-## $confint
-## [1] -77.14801 -76.96573
-## 
-## $kappa
-## [1] 32.72235
-## 
-## $MRL
-## [1] 0.9845994
-## 
-## $circvariance
-## [1] 0.01540057
-## 
-## $circstd
-## [1] 0.1761839
-```
-
-```r
-matControls[, "longitude"]%>% circ.summary(rads = FALSE, plot = FALSE)
-```
-
-```
-## $mesos
-## [1] 149.8446
-## 
-## $confint
-## [1] 148.7197 150.9695
-## 
-## $kappa
-## [1] 0.663083
-## 
-## $MRL
-## [1] 0.3145656
-## 
-## $circvariance
-## [1] 0.6854344
-## 
-## $circstd
-## [1] 1.520896
-```
-
-Correlations.
-Output from `circ.cor1` and `circ.cor2` are quite different.
-**Need to reconcile.**
+Test whether Kent's ovalness parameter (beta) is equal to zero.
+The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
+The altenrative is that Kent distribution is more suitable.
 
 
 ```r
-circ.cor1(df$latitude, df$longitude, rads = FALSE)
+test <- vecCoord %>% select(-1) %>% as.matrix %>% fishkent
+message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
+                test[["Bootstrap p-value"]],
+                ifelse(test[["Bootstrap p-value"]] < 0.05, "Reject", "Fail to reject")))
 ```
 
 ```
-##        rho    p-value 
-## 0.18384547 0.07485033
+## Bootstrap p-value is 0.5580
+## Fail to reject null hypothesis
 ```
 
-```r
-circ.cor2(df$latitude, df$longitude, rads = FALSE)
-```
-
-```
-##        rho    p-value 
-## 0.04200493 0.99654087
-```
-
-```r
-circlin.cor(df$latitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
-```
-
-```
-##       R-squared      p-value
-## [1,] 0.12007523 0.0000118665
-## [2,] 0.05463061 0.0058553758
-## [3,] 0.04236606 0.0185962606
-```
-
-```r
-circlin.cor(df$longitude, df[, c("magnitude", "bsa", "orifice_area")], rads = FALSE)
-```
-
-```
-##        R-squared   p-value
-## [1,] 0.052024485 0.0074860
-## [2,] 0.003150427 0.7436825
-## [3,] 0.017708820 0.1892279
-```
-
-ANOVA.
+## Circular summary statistics
 
 
 ```r
-hcf.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
+data.frame(type = c("All", "Cases", "Controls"),
+           latitude = c(matAll[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matCases[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matControls[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]]),
+           longitude = c(matAll[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]],
+                         matCases[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]],
+                         matControls[, "longitude"] %>% 
+                           circ.summary(rads = FALSE, plot = FALSE) %>% 
+                           .[["mesos"]])) %>% kable
 ```
 
-```
-##       test    p-value      kappa 
-##  2.2461896  0.1372596 25.9303615
-```
 
-```r
-lr.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-```
 
-```
-##       test    p-value      kappa 
-##  2.2629933  0.1324977 25.9303615
-```
+|type     |  latitude| longitude|
+|:--------|---------:|---------:|
+|All      | -75.34583|  156.0474|
+|Cases    | -73.58603|  160.8957|
+|Controls | -77.05687|  149.8446|
 
-```r
-embed.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-```
 
-```
-##       test    p-value      kappa 
-##  2.2409746  0.1377114 25.9303615
-```
+## ANOVA
 
-```r
-het.circaov(matAll[, "latitude"], factor(df$type), rads = FALSE)
-```
-
-```
-##      test   p-value 
-## 2.3060975 0.1288672
-```
 
 ```r
-conc.test(matAll[, "latitude"], factor(df$type), rads = FALSE)
+data.frame(variable = rep(c("Latitude", "Longitude"), 3),
+           effect = c(rep("Group: case vs control", 2), 
+                      rep("Aortic stenosis: none/trivial vs mild-severe", 2), 
+                      rep("Aortic regurgitation: none/trivial vs mild-severe", 2)),
+           bind_rows(matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "latitude"] %>% 
+                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
+                       t %>% data.frame,
+                     matAll[, "longitude"] %>% 
+                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
+                       t %>% data.frame)) %>% 
+  kable
 ```
 
-```
-## $mess
-## [1] "The mean resultant length is more than 0.7. U3 was calculated"
-## 
-## $res
-##      test   p-value 
-## 1.7746721 0.1828049
-```
 
-```r
-hcf.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-```
 
-```
-##     test  p-value    kappa 
-##       NA       NA 0.773375
-```
-
-```r
-lr.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-```
-
-```
-##      test   p-value     kappa 
-## 0.2486268 0.6180437 0.7733750
-```
-
-```r
-embed.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-```
-
-```
-##      test   p-value     kappa 
-## 0.2202366 0.6399350 0.7733750
-```
-
-```r
-het.circaov(matAll[, "longitude"], factor(df$type), rads = FALSE)
-```
-
-```
-##      test   p-value 
-## 0.2411616 0.6233684
-```
-
-```r
-conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE)
-```
-
-```
-## Error in conc.test(matAll[, "longitude"], factor(df$type), rads = FALSE): object 'U3' not found
-```
+|variable  |effect                                            |      test|   p.value|     kappa|
+|:---------|:-------------------------------------------------|---------:|---------:|---------:|
+|Latitude  |Group: case vs control                            | 2.2629933| 0.1324977| 25.930362|
+|Longitude |Group: case vs control                            | 0.2486268| 0.6180437|  0.773375|
+|Latitude  |Aortic stenosis: none/trivial vs mild-severe      | 0.0699664| 0.7913857| 25.930362|
+|Longitude |Aortic stenosis: none/trivial vs mild-severe      | 0.5389925| 0.4628505|  0.773375|
+|Latitude  |Aortic regurgitation: none/trivial vs mild-severe | 0.0214637| 0.8835227| 25.930362|
+|Longitude |Aortic regurgitation: none/trivial vs mild-severe | 0.5707245| 0.4499712|  0.773375|
 
 
 ## Circular regression for latitude (polar angle)
@@ -815,7 +537,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.05 
+##    0.06    0.03    0.04 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -872,7 +594,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.08    0.02    0.04 
+##    0.07    0.00    0.03 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -929,7 +651,7 @@ M
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.04 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##                 Cosinus of y Sinus of y
@@ -1189,239 +911,3 @@ data.frame(type = rep(df$type %>% unique, 3),
 |Control |FALSE    |               0|Mean coaptation line length            | 151.9422|
 |Case    |TRUE     |               1|+1 SD from mean coaptation line length | 140.1455|
 |Control |FALSE    |               1|+1 SD from mean coaptation line length | 118.0617|
-
-
-## MLEs
-
-### Angular central Gaussian
-
-
-```r
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  acg
-mle
-```
-
-```
-## $iter
-## [1] 38
-## 
-## $cova
-##              coapUnitX    coapUnitY  coapUnitZ
-## coapUnitX  0.070280061 -0.008857001 -0.2987941
-## coapUnitY -0.008857001  0.035529747  0.1416559
-## coapUnitZ -0.298794119  0.141655938  2.8941902
-```
-
-```r
-cov2cor(mle[["cova"]])
-```
-
-```
-##            coapUnitX  coapUnitY  coapUnitZ
-## coapUnitX  1.0000000 -0.1772452 -0.6625100
-## coapUnitY -0.1772452  1.0000000  0.4417486
-## coapUnitZ -0.6625100  0.4417486  1.0000000
-```
-
-### von Mises-Fisher
-
-
-```r
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  vmf
-mle[["mu_sph"]] <- cart2sph(mle[["mu"]], units = "deg")
-rownames(mle[["mu_sph"]]) <- colnames(mle[["mu"]])
-mle
-```
-
-```
-## $mu
-## [1]  0.10196223 -0.02250687 -0.99453363
-## 
-## $kappa
-## [1] 21.66473
-## 
-## $MRL
-## [1] 0.953842
-## 
-## $vark
-## [1] 0.2233477
-## 
-## $loglik
-## [1] 23.06743
-## 
-## $mu_sph
-##      rho     theta      phi
-## [1,]   1 -84.00644 347.5523
-```
-
-### Wood
-
-
-```r
-df %>% 
-  select(matches("^(lat|lon)")) %>% 
-  as.matrix %>% 
-  wood.mle
-```
-
-```
-## $info
-##        estimate          2.5%       97.5%
-## gamma 173.48448   172.4738275  174.495133
-## delta 166.16465   158.7997398  173.529557
-## alpha   2.85920     0.4401259    5.278274
-## beta  -63.98730 -2095.4838253 1967.509229
-## kappa  22.21628    17.7951483   26.637416
-## 
-## $modes
-##        co-latitude longitude
-## mode 1      2.8592 -31.99365
-## mode 2      2.8592 148.00635
-## 
-## $unitvectors
-##            mu 1       mu 2        mu 3
-## [1,]  0.9647155 -0.2391326 -0.11018016
-## [2,] -0.2375881 -0.9709869  0.02713494
-## [3,] -0.1134723  0.0000000 -0.99354116
-## 
-## $loglik
-## [1] 25.506
-```
-
-### Kent
-
-All
-
-
-```r
-mle <- 
-  df %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
-```
-
-```
-## $G
-##             mean      major       minor
-## [1,]  0.10196223 -0.9534816 -0.28368401
-## [2,] -0.02250687 -0.2873083  0.95757369
-## [3,] -0.99453363 -0.0912515 -0.05075449
-## 
-## $para
-##     kappa      beta 
-## 24.307240  4.464159 
-## 
-## $logcon
-## [1] 23.01696
-## 
-## $loglik
-## [1] 28.99946
-## 
-## $runtime
-##    user  system elapsed 
-##    0.07    0.00    0.03 
-## 
-## $G_sph
-##       rho      theta      phi
-## mean    1 -84.006437 347.5523
-## major   1  -5.235609 196.7689
-## minor   1  -2.909268 106.5021
-```
-
-Cases
-
-
-```r
-mle <- 
-  df %>% 
-  filter(type == "Case") %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
-```
-
-```
-## $G
-##            mean      major       minor
-## [1,]  0.1426048 -0.9433017 -0.29974299
-## [2,] -0.0346619 -0.3074118  0.95094507
-## [3,] -0.9891726 -0.1252196 -0.07653502
-## 
-## $para
-##     kappa      beta 
-## 24.963651  6.834421 
-## 
-## $logcon
-## [1] 23.73228
-## 
-## $loglik
-## [1] 12.30188
-## 
-## $runtime
-##    user  system elapsed 
-##    0.06    0.00    0.03 
-## 
-## $G_sph
-##       rho      theta      phi
-## mean    1 -81.560974 346.3385
-## major   1  -7.193439 198.0502
-## minor   1  -4.389426 107.4951
-```
-
-Controls
-
-
-```r
-mle <- 
-  df %>% 
-  filter(type == "Control") %>% 
-  select(matches("^coapUnit[XYZ]")) %>% 
-  as.matrix %>% 
-  kent.mle
-mle[["G_sph"]] <- cart2sph(mle[["G"]] %>% t, units = "deg")
-rownames(mle[["G_sph"]]) <- colnames(mle[["G"]])
-mle
-```
-
-```
-## $G
-##             mean       major      minor
-## [1,]  0.06254433 -0.95154637 -0.3010776
-## [2,] -0.01073195 -0.30229195  0.9531550
-## [3,] -0.99798448 -0.05638329 -0.0291186
-## 
-## $para
-##     kappa      beta 
-## 26.384041  1.739658 
-## 
-## $logcon
-## [1] 24.9572
-## 
-## $loglik
-## [1] 20.93819
-## 
-## $runtime
-##    user  system elapsed 
-##    0.02    0.02    0.01 
-## 
-## $G_sph
-##       rho      theta      phi
-## mean    1 -86.361657 350.2635
-## major   1  -3.232239 197.6243
-## minor   1  -1.668609 107.5300
-```

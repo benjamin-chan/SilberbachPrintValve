@@ -6,17 +6,16 @@ Citation for package `Directional`.
 citation("Directional")
 ```
 
-I need to understand what package `Directional` is doing.
-So echo back the R code.
 
-Spherical coordinates of coaptation lines: 
-* Overall: [PNG](../figures/plotSpherical.png), [SVG](../figures/plotSpherical.svg)
-* By aortic stenosis: [PNG](../figures/plotSphericalStenosis.png), [SVG](../figures/plotSphericalStenosis.svg)
-* By aortic regurgitation: [PNG](../figures/plotSphericalRegurgitation.png), [SVG](../figures/plotSphericalRegurgitation.svg)
+## Plots
+
+Spherical coordinates of coaptation lines
+
+### Overall 
+
+[PNG](../figures/plotSpherical.png), [SVG](../figures/plotSpherical.svg)
 
 ![Spherical coordinates](../figures/plotSpherical.png)
-![Spherical coordinates by aortic stenosis](../figures/plotSphericalStenosis.png)
-![Spherical coordinates by aortic regurgitation](../figures/plotSphericalRegurgitation.png)
 
 ```{r plotSpherical, dpi = 300, fig.show = "hide"}
 df %>%
@@ -40,6 +39,12 @@ ggsave("../figures/plotSpherical.png", dpi = 300)
 ggsave("../figures/plotSpherical.svg", dpi = 300)
 ```
 
+### By aortic stenosis
+
+[PNG](../figures/plotSphericalStenosis.png), [SVG](../figures/plotSphericalStenosis.svg)
+
+![Spherical coordinates by aortic stenosis](../figures/plotSphericalStenosis.png)
+
 ```{r plotSphericalStenosis, dpi = 300, fig.show = "hide"}
 df %>%
   select(matches("^id|^type$|^(lat|long|magn)itude$|^(as)")) %>%
@@ -61,6 +66,12 @@ df %>%
 ggsave("../figures/plotSphericalStenosis.png", dpi = 300)
 ggsave("../figures/plotSphericalStenosis.svg", dpi = 300)
 ```
+
+### By aortic regurgitation
+
+[PNG](../figures/plotSphericalRegurgitation.png), [SVG](../figures/plotSphericalRegurgitation.svg)
+
+![Spherical coordinates by aortic regurgitation](../figures/plotSphericalRegurgitation.png)
 
 ```{r plotSphericalRegurgitation, dpi = 300, fig.show = "hide"}
 df %>%
@@ -105,7 +116,7 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
                 ifelse(test[["Bootstrap p-value"]] < 0.05, "Reject", "Fail to reject")))
 ```
 
-Calculate circular summary statistics.
+## Circular summary statistics
 
 ```{r, echo = TRUE}
 data.frame(type = c("All", "Cases", "Controls"),
@@ -129,13 +140,14 @@ data.frame(type = c("All", "Cases", "Controls"),
                            .[["mesos"]])) %>% kable
 ```
 
-ANOVA.
+
+## ANOVA
 
 ```{r, echo = TRUE}
 data.frame(variable = rep(c("Latitude", "Longitude"), 3),
-           effect = c(rep("Case/Control", 2), 
-                      rep("Aortic stenosis", 2), 
-                      rep("Aortic regurgitation", 2)),
+           effect = c(rep("Group: case vs control", 2), 
+                      rep("Aortic stenosis: none/trivial vs mild-severe", 2), 
+                      rep("Aortic regurgitation: none/trivial vs mild-severe", 2)),
            bind_rows(matAll[, "latitude"] %>% 
                        lr.circaov(., factor(df$type), rads = FALSE) %>% 
                        t %>% data.frame,

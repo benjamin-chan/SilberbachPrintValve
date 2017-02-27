@@ -10,7 +10,7 @@ Each has their advantages and disadvantages.
 
 [PNG](../figures/densityplots.png), [SVG](../figures/densityplots.svg)
 
-![Density plot]((../figures/densityplots.png))
+![Density plot](../figures/densityplots.png)
 
 ```{r densityplots, fig.show = "hide"}
 var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^magnitude$"
@@ -39,7 +39,7 @@ ggsave("../figures/densityplots.svg", dpi = 300, height = 6, width = 9, units = 
 
 [PNG](../figures/scatterplots.png), [SVG](../figures/scatterplots.svg)
 
-![Scatterplots]((../figures/scatterplots.png))
+![Scatterplots](../figures/scatterplots.png)
 
 ```{r scatterplots, fig.show = "hide"}
 df1 %>% 

@@ -114,7 +114,7 @@ Test whether Kent's ovalness parameter (beta) is equal to zero.
 The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
 The altenrative is that Kent distribution is more suitable.
 
-```{r, echo = TRUE}
+```{r}
 test <- vecCoord %>% select(-1) %>% as.matrix %>% fishkent
 message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
                 test[["Bootstrap p-value"]],
@@ -123,7 +123,7 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
 
 ## Circular summary statistics
 
-```{r, echo = TRUE}
+```{r}
 data.frame(type = c("All",
                     "Cases", "Controls",
                     "Aortic stenosis: none-trivial", "Aortic stenosis: mild-severe",
@@ -222,7 +222,7 @@ data.frame(variable = rep(c("Latitude", "Longitude"), 3),
 
 Unadjusted.
 
-```{r, echo = TRUE}
+```{r}
 new <- df$typeCase %>% unique
 M <- spml.reg(df$latitude, 
               as.matrix(df[, "typeCase"]), 
@@ -236,7 +236,7 @@ data.frame(type = df$type %>% unique,
 
 Adjusted for body surface area.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$latitude, 
@@ -254,7 +254,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for orifice area area.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$latitude, 
@@ -272,7 +272,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for coaptation line length.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   magnitudeScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$latitude, 
@@ -292,7 +292,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Unadjusted.
 
-```{r, echo = TRUE}
+```{r}
 new <- df$typeCase %>% unique
 M <- spml.reg(df$longitude, 
               as.matrix(df[, "typeCase"]), 
@@ -306,7 +306,7 @@ data.frame(type = df$type %>% unique,
 
 Adjusted for body surface area.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   bsaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$longitude, 
@@ -324,7 +324,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for orifice area area.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   orificeAreaScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$longitude, 
@@ -342,7 +342,7 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for coaptation line length.
 
-```{r, echo = TRUE}
+```{r}
 new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
                   magnitudeScaled = rep(-1:1, each = 2))
 M <- spml.reg(df$longitude, 

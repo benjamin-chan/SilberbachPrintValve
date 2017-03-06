@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-02-27 11:26:29"
+date: "2017-03-06 12:11:44"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -886,7 +886,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-27 11:26:31
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-06 12:11:44
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -1174,7 +1174,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-02-27 11:26:49
+<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-03-06 12:11:58
 </code></pre>
 
 <h2>
@@ -1404,7 +1404,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-02-27 11:26:50
+<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-03-06 12:11:58
 </code></pre>
 
 <h1>
@@ -1928,20 +1928,9 @@ adjusted for orifice area.</p>
 
 <p>Create data matrices.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">vecCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|(coapUnit[XYZ])<span class="pl-pds">"</span></span>))
-<span class="pl-smi">cirCoord</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(matches(<span class="pl-s"><span class="pl-pds">"</span>^type$|((lat)|(long))itude<span class="pl-pds">"</span></span>))
-<span class="pl-smi">matAll</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
-<span class="pl-smi">matCases</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Case<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span>
-<span class="pl-smi">matControls</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">cirCoord</span> %<span class="pl-k">&gt;</span>% filter(<span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Control<span class="pl-pds">"</span></span>) %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span></pre></div>
-
 <p>Test whether Kent's ovalness parameter (beta) is equal to zero.
 The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
 The altenrative is that Kent distribution is more suitable.</p>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">test</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">vecCoord</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-k">-</span><span class="pl-c1">1</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">as.matrix</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">fishkent</span>
-message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-value is %.04f<span class="pl-cce">\n</span>%s null hypothesis<span class="pl-pds">"</span></span>,
-                <span class="pl-smi">test</span>[[<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-value<span class="pl-pds">"</span></span>]],
-                ifelse(<span class="pl-smi">test</span>[[<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-value<span class="pl-pds">"</span></span>]] <span class="pl-k">&lt;</span> <span class="pl-c1">0.05</span>, <span class="pl-s"><span class="pl-pds">"</span>Reject<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Fail to reject<span class="pl-pds">"</span></span>)))</pre></div>
 
 <pre><code>## Bootstrap p-value is 0.5580
 ## Fail to reject null hypothesis
@@ -1949,26 +1938,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <h2>
 <a id="user-content-circular-summary-statistics" class="anchor" href="#circular-summary-statistics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular summary statistics</h2>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>All<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cases<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Controls<span class="pl-pds">"</span></span>),
-           <span class="pl-v">latitude</span> <span class="pl-k">=</span> c(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                          circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                          .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]],
-                        <span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                          circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                          .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]],
-                        <span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                          circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                          .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]]),
-           <span class="pl-v">longitude</span> <span class="pl-k">=</span> c(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                           circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                           .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]],
-                         <span class="pl-smi">matCases</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                           circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                           .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]],
-                         <span class="pl-smi">matControls</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                           circ.summary(<span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">plot</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                           .[[<span class="pl-s"><span class="pl-pds">"</span>mesos<span class="pl-pds">"</span></span>]])) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -1994,40 +1963,40 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 <td align="right">-77.05687</td>
 <td align="right">149.8446</td>
 </tr>
+<tr>
+<td align="left">Aortic stenosis: none-trivial</td>
+<td align="right">-75.42965</td>
+<td align="right">153.2313</td>
+</tr>
+<tr>
+<td align="left">Aortic stenosis: mild-severe</td>
+<td align="right">-74.23478</td>
+<td align="right">178.8612</td>
+</tr>
+<tr>
+<td align="left">Aortic regurgitation: none-trivial</td>
+<td align="right">-75.25638</td>
+<td align="right">152.4894</td>
+</tr>
+<tr>
+<td align="left">Aortic regurgitation: mild-severe</td>
+<td align="right">-75.66523</td>
+<td align="right">175.2347</td>
+</tr>
 </tbody>
 </table>
 
 <h2>
 <a id="user-content-anova" class="anchor" href="#anova" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ANOVA</h2>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">variable</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>Latitude<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Longitude<span class="pl-pds">"</span></span>), <span class="pl-c1">3</span>),
-           <span class="pl-v">effect</span> <span class="pl-k">=</span> c(rep(<span class="pl-s"><span class="pl-pds">"</span>Group: case vs control<span class="pl-pds">"</span></span>, <span class="pl-c1">2</span>), 
-                      rep(<span class="pl-s"><span class="pl-pds">"</span>Aortic stenosis: none/trivial vs mild-severe<span class="pl-pds">"</span></span>, <span class="pl-c1">2</span>), 
-                      rep(<span class="pl-s"><span class="pl-pds">"</span>Aortic regurgitation: none/trivial vs mild-severe<span class="pl-pds">"</span></span>, <span class="pl-c1">2</span>)),
-           bind_rows(<span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>,
-                     <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>,
-                     <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">as</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>,
-                     <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">as</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>,
-                     <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>latitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">ar</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>,
-                     <span class="pl-smi">matAll</span>[, <span class="pl-s"><span class="pl-pds">"</span>longitude<span class="pl-pds">"</span></span>] %<span class="pl-k">&gt;</span>% 
-                       lr.circaov(., <span class="pl-k">factor</span>(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">ar</span>), <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>) %<span class="pl-k">&gt;</span>% 
-                       <span class="pl-smi">t</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>)) %<span class="pl-k">&gt;</span>% 
-  <span class="pl-smi">kable</span></pre></div>
+<p>There does not appear to be statistically different directions by 
+group (case vs control), 
+aortic stenosis (none-trivial vs mild-severe), or 
+aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <table>
 <thead>
 <tr>
-<th align="left">variable</th>
 <th align="left">effect</th>
 <th align="right">test</th>
 <th align="right">p.value</th>
@@ -2036,46 +2005,22 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 </thead>
 <tbody>
 <tr>
-<td align="left">Latitude</td>
 <td align="left">Group: case vs control</td>
-<td align="right">2.2629933</td>
-<td align="right">0.1324977</td>
-<td align="right">25.930362</td>
+<td align="right">1.7657268</td>
+<td align="right">0.1738577</td>
+<td align="right">21.66473</td>
 </tr>
 <tr>
-<td align="left">Longitude</td>
-<td align="left">Group: case vs control</td>
-<td align="right">0.2486268</td>
-<td align="right">0.6180437</td>
-<td align="right">0.773375</td>
+<td align="left">Aortic stenosis: none-trivial vs mild-severe</td>
+<td align="right">1.5235414</td>
+<td align="right">0.2205891</td>
+<td align="right">21.66473</td>
 </tr>
 <tr>
-<td align="left">Latitude</td>
-<td align="left">Aortic stenosis: none/trivial vs mild-severe</td>
-<td align="right">0.0699664</td>
-<td align="right">0.7913857</td>
-<td align="right">25.930362</td>
-</tr>
-<tr>
-<td align="left">Longitude</td>
-<td align="left">Aortic stenosis: none/trivial vs mild-severe</td>
-<td align="right">0.5389925</td>
-<td align="right">0.4628505</td>
-<td align="right">0.773375</td>
-</tr>
-<tr>
-<td align="left">Latitude</td>
-<td align="left">Aortic regurgitation: none/trivial vs mild-severe</td>
-<td align="right">0.0214637</td>
-<td align="right">0.8835227</td>
-<td align="right">25.930362</td>
-</tr>
-<tr>
-<td align="left">Longitude</td>
-<td align="left">Aortic regurgitation: none/trivial vs mild-severe</td>
-<td align="right">0.5707245</td>
-<td align="right">0.4499712</td>
-<td align="right">0.773375</td>
+<td align="left">Aortic regurgitation: none-trivial vs mild-severe</td>
+<td align="right">0.1964135</td>
+<td align="right">0.8218390</td>
+<td align="right">21.66473</td>
 </tr>
 </tbody>
 </table>
@@ -2085,16 +2030,9 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Unadjusted.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.02 
+##    0.04    0.00    0.02 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -2112,10 +2050,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 285.9653 282.4707
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
-           <span class="pl-v">typeCase</span> <span class="pl-k">=</span> <span class="pl-smi">new</span>,
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2141,17 +2075,9 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for body surface area.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.06    0.03    0.04 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -2171,13 +2097,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean BSA<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean BSA<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean BSA<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2237,17 +2156,9 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for orifice area area.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.07    0.00    0.03 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -2267,13 +2178,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean orifice area<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean orifice area<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean orifice area<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2333,14 +2237,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for coaptation line length.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">magnitudeScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">latitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>magnitudeScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##    0.06    0.00    0.03 
@@ -2363,13 +2259,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 287.4216 284.0196 284.4506 282.3623 282.8730 281.3978
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean coaptation line length<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean coaptation line length<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean coaptation line length<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>) <span class="pl-k">-</span> <span class="pl-c1">360</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2432,13 +2321,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Unadjusted.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, <span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##       0       0       0 
@@ -2459,10 +2341,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 163.7288 149.5096
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, 
-           <span class="pl-v">typeCase</span> <span class="pl-k">=</span> <span class="pl-smi">new</span>,
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2488,14 +2366,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for body surface area.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">bsaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bsaScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##       0       0       0 
@@ -2518,13 +2388,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean BSA<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean BSA<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean BSA<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2584,14 +2447,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for orifice area area.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">orificeAreaScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>orificeAreaScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##       0       0       0 
@@ -2614,13 +2469,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean orifice area<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean orifice area<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean orifice area<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>
@@ -2680,14 +2528,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 
 <p>Adjusted for coaptation line length.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">new</span> <span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-v">typeCase</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">typeCase</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>), 
-                  <span class="pl-v">magnitudeScaled</span> <span class="pl-k">=</span> rep(<span class="pl-k">-</span><span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">1</span>, <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>))
-<span class="pl-smi">M</span> <span class="pl-k">&lt;-</span> spml.reg(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">longitude</span>, 
-              as.matrix(<span class="pl-smi">df</span>[, c(<span class="pl-s"><span class="pl-pds">"</span>typeCase<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>magnitudeScaled<span class="pl-pds">"</span></span>)]), 
-              <span class="pl-v">rads</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, 
-              <span class="pl-v">xnew</span> <span class="pl-k">=</span> as.matrix(<span class="pl-smi">new</span>))
-<span class="pl-smi">M</span></pre></div>
-
 <pre><code>## $runtime
 ##    user  system elapsed 
 ##       0       0       0 
@@ -2710,13 +2550,6 @@ message(sprintf(<span class="pl-s"><span class="pl-pds">"</span>Bootstrap p-valu
 ## $est
 ## [1] 178.6598 173.2108 164.4377 151.9422 140.1455 118.0617
 </code></pre>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-k">data.frame</span>(<span class="pl-v">type</span> <span class="pl-k">=</span> rep(<span class="pl-smi">df</span><span class="pl-k">$</span><span class="pl-smi">type</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">unique</span>, <span class="pl-c1">3</span>),
-           <span class="pl-smi">new</span>,
-           <span class="pl-v">scaling</span> <span class="pl-k">=</span> rep(c(<span class="pl-s"><span class="pl-pds">"</span>-1 SD from mean coaptation line length<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>Mean coaptation line length<span class="pl-pds">"</span></span>,
-                           <span class="pl-s"><span class="pl-pds">"</span>+1 SD from mean coaptation line length<span class="pl-pds">"</span></span>), <span class="pl-v">each</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>),
-           <span class="pl-v">pred</span> <span class="pl-k">=</span> as.vector(<span class="pl-smi">M</span><span class="pl-k">$</span><span class="pl-smi">est</span>)) %<span class="pl-k">&gt;</span>% <span class="pl-smi">kable</span></pre></div>
 
 <table>
 <thead>

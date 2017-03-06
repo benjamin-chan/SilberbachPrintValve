@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-02-27 11:26:29"
+date: "2017-03-06 12:11:44"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-02-27 11:26:31
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-06 12:11:44
 ```
 
 Summarize the entire data set.
@@ -135,7 +135,7 @@ Results save as [CSV](../data/processed/compareUnadjusted.csv).
 |Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -0.6562349|  0.7882625| -0.8325081| 0.4072102| 0.4411444|FALSE |magnitude ~ type           |
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-02-27 11:26:49
+## File ../data/processed/compareUnadjusted.csv was written on 2017-03-06 12:11:58
 ```
 
 ## Adjusted comparisons
@@ -168,7 +168,7 @@ Results save as [CSV](../data/processed/compareAdjusted.csv).
 |Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -2.2127766|  0.7877198| -2.8090910| 0.0060435| 0.0181304|TRUE  |magnitude ~ type + orificeAreaScaled           |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-02-27 11:26:50
+## File ../data/processed/compareAdjusted.csv was written on 2017-03-06 12:11:58
 ```
 # Linear model of coaptation line length
 
@@ -372,25 +372,11 @@ Spherical coordinates of coaptation lines
 Create data matrices.
 
 
-```r
-vecCoord <- df %>% select(matches("^type$|(coapUnit[XYZ])"))
-cirCoord <- df %>% select(matches("^type$|((lat)|(long))itude"))
-matAll <- cirCoord %>% select(-1) %>% as.matrix
-matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
-matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
-```
 
 Test whether Kent's ovalness parameter (beta) is equal to zero.
 The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
 The altenrative is that Kent distribution is more suitable.
 
-
-```r
-test <- vecCoord %>% select(-1) %>% as.matrix %>% fishkent
-message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
-                test[["Bootstrap p-value"]],
-                ifelse(test[["Bootstrap p-value"]] < 0.05, "Reject", "Fail to reject")))
-```
 
 ```
 ## Bootstrap p-value is 0.5580
@@ -400,76 +386,33 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
 ## Circular summary statistics
 
 
-```r
-data.frame(type = c("All", "Cases", "Controls"),
-           latitude = c(matAll[, "latitude"] %>% 
-                          circ.summary(rads = FALSE, plot = FALSE) %>% 
-                          .[["mesos"]],
-                        matCases[, "latitude"] %>% 
-                          circ.summary(rads = FALSE, plot = FALSE) %>% 
-                          .[["mesos"]],
-                        matControls[, "latitude"] %>% 
-                          circ.summary(rads = FALSE, plot = FALSE) %>% 
-                          .[["mesos"]]),
-           longitude = c(matAll[, "longitude"] %>% 
-                           circ.summary(rads = FALSE, plot = FALSE) %>% 
-                           .[["mesos"]],
-                         matCases[, "longitude"] %>% 
-                           circ.summary(rads = FALSE, plot = FALSE) %>% 
-                           .[["mesos"]],
-                         matControls[, "longitude"] %>% 
-                           circ.summary(rads = FALSE, plot = FALSE) %>% 
-                           .[["mesos"]])) %>% kable
-```
-
-
-
-|type     |  latitude| longitude|
-|:--------|---------:|---------:|
-|All      | -75.34583|  156.0474|
-|Cases    | -73.58603|  160.8957|
-|Controls | -77.05687|  149.8446|
+|type                               |  latitude| longitude|
+|:----------------------------------|---------:|---------:|
+|All                                | -75.34583|  156.0474|
+|Cases                              | -73.58603|  160.8957|
+|Controls                           | -77.05687|  149.8446|
+|Aortic stenosis: none-trivial      | -75.42965|  153.2313|
+|Aortic stenosis: mild-severe       | -74.23478|  178.8612|
+|Aortic regurgitation: none-trivial | -75.25638|  152.4894|
+|Aortic regurgitation: mild-severe  | -75.66523|  175.2347|
 
 
 ## ANOVA
 
+There does not appear to be statistically different directions by 
+group (case vs control), 
+aortic stenosis (none-trivial vs mild-severe), or 
+aortic regurgitation (none-trivial vs mild-severe). 
 
-```r
-data.frame(variable = rep(c("Latitude", "Longitude"), 3),
-           effect = c(rep("Group: case vs control", 2), 
-                      rep("Aortic stenosis: none/trivial vs mild-severe", 2), 
-                      rep("Aortic regurgitation: none/trivial vs mild-severe", 2)),
-           bind_rows(matAll[, "latitude"] %>% 
-                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
-                       t %>% data.frame,
-                     matAll[, "longitude"] %>% 
-                       lr.circaov(., factor(df$type), rads = FALSE) %>% 
-                       t %>% data.frame,
-                     matAll[, "latitude"] %>% 
-                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
-                       t %>% data.frame,
-                     matAll[, "longitude"] %>% 
-                       lr.circaov(., factor(df$as), rads = FALSE) %>% 
-                       t %>% data.frame,
-                     matAll[, "latitude"] %>% 
-                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
-                       t %>% data.frame,
-                     matAll[, "longitude"] %>% 
-                       lr.circaov(., factor(df$ar), rads = FALSE) %>% 
-                       t %>% data.frame)) %>% 
-  kable
-```
+
+|effect                                            |      test|   p.value|    kappa|
+|:-------------------------------------------------|---------:|---------:|--------:|
+|Group: case vs control                            | 1.7657268| 0.1738577| 21.66473|
+|Aortic stenosis: none-trivial vs mild-severe      | 1.5235414| 0.2205891| 21.66473|
+|Aortic regurgitation: none-trivial vs mild-severe | 0.1964135| 0.8218390| 21.66473|
 
 
 
-|variable  |effect                                            |      test|   p.value|     kappa|
-|:---------|:-------------------------------------------------|---------:|---------:|---------:|
-|Latitude  |Group: case vs control                            | 2.2629933| 0.1324977| 25.930362|
-|Longitude |Group: case vs control                            | 0.2486268| 0.6180437|  0.773375|
-|Latitude  |Aortic stenosis: none/trivial vs mild-severe      | 0.0699664| 0.7913857| 25.930362|
-|Longitude |Aortic stenosis: none/trivial vs mild-severe      | 0.5389925| 0.4628505|  0.773375|
-|Latitude  |Aortic regurgitation: none/trivial vs mild-severe | 0.0214637| 0.8835227| 25.930362|
-|Longitude |Aortic regurgitation: none/trivial vs mild-severe | 0.5707245| 0.4499712|  0.773375|
 
 
 ## Circular regression for latitude (polar angle)
@@ -477,19 +420,10 @@ data.frame(variable = rep(c("Latitude", "Longitude"), 3),
 Unadjusted.
 
 
-```r
-new <- df$typeCase %>% unique
-M <- spml.reg(df$latitude, 
-              as.matrix(df[, "typeCase"]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
-
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.02 
+##    0.04    0.00    0.02 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -508,12 +442,6 @@ M
 ## [1] 285.9653 282.4707
 ```
 
-```r
-data.frame(type = df$type %>% unique, 
-           typeCase = new,
-           pred = as.vector(M$est) - 360) %>% kable
-```
-
 
 
 |type    |typeCase |      pred|
@@ -524,20 +452,10 @@ data.frame(type = df$type %>% unique,
 Adjusted for body surface area.
 
 
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$latitude, 
-              as.matrix(df[, c("typeCase", "bsaScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
-
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.06    0.03    0.04 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##           Cosinus of y Sinus of y
@@ -558,15 +476,6 @@ M
 ## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
 ```
 
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean BSA",
-                           "Mean BSA",
-                           "+1 SD from mean BSA"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
-```
-
 
 
 |type    |typeCase | bsaScaled|scaling             |      pred|
@@ -581,20 +490,10 @@ data.frame(type = rep(df$type %>% unique, 3),
 Adjusted for orifice area area.
 
 
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$latitude, 
-              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
-
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.07    0.00    0.03 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -615,15 +514,6 @@ M
 ## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
 ```
 
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean orifice area",
-                           "Mean orifice area",
-                           "+1 SD from mean orifice area"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
-```
-
 
 
 |type    |typeCase | orificeAreaScaled|scaling                      |      pred|
@@ -637,16 +527,6 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for coaptation line length.
 
-
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  magnitudeScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$latitude, 
-              as.matrix(df[, c("typeCase", "magnitudeScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
 
 ```
 ## $runtime
@@ -672,15 +552,6 @@ M
 ## [1] 287.4216 284.0196 284.4506 282.3623 282.8730 281.3978
 ```
 
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean coaptation line length",
-                           "Mean coaptation line length",
-                           "+1 SD from mean coaptation line length"), each = 2),
-           pred = as.vector(M$est) - 360) %>% kable
-```
-
 
 
 |type    |typeCase | magnitudeScaled|scaling                                |      pred|
@@ -696,15 +567,6 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Unadjusted.
 
-
-```r
-new <- df$typeCase %>% unique
-M <- spml.reg(df$longitude, 
-              as.matrix(df[, "typeCase"]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
 
 ```
 ## $runtime
@@ -728,12 +590,6 @@ M
 ## [1] 163.7288 149.5096
 ```
 
-```r
-data.frame(type = df$type %>% unique, 
-           typeCase = new,
-           pred = as.vector(M$est)) %>% kable
-```
-
 
 
 |type    |typeCase |     pred|
@@ -743,16 +599,6 @@ data.frame(type = df$type %>% unique,
 
 Adjusted for body surface area.
 
-
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  bsaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$longitude, 
-              as.matrix(df[, c("typeCase", "bsaScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
 
 ```
 ## $runtime
@@ -778,15 +624,6 @@ M
 ## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
 ```
 
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean BSA",
-                           "Mean BSA",
-                           "+1 SD from mean BSA"), each = 2),
-           pred = as.vector(M$est)) %>% kable
-```
-
 
 
 |type    |typeCase | bsaScaled|scaling             |     pred|
@@ -800,16 +637,6 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for orifice area area.
 
-
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  orificeAreaScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$longitude, 
-              as.matrix(df[, c("typeCase", "orificeAreaScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
 
 ```
 ## $runtime
@@ -835,15 +662,6 @@ M
 ## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
 ```
 
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean orifice area",
-                           "Mean orifice area",
-                           "+1 SD from mean orifice area"), each = 2),
-           pred = as.vector(M$est)) %>% kable
-```
-
 
 
 |type    |typeCase | orificeAreaScaled|scaling                      |     pred|
@@ -857,16 +675,6 @@ data.frame(type = rep(df$type %>% unique, 3),
 
 Adjusted for coaptation line length.
 
-
-```r
-new <- data.frame(typeCase = rep(df$typeCase %>% unique, 3), 
-                  magnitudeScaled = rep(-1:1, each = 2))
-M <- spml.reg(df$longitude, 
-              as.matrix(df[, c("typeCase", "magnitudeScaled")]), 
-              rads = FALSE, 
-              xnew = as.matrix(new))
-M
-```
 
 ```
 ## $runtime
@@ -890,15 +698,6 @@ M
 ## 
 ## $est
 ## [1] 178.6598 173.2108 164.4377 151.9422 140.1455 118.0617
-```
-
-```r
-data.frame(type = rep(df$type %>% unique, 3),
-           new,
-           scaling = rep(c("-1 SD from mean coaptation line length",
-                           "Mean coaptation line length",
-                           "+1 SD from mean coaptation line length"), each = 2),
-           pred = as.vector(M$est)) %>% kable
 ```
 
 

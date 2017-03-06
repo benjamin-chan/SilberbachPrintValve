@@ -175,11 +175,27 @@ data.frame(type = c("All",
 
 ## ANOVA
 
-```{r, echo = TRUE}
+There does not appear to be statistically different directions by 
+group (case vs control), 
+aortic stenosis (none-trivial vs mild-severe), or 
+aortic regurgitation (none-trivial vs mild-severe). 
+
+```{r}
+data.frame(effect = c("Group: case vs control",
+                      "Aortic stenosis: none-trivial vs mild-severe",
+                      "Aortic regurgitation: none-trivial vs mild-severe"),
+           bind_rows(hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$type)) %>% t %>% data.frame,
+                     hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$as)) %>% t %>% data.frame,
+                     hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$ar)) %>% t %>% data.frame)) %>% 
+  kable
+```
+
+
+```{r, eval = FALSE}
 data.frame(variable = rep(c("Latitude", "Longitude"), 3),
            effect = c(rep("Group: case vs control", 2), 
-                      rep("Aortic stenosis: none/trivial vs mild-severe", 2), 
-                      rep("Aortic regurgitation: none/trivial vs mild-severe", 2)),
+                      rep("Aortic stenosis: none-trivial vs mild-severe", 2), 
+                      rep("Aortic regurgitation: none-trivial vs mild-severe", 2)),
            bind_rows(matAll[, "latitude"] %>% 
                        lr.circaov(., factor(df$type), rads = FALSE) %>% 
                        t %>% data.frame,

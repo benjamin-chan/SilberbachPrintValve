@@ -97,12 +97,17 @@ ggsave("../figures/plotSphericalRegurgitation.svg", dpi = 300)
 
 Create data matrices.
 
-```{r, echo = TRUE}
+```{r}
 vecCoord <- df %>% select(matches("^type$|(coapUnit[XYZ])"))
-cirCoord <- df %>% select(matches("^type$|((lat)|(long))itude"))
-matAll <- cirCoord %>% select(-1) %>% as.matrix
-matCases <- cirCoord %>% filter(type == "Case") %>% select(-1) %>% as.matrix
-matControls <- cirCoord %>% filter(type == "Control") %>% select(-1) %>% as.matrix
+cirCoord <- df %>% select(matches("^type$|^a[sr]$|((lat)|(long))itude"))
+latlon <- "((lat)|(long))itude"
+matAll <- cirCoord %>% select(matches(latlon)) %>% as.matrix
+matCases <- cirCoord %>% filter(type == "Case") %>% select(matches(latlon)) %>% as.matrix
+matControls <- cirCoord %>% filter(type == "Control") %>% select(matches(latlon)) %>% as.matrix
+matAS0 <- cirCoord %>% filter(unclass(as) == 1) %>% select(matches(latlon)) %>% as.matrix
+matAS1 <- cirCoord %>% filter(unclass(as) == 2) %>% select(matches(latlon)) %>% as.matrix
+matAR0 <- cirCoord %>% filter(unclass(ar) == 1) %>% select(matches(latlon)) %>% as.matrix
+matAR1 <- cirCoord %>% filter(unclass(ar) == 2) %>% select(matches(latlon)) %>% as.matrix
 ```
 
 Test whether Kent's ovalness parameter (beta) is equal to zero.
@@ -119,7 +124,10 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
 ## Circular summary statistics
 
 ```{r, echo = TRUE}
-data.frame(type = c("All", "Cases", "Controls"),
+data.frame(type = c("All",
+                    "Cases", "Controls",
+                    "Aortic stenosis: none-trivial", "Aortic stenosis: mild-severe",
+                    "Aortic regurgitation: none-trivial", "Aortic regurgitation: mild-severe"),
            latitude = c(matAll[, "latitude"] %>% 
                           circ.summary(rads = FALSE, plot = FALSE) %>% 
                           .[["mesos"]],
@@ -127,6 +135,18 @@ data.frame(type = c("All", "Cases", "Controls"),
                           circ.summary(rads = FALSE, plot = FALSE) %>% 
                           .[["mesos"]],
                         matControls[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAS0[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAS1[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAR0[, "latitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAR1[, "latitude"] %>% 
                           circ.summary(rads = FALSE, plot = FALSE) %>% 
                           .[["mesos"]]),
            longitude = c(matAll[, "longitude"] %>% 
@@ -137,7 +157,19 @@ data.frame(type = c("All", "Cases", "Controls"),
                            .[["mesos"]],
                          matControls[, "longitude"] %>% 
                            circ.summary(rads = FALSE, plot = FALSE) %>% 
-                           .[["mesos"]])) %>% kable
+                           .[["mesos"]],
+                        matAS0[, "longitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAS1[, "longitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAR0[, "longitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]],
+                        matAR1[, "longitude"] %>% 
+                          circ.summary(rads = FALSE, plot = FALSE) %>% 
+                          .[["mesos"]])) %>% kable
 ```
 
 

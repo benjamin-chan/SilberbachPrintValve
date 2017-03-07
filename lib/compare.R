@@ -7,8 +7,8 @@ compare <- function (var, label, covar = NULL) {
                sd = sprintf("sd(%s, na.rm = TRUE)", var),
                min = sprintf("min(%s, na.rm = TRUE)", var),
                max = sprintf("max(%s, na.rm = TRUE)", var)) %>% 
-    mutate(meanSD = sprintf("%.03f (%.03f)", mean, sd),
-           range = sprintf("(%.03f, %.03f)", min, max)) %>% 
+    mutate(meanSD = sprintf("%.03g (%.03g)", mean, sd),
+           range = sprintf("(%.03g, %.03g)", min, max)) %>% 
     mutate(variable = label) %>% 
     select(variable, everything())
   if (is.null(covar)) {

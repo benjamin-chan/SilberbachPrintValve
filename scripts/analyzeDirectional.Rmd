@@ -123,6 +123,8 @@ message(sprintf("Bootstrap p-value is %.04f\n%s null hypothesis",
 
 ## Circular summary statistics
 
+Circular summary statistics.
+
 ```{r}
 data.frame(type = c("All",
                     "Cases", "Controls",
@@ -169,7 +171,10 @@ data.frame(type = c("All",
                           .[["mesos"]],
                         matAR1[, "longitude"] %>% 
                           circ.summary(rads = FALSE, plot = FALSE) %>% 
-                          .[["mesos"]])) %>% kable
+                          .[["mesos"]])) %>% 
+  mutate(latitude = signif(latitude, digits = 3),
+         longitude = signif(longitude, digits = 3)) %>% 
+  kable
 ```
 
 
@@ -187,6 +192,9 @@ data.frame(effect = c("Group: case vs control",
            bind_rows(hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$type)) %>% t %>% data.frame,
                      hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$as)) %>% t %>% data.frame,
                      hcf.aov(df %>% select(matches("coapUnit[XYZ]")), factor(df$ar)) %>% t %>% data.frame)) %>% 
+  mutate(test = signif(test, digits = 3),
+         p.value = signif(p.value, digits = 3),
+         kappa = signif(kappa, digits = 3)) %>% 
   kable
 ```
 

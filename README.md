@@ -6,7 +6,6 @@ Principal investigator | Michael Silberbach, silberbm@ohsu.edu, 503-494-3189
 Main contact | Michael Silberbach, silberbm@ohsu.edu, 503-494-3189
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | 
-SilberbachPrintValve
 
 
 ## Objective
@@ -33,6 +32,51 @@ suitable for a peer-reviewed manuscript or grant submission.
 
 
 ## Results
+
+Due to missing data, the sample size for each group is not 50.
+
+|type    |  n|
+|:-------|--:|
+|Case    | 48|
+|Control | 49|
+
+Unadjusted/unscaled comparisons, case vs controls
+
+![Density plot](figures/densityplots.png)
+
+|variable                                               |meanSDCases    |meanSDControls | difference|
+|:------------------------------------------------------|:--------------|:--------------|----------:|
+|Body surface area                                      |2.03 (0.202)   |1.87 (0.313)   |     0.1600|
+|NR fraction                                            |0.391 (0.12)   |0.335 (0.0682) |     0.0561|
+|RL fraction                                            |0.228 (0.133)  |0.331 (0.0906) |    -0.1030|
+|LN fraction                                            |0.381 (0.0945) |0.334 (0.0812) |     0.0469|
+|Total coaptation area, value                           |649 (189)      |515 (224)      |   134.0000|
+|Total coaptation area, calculated                      |649 (189)      |516 (224)      |   134.0000|
+|Orifice area                                           |637 (197)      |487 (120)      |   150.0000|
+|Valve diameter                                         |32.1 (4.49)    |26.7 (4.59)    |     5.4300|
+|Valve area                                             |825 (235)      |575 (199)      |   250.0000|
+|Total valve coaptation area relative to valve diameter |20.1 (4.37)    |18.7 (5.57)    |     1.3400|
+|Total valve coaptation area relative to orifice area   |1.06 (0.266)   |1.05 (0.321)   |     0.0121|
+|Total valve coaptation area relative to valve area     |0.807 (0.191)  |0.893 (0.203)  |    -0.0855|
+|Coaptation line length                                 |12.4 (3.75)    |13 (4)         |    -0.6560|
+
+Adjusted for **orifice area.**
+p-values adjusted for multiple comparisons.
+
+|variable                                               | difference|  seDiff|  pAdjust|sig   |
+|:------------------------------------------------------|----------:|-------:|--------:|:-----|
+|Body surface area                                      |     0.0880|  0.0568| 0.187000|FALSE |
+|NR fraction                                            |     0.0595|  0.0219| 0.019100|TRUE  |
+|RL fraction                                            |    -0.1110|  0.0255| 0.000423|TRUE  |
+|LN fraction                                            |     0.0511|  0.0198| 0.020700|TRUE  |
+|Total coaptation area, value                           |    24.2000| 38.4000| 0.532000|FALSE |
+|Total coaptation area, calculated                      |    24.1000| 38.4000| 0.532000|FALSE |
+|Valve diameter                                         |     3.2600|  0.8740| 0.002010|TRUE  |
+|Valve area                                             |   147.0000| 42.0000| 0.002880|TRUE  |
+|Total valve coaptation area relative to valve diameter |    -0.7950|  1.0000| 0.516000|FALSE |
+|Total valve coaptation area relative to orifice area   |     0.0651|  0.0652| 0.428000|FALSE |
+|Total valve coaptation area relative to valve area     |    -0.1120|  0.0439| 0.020700|TRUE  |
+|Coaptation line length                                 |    -2.2100|  0.7880| 0.018100|TRUE  |
 
 
 ### Coaptation line length
@@ -79,12 +123,37 @@ adjusted for orifice area.
 
 ### Coaptation line direction
 
-Polar plots of coaptation line angles
+Cases vs controls
+![Spherical coordinates](figures/plotSpherical.png)
 
-![Latitude](figures/plotLatitude.png)
-![Longitude](figures/plotLongitude.png)
+Cases vs controls and aortic stenosis
+![Spherical coordinates by aortic stenosis](figures/plotSphericalStenosis.png)
 
-**NEED TO FILL IN**
+Cases vs controls and aortic regurgitation
+![Spherical coordinates by aortic regurgitation](figures/plotSphericalRegurgitation.png)
+
+Circular summary statistics.
+
+|type                               | latitude| longitude|
+|:----------------------------------|--------:|---------:|
+|All                                |    -75.3|       156|
+|Cases                              |    -73.6|       161|
+|Controls                           |    -77.1|       150|
+|Aortic stenosis: none-trivial      |    -75.4|       153|
+|Aortic stenosis: mild-severe       |    -74.2|       179|
+|Aortic regurgitation: none-trivial |    -75.3|       152|
+|Aortic regurgitation: mild-severe  |    -75.7|       175|
+
+There does not appear to be statistically different directions by 
+group (case vs control), 
+aortic stenosis (none-trivial vs mild-severe), or 
+aortic regurgitation (none-trivial vs mild-severe). 
+
+|effect                                            |  test| p.value| kappa|
+|:-------------------------------------------------|-----:|-------:|-----:|
+|Group: case vs control                            | 1.770|   0.174|  21.7|
+|Aortic stenosis: none-trivial vs mild-severe      | 1.520|   0.221|  21.7|
+|Aortic regurgitation: none-trivial vs mild-severe | 0.196|   0.822|  21.7|
 
 
 ## Method
@@ -97,9 +166,11 @@ An interactive representation of the coaptation line geometry is [here](https://
 
 ## Outputs
 
-* Polar plots of coaptation line angles
-  * Latitude: [PNG](figures/plotLatitude.png), [SVG](figures/plotLatitude.svg)  
-  * Longitude: [PNG](figures/plotLongitude.png), [SVG](figures/plotLongitude.svg)  
+* Density plots of body size, valve area, and coaptation line length variables: [PNG](figures/scatterplots.png), [SVG](figures/scatterplots.svg)
+* Spherical cooardinates of coaptation lines
+  * Cases vs controls: [PNG](figures/plotSpherical.png), [SVG](figures/plotSpherical.svg)
+  * Cases vs controls and aortic stenosis: [PNG](figures/plotSphericalStenosis.png), [SVG](figures/plotSphericalStenosis.svg)
+  * Cases vs controls and aortic regurgitation: [PNG](figures/plotSphericalRegurgitation.png), [SVG](figures/plotSphericalRegurgitation.svg)
 * Complete analysis: [HTML](docs/index.html) or [Markdown](docs/index.md)
 
 

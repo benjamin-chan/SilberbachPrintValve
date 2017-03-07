@@ -721,34 +721,7 @@ pre {
   position: relative;
   border-color: #4078c0;
 }
-</style>
-<link href='http://bootswatch.com/readable/bootstrap.css' rel='stylesheet' type='text/css'><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-MathJax.Hub.Config({
-  config: ["MMLorHTML.js"],
-  extensions: ["tex2jax.js"],
-  jax: ["input/TeX"],
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-    processEscapes: false
-  },
-  TeX: {
-    extensions: ["AMSmath.js", "AMSsymbols.js"],
-    TagSide: "right",
-    TagIndent: ".8em",
-    MultLineWidth: "85%",
-    equationNumbers: {
-      autoNumber: "AMS",
-    },
-    unicode: {
-      fonts: "STIXGeneral,'Arial Unicode MS'"
-    }
-  },
-  showProcessingMessages: false
-});
-</script>
-<title>README</title></head><body><article class="markdown-body"><h1>
+</style><title>README</title></head><body><article class="markdown-body"><h1>
 <a id="user-content-printvalve-case-control-analysis" class="anchor" href="#printvalve-case-control-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PrintValve case-control analysis</h1>
 
 <table>
@@ -778,8 +751,6 @@ MathJax.Hub.Config({
 </tbody>
 </table>
 
-<p>SilberbachPrintValve</p>
-
 <h2>
 <a id="user-content-objective" class="anchor" href="#objective" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Objective</h2>
 
@@ -808,17 +779,230 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 <h2>
 <a id="user-content-results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h2>
 
+<p>Due to missing data, the sample size for each group is not 50.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">48</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">49</td>
+</tr>
+</tbody>
+</table>
+
+<p>Unadjusted/unscaled comparisons, case vs controls</p>
+
+<p><a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" alt="Density plot" style="max-width:100%;"></a></p>
+
+<table>
+<thead>
+<tr>
+<th align="left">variable</th>
+<th align="left">meanSDCases</th>
+<th align="left">meanSDControls</th>
+<th align="right">difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Body surface area</td>
+<td align="left">2.03 (0.202)</td>
+<td align="left">1.87 (0.313)</td>
+<td align="right">0.1600</td>
+</tr>
+<tr>
+<td align="left">NR fraction</td>
+<td align="left">0.391 (0.12)</td>
+<td align="left">0.335 (0.0682)</td>
+<td align="right">0.0561</td>
+</tr>
+<tr>
+<td align="left">RL fraction</td>
+<td align="left">0.228 (0.133)</td>
+<td align="left">0.331 (0.0906)</td>
+<td align="right">-0.1030</td>
+</tr>
+<tr>
+<td align="left">LN fraction</td>
+<td align="left">0.381 (0.0945)</td>
+<td align="left">0.334 (0.0812)</td>
+<td align="right">0.0469</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, value</td>
+<td align="left">649 (189)</td>
+<td align="left">515 (224)</td>
+<td align="right">134.0000</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, calculated</td>
+<td align="left">649 (189)</td>
+<td align="left">516 (224)</td>
+<td align="right">134.0000</td>
+</tr>
+<tr>
+<td align="left">Orifice area</td>
+<td align="left">637 (197)</td>
+<td align="left">487 (120)</td>
+<td align="right">150.0000</td>
+</tr>
+<tr>
+<td align="left">Valve diameter</td>
+<td align="left">32.1 (4.49)</td>
+<td align="left">26.7 (4.59)</td>
+<td align="right">5.4300</td>
+</tr>
+<tr>
+<td align="left">Valve area</td>
+<td align="left">825 (235)</td>
+<td align="left">575 (199)</td>
+<td align="right">250.0000</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve diameter</td>
+<td align="left">20.1 (4.37)</td>
+<td align="left">18.7 (5.57)</td>
+<td align="right">1.3400</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to orifice area</td>
+<td align="left">1.06 (0.266)</td>
+<td align="left">1.05 (0.321)</td>
+<td align="right">0.0121</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve area</td>
+<td align="left">0.807 (0.191)</td>
+<td align="left">0.893 (0.203)</td>
+<td align="right">-0.0855</td>
+</tr>
+<tr>
+<td align="left">Coaptation line length</td>
+<td align="left">12.4 (3.75)</td>
+<td align="left">13 (4)</td>
+<td align="right">-0.6560</td>
+</tr>
+</tbody>
+</table>
+
+<p>Adjusted for <strong>orifice area.</strong>
+p-values adjusted for multiple comparisons.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">variable</th>
+<th align="right">difference</th>
+<th align="right">seDiff</th>
+<th align="right">pAdjust</th>
+<th align="left">sig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Body surface area</td>
+<td align="right">0.0880</td>
+<td align="right">0.0568</td>
+<td align="right">0.187000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr>
+<td align="left">NR fraction</td>
+<td align="right">0.0595</td>
+<td align="right">0.0219</td>
+<td align="right">0.019100</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">RL fraction</td>
+<td align="right">-0.1110</td>
+<td align="right">0.0255</td>
+<td align="right">0.000423</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">LN fraction</td>
+<td align="right">0.0511</td>
+<td align="right">0.0198</td>
+<td align="right">0.020700</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, value</td>
+<td align="right">24.2000</td>
+<td align="right">38.4000</td>
+<td align="right">0.532000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr>
+<td align="left">Total coaptation area, calculated</td>
+<td align="right">24.1000</td>
+<td align="right">38.4000</td>
+<td align="right">0.532000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr>
+<td align="left">Valve diameter</td>
+<td align="right">3.2600</td>
+<td align="right">0.8740</td>
+<td align="right">0.002010</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Valve area</td>
+<td align="right">147.0000</td>
+<td align="right">42.0000</td>
+<td align="right">0.002880</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve diameter</td>
+<td align="right">-0.7950</td>
+<td align="right">1.0000</td>
+<td align="right">0.516000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to orifice area</td>
+<td align="right">0.0651</td>
+<td align="right">0.0652</td>
+<td align="right">0.428000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr>
+<td align="left">Total valve coaptation area relative to valve area</td>
+<td align="right">-0.1120</td>
+<td align="right">0.0439</td>
+<td align="right">0.020700</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Coaptation line length</td>
+<td align="right">-2.2100</td>
+<td align="right">0.7880</td>
+<td align="right">0.018100</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+
 <h3>
 <a id="user-content-coaptation-line-length" class="anchor" href="#coaptation-line-length" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coaptation line length</h3>
 
 <p>Summary from linear model estimating coaptation line length by case or control group status,
 <strong>adjusted for orifice area.</strong></p>
 
-<ul>
-<li>Model statistics</li>
-<li>ANOVA table</li>
-<li>Predicted values, and 95% confidence intervals for the mean, and 95% prediction intervals</li>
-</ul>
+<p><strong>Model statistics</strong></p>
 
 <table>
 <thead>
@@ -852,6 +1036,8 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 </tr>
 </tbody>
 </table>
+
+<p><strong>ANOVA table</strong></p>
 
 <table>
 <thead>
@@ -887,6 +1073,8 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 </tr>
 </tbody>
 </table>
+
+<p><strong>Predicted values</strong>, and 95% confidence intervals for the mean, and 95% prediction intervals</p>
 
 <table>
 <thead>
@@ -979,11 +1167,99 @@ adjusted for orifice area.</p>
 <h3>
 <a id="user-content-coaptation-line-direction" class="anchor" href="#coaptation-line-direction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coaptation line direction</h3>
 
-<p>Polar plot matrix of coaptation line angles: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png">PNG</a> or <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot.svg">SVG</a></p>
+<p>Cases vs controls
+<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" alt="Spherical coordinates" style="max-width:100%;"></a></p>
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png" alt="plot of chunk polarplot" style="max-width:100%;"></a></p>
+<p>Cases vs controls and aortic stenosis
+<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" alt="Spherical coordinates by aortic stenosis" style="max-width:100%;"></a></p>
 
-<p><strong>NEED TO FILL IN</strong></p>
+<p>Cases vs controls and aortic regurgitation
+<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" alt="Spherical coordinates by aortic regurgitation" style="max-width:100%;"></a></p>
+
+<p>Circular summary statistics.</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">latitude</th>
+<th align="right">longitude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">All</td>
+<td align="right">-75.3</td>
+<td align="right">156</td>
+</tr>
+<tr>
+<td align="left">Cases</td>
+<td align="right">-73.6</td>
+<td align="right">161</td>
+</tr>
+<tr>
+<td align="left">Controls</td>
+<td align="right">-77.1</td>
+<td align="right">150</td>
+</tr>
+<tr>
+<td align="left">Aortic stenosis: none-trivial</td>
+<td align="right">-75.4</td>
+<td align="right">153</td>
+</tr>
+<tr>
+<td align="left">Aortic stenosis: mild-severe</td>
+<td align="right">-74.2</td>
+<td align="right">179</td>
+</tr>
+<tr>
+<td align="left">Aortic regurgitation: none-trivial</td>
+<td align="right">-75.3</td>
+<td align="right">152</td>
+</tr>
+<tr>
+<td align="left">Aortic regurgitation: mild-severe</td>
+<td align="right">-75.7</td>
+<td align="right">175</td>
+</tr>
+</tbody>
+</table>
+
+<p>There does not appear to be statistically different directions by 
+group (case vs control), 
+aortic stenosis (none-trivial vs mild-severe), or 
+aortic regurgitation (none-trivial vs mild-severe). </p>
+
+<table>
+<thead>
+<tr>
+<th align="left">effect</th>
+<th align="right">test</th>
+<th align="right">p.value</th>
+<th align="right">kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Group: case vs control</td>
+<td align="right">1.770</td>
+<td align="right">0.174</td>
+<td align="right">21.7</td>
+</tr>
+<tr>
+<td align="left">Aortic stenosis: none-trivial vs mild-severe</td>
+<td align="right">1.520</td>
+<td align="right">0.221</td>
+<td align="right">21.7</td>
+</tr>
+<tr>
+<td align="left">Aortic regurgitation: none-trivial vs mild-severe</td>
+<td align="right">0.196</td>
+<td align="right">0.822</td>
+<td align="right">21.7</td>
+</tr>
+</tbody>
+</table>
 
 <h2>
 <a id="user-content-method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method</h2>
@@ -991,15 +1267,26 @@ adjusted for orifice area.</p>
 <p>Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is <a href="https://ggbm.at/CeF95YMN">here</a>.</p>
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/CoaptationLine.png" alt="Coaptation line" style="max-width:100%;"></a></p>
+<p><a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" alt="Line of coaptation" style="max-width:100%;"></a></p>
 
 <h2>
 <a id="user-content-outputs" class="anchor" href="#outputs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Outputs</h2>
 
 <ul>
-<li>Polar plot matrix of coaptation line angles: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot-1.png">PNG</a> or <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/polarplot.svg">SVG</a>
+<li>Density plots of body size, valve area, and coaptation line length variables: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/scatterplots.svg">SVG</a>
 </li>
-<li>Complete analysis: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.html">HTML</a> or <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.md">Markdown</a>
+<li>Spherical cooardinates of coaptation lines
+
+<ul>
+<li>Cases vs controls: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.svg">SVG</a>
+</li>
+<li>Cases vs controls and aortic stenosis: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.svg">SVG</a>
+</li>
+<li>Cases vs controls and aortic regurgitation: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.svg">SVG</a>
+</li>
+</ul>
+</li>
+<li>Complete analysis: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/docs/index.html">HTML</a> or <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/docs/index.md">Markdown</a>
 </li>
 </ul>
 
@@ -1064,5 +1351,5 @@ An interactive representation of the coaptation line geometry is <a href="https:
 $ /usr/bin/Rscript script.R
 </code></pre>
 
-<p>R package versions are listed in <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/session.log"><code>scripts/session.log</code></a>.</p>
+<p>R package versions are listed in <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/scripts/session.log"><code>scripts/session.log</code></a>.</p>
 </article></body></html>

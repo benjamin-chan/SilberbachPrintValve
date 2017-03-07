@@ -88,7 +88,11 @@ Output results.
 Results save as [CSV](../data/processed/compareUnadjusted.csv).
 
 ```{r}
-results %>% kable
+results %>% 
+  select(matches("variable|meanSD|diff")) %>% 
+  select(-matches("seDiff")) %>% 
+  mutate(difference = signif(difference, digits = 3)) %>% 
+  kable
 f <- "../data/processed/compareUnadjusted.csv"
 results %>% write.csv(file = f, row.names = FALSE, na = "")
 message(sprintf("File %s was written on %s", f, file.mtime(f)))
@@ -127,7 +131,12 @@ Output results.
 Results save as [CSV](../data/processed/compareAdjusted.csv).
 
 ```{r}
-results %>% kable
+results %>% 
+  select(matches("variable|diff|pAdjust|sig")) %>% 
+  mutate(difference = signif(difference, digits = 3),
+         seDiff = signif(seDiff, digits = 3),
+         pAdjust = signif(pAdjust, digits = 3)) %>% 
+  kable
 f <- "../data/processed/compareAdjusted.csv"
 results %>% write.csv(file = f, row.names = FALSE, na = "")
 message(sprintf("File %s was written on %s", f, file.mtime(f)))

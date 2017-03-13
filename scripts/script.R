@@ -13,6 +13,7 @@ files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
            "compare.Rmd",
+           "sphereplot.Rmd",
            "analyzeRadial.Rmd",
            "analyzeDirectional.Rmd")
 f <- file("master.Rmd", open = "w")

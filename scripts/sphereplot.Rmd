@@ -1,0 +1,22 @@
+# 3D plot
+
+[Interactive HTML](../figures/webGL/sphereplot.html)
+
+```{r}
+col <- brewer.pal(5, "Set1")
+rgl.sphgrid(radius = df$magnitude %>% max,
+            col.long = col[1], col.lat = col[2],
+            deggap = 30, longtype = "D", radlab = "Distance")
+rgl.sphpoints(long = df %>% filter(type == "Case") %>% select(longitude),
+              lat = df %>% filter(type == "Case") %>% select(latitude),
+              radius = df %>% filter(type == "Case") %>% select(magnitude),
+              col = col[1],
+              deg = TRUE, size = 10, alpha = 1/2)
+rgl.sphpoints(long = df %>% filter(type == "Control") %>% select(longitude),
+              lat = df %>% filter(type == "Control") %>% select(latitude),
+              radius = df %>% filter(type == "Control") %>% select(magnitude),
+              col = col[2],
+              deg = TRUE, size = 10, alpha = 1/2)
+dir <- file.path("~/Projects/SilberbachPrintValve/figures/webGL")
+writeWebGL(dir = dir, filename = file.path(dir, "sphereplot.html"), width = 1080)
+```

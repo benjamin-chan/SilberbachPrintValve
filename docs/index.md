@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-03-13 08:00:40"
+date: "2017-03-13 10:11:11"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 08:00:41
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 10:11:13
 ```
 
 Summarize the entire data set.
@@ -154,7 +154,7 @@ Results save as [CSV](../data/processed/compareUnadjusted.csv).
 |Ceiling centroid point Y-coordinate                    |13.8 (3.72)    |10.8 (3.25)    |     3.0100|
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 08:01:24
+## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 10:11:51
 ```
 
 ## Adjusted comparisons
@@ -189,8 +189,13 @@ Results save as [CSV](../data/processed/compareAdjusted.csv).
 |Ceiling centroid point Y-coordinate                    |     2.1000|  0.7550| 0.015900|TRUE  |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 08:01:24
+## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 10:11:51
 ```
+# 3D plot
+
+[Interactive HTML](../figures/webGL/sphereplot.html)
+
+
 # Linear model of coaptation line length
 
 ## Unadjusted
@@ -446,7 +451,7 @@ Unadjusted.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.07    0.00    0.03 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -516,7 +521,7 @@ Adjusted for orifice area area.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.09    0.00    0.04 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y
@@ -554,7 +559,7 @@ Adjusted for coaptation line length.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.06    0.00    0.03 
+##    0.07    0.00    0.03 
 ## 
 ## $beta
 ##                 Cosinus of y Sinus of y

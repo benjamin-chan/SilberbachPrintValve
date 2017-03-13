@@ -1,8 +1,8 @@
 $completionDateTime
-[1] "2017-03-13 08:01:31 PDT"
+[1] "2017-03-13 10:12:00 PDT"
 
 $executionTime
-Time difference of 52.72451 secs
+Time difference of 49.74697 secs
 
 $sessionInfo
 R version 3.3.2 (2016-10-31)
@@ -20,20 +20,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
- [1] gdtools_0.1.3        Directional_2.3      ggplot2_2.2.1       
- [4] broom_0.4.1          reshape2_1.4.2       dplyr_0.5.0         
- [7] magrittr_1.5         readxl_0.1.1         rmarkdown_1.3       
-[10] knitr_1.15.1         checkpoint_0.3.16    RevoUtilsMath_10.0.0
+ [1] gdtools_0.1.3        RColorBrewer_1.1-2   sphereplot_1.5      
+ [4] rgl_0.96.0           Directional_2.3      ggplot2_2.2.1       
+ [7] broom_0.4.1          reshape2_1.4.2       dplyr_0.5.0         
+[10] magrittr_1.5         readxl_0.1.1         rmarkdown_1.3       
+[13] knitr_1.15.1         checkpoint_0.3.16    RevoUtilsMath_10.0.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.8        RColorBrewer_1.1-2 highr_0.6          plyr_1.8.4        
- [5] iterators_1.0.8    methods_3.3.2      tools_3.3.2        digest_0.6.10     
- [9] evaluate_0.10      tibble_1.2         nlme_3.1-128       gtable_0.2.0      
-[13] lattice_0.20-34    foreach_1.4.3      psych_1.6.9        DBI_0.5-1         
-[17] parallel_3.3.2     stringr_1.1.0      RevoUtils_10.0.2   RcppZiggurat_0.1.3
-[21] rprojroot_1.1      grid_3.3.2         Rfast_1.5          svglite_1.2.0     
-[25] R6_2.2.0           foreign_0.8-67     tidyr_0.6.0        codetools_0.2-15  
-[29] backports_1.0.4    scales_0.4.1       htmltools_0.3.5    MASS_7.3-45       
-[33] assertthat_0.1     mnormt_1.5-5       colorspace_1.3-2   labeling_0.3      
-[37] stringi_1.1.2      doParallel_1.0.10  lazyeval_0.2.0     munsell_0.4.3     
+ [1] RevoUtils_10.0.2   lattice_0.20-34    colorspace_1.3-2   htmltools_0.3.5   
+ [5] foreign_0.8-67     DBI_0.5-1          RcppZiggurat_0.1.3 foreach_1.4.3     
+ [9] plyr_1.8.4         stringr_1.1.0      munsell_0.4.3      gtable_0.2.0      
+[13] htmlwidgets_0.8    codetools_0.2-15   psych_1.6.9        evaluate_0.10     
+[17] labeling_0.3       doParallel_1.0.10  httpuv_1.3.3       parallel_3.3.2    
+[21] markdown_0.7.7     Rfast_1.5          highr_0.6          methods_3.3.2     
+[25] Rcpp_0.12.8        xtable_1.8-2       scales_0.4.1       backports_1.0.4   
+[29] jsonlite_1.2       mime_0.5           mnormt_1.5-5       digest_0.6.10     
+[33] stringi_1.1.2      shiny_0.14.1       grid_3.3.2         rprojroot_1.1     
+[37] tools_3.3.2        lazyeval_0.2.0     tibble_1.2         tidyr_0.6.0       
+[41] MASS_7.3-45        assertthat_0.1     svglite_1.2.0      iterators_1.0.8   
+[45] R6_2.2.0           nlme_3.1-128      
 

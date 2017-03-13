@@ -42,7 +42,7 @@ Due to missing data, the sample size for each group is not 50.
 
 Unadjusted/unscaled comparisons, case vs controls
 
-![Density plot](figures/densityplots.png)
+![Boxplots](figures/boxplots.png)
 
 |variable                                               |meanSDCases    |meanSDControls | difference|
 |:------------------------------------------------------|:--------------|:--------------|----------:|
@@ -59,24 +59,28 @@ Unadjusted/unscaled comparisons, case vs controls
 |Total valve coaptation area relative to orifice area   |1.06 (0.266)   |1.05 (0.321)   |     0.0121|
 |Total valve coaptation area relative to valve area     |0.807 (0.191)  |0.893 (0.203)  |    -0.0855|
 |Coaptation line length                                 |12.4 (3.75)    |13 (4)         |    -0.6560|
+|Ceiling centroid point X-coordinate                    |9.73 (3.96)    |6.96 (2.55)    |     2.7700|
+|Ceiling centroid point Y-coordinate                    |13.8 (3.72)    |10.8 (3.25)    |     3.0100|
 
 Adjusted for **orifice area.**
 p-values adjusted for multiple comparisons.
 
 |variable                                               | difference|  seDiff|  pAdjust|sig   |
 |:------------------------------------------------------|----------:|-------:|--------:|:-----|
-|Body surface area                                      |     0.0880|  0.0568| 0.187000|FALSE |
-|NR fraction                                            |     0.0595|  0.0219| 0.019100|TRUE  |
-|RL fraction                                            |    -0.1110|  0.0255| 0.000423|TRUE  |
-|LN fraction                                            |     0.0511|  0.0198| 0.020700|TRUE  |
+|Body surface area                                      |     0.0880|  0.0568| 0.175000|FALSE |
+|NR fraction                                            |     0.0595|  0.0219| 0.015900|TRUE  |
+|RL fraction                                            |    -0.1110|  0.0255| 0.000493|TRUE  |
+|LN fraction                                            |     0.0511|  0.0198| 0.018800|TRUE  |
 |Total coaptation area, value                           |    24.2000| 38.4000| 0.532000|FALSE |
 |Total coaptation area, calculated                      |    24.1000| 38.4000| 0.532000|FALSE |
-|Valve diameter                                         |     3.2600|  0.8740| 0.002010|TRUE  |
-|Valve area                                             |   147.0000| 42.0000| 0.002880|TRUE  |
-|Total valve coaptation area relative to valve diameter |    -0.7950|  1.0000| 0.516000|FALSE |
-|Total valve coaptation area relative to orifice area   |     0.0651|  0.0652| 0.428000|FALSE |
-|Total valve coaptation area relative to valve area     |    -0.1120|  0.0439| 0.020700|TRUE  |
-|Coaptation line length                                 |    -2.2100|  0.7880| 0.018100|TRUE  |
+|Valve diameter                                         |     3.2600|  0.8740| 0.002350|TRUE  |
+|Valve area                                             |   147.0000| 42.0000| 0.003350|TRUE  |
+|Total valve coaptation area relative to valve diameter |    -0.7950|  1.0000| 0.501000|FALSE |
+|Total valve coaptation area relative to orifice area   |     0.0651|  0.0652| 0.408000|FALSE |
+|Total valve coaptation area relative to valve area     |    -0.1120|  0.0439| 0.018800|TRUE  |
+|Coaptation line length                                 |    -2.2100|  0.7880| 0.015900|TRUE  |
+|Ceiling centroid point X-coordinate                    |     1.9700|  0.7230| 0.015900|TRUE  |
+|Ceiling centroid point Y-coordinate                    |     2.1000|  0.7550| 0.015900|TRUE  |
 
 
 ### Coaptation line length
@@ -166,7 +170,11 @@ An interactive representation of the coaptation line geometry is [here](https://
 
 ## Outputs
 
-* Density plots of body size, valve area, and coaptation line length variables: [PNG](figures/scatterplots.png), [SVG](figures/scatterplots.svg)
+* Plots of body size, valve area, and coaptation line length variables (same information in different formats)
+  * Density plots: [PNG](figures/densityplots.png), [SVG](figures/densityplots.svg)
+  * Scatterplots: [PNG](figures/scatterplots.png), [SVG](figures/scatterplots.svg)
+  * Boxplots: [PNG](figures/boxplots.png), [SVG](figures/boxplots.svg)
+  * Violin plots: [PNG](figures/violinplots.png), [SVG](figures/violinplots.svg)
 * Spherical cooardinates of coaptation lines
   * Cases vs controls: [PNG](figures/plotSpherical.png), [SVG](figures/plotSpherical.svg)
   * Cases vs controls and aortic stenosis: [PNG](figures/plotSphericalStenosis.png), [SVG](figures/plotSphericalStenosis.svg)

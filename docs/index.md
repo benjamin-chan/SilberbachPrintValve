@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-03-06 12:11:44"
+date: "2017-03-13 08:00:40"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-06 12:11:44
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 08:00:41
 ```
 
 Summarize the entire data set.
@@ -106,6 +106,23 @@ Each has their advantages and disadvantages.
 
 
 
+## Boxplots
+
+[PNG](../figures/boxplots.png), [SVG](../figures/boxplots.svg)
+
+![Boxplots](../figures/boxplots.png)
+
+
+
+## Violin plots
+
+[PNG](../figures/violinplots.png), [SVG](../figures/violinplots.svg)
+
+![Violin plots](../figures/violinplots.png)
+
+
+
+
 ## Unadjusted/unscaled comparisons
 
 Calculate mean (SD) and ranges.
@@ -118,24 +135,26 @@ Output results.
 Results save as [CSV](../data/processed/compareUnadjusted.csv).
 
 
-|variable                                               | nCases|meanSDCases       |rangeCases          | nControls|meanSDControls    |rangeControls       |  difference|     seDiff| tStatistic|    pValue|   pAdjust|sig   |formula                    |
-|:------------------------------------------------------|------:|:-----------------|:-------------------|---------:|:-----------------|:-------------------|-----------:|----------:|----------:|---------:|---------:|:-----|:--------------------------|
-|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.1601531|  0.0536110|  2.9873184| 0.0035808| 0.0066501|TRUE  |bsa ~ type                 |
-|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0560878|  0.0197899|  2.8341556| 0.0056126| 0.0091205|TRUE  |nr_frac ~ type             |
-|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1029746|  0.0230101| -4.4751853| 0.0000212| 0.0000689|TRUE  |rl_frac ~ type             |
-|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0468868|  0.0178691|  2.6239108| 0.0101284| 0.0146299|TRUE  |ln_frac ~ type             |
-|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) | 133.6092730| 42.1952467|  3.1664532| 0.0020747| 0.0045102|TRUE  |total_area_value ~ type    |
-|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) | 133.5623861| 42.1947005|  3.1653830| 0.0020816| 0.0045102|TRUE  |total_area ~ type          |
-|Orifice area                                           |     48|636.750 (196.511) |(341.000, 1221.000) |        49|486.755 (119.977) |(299.000, 812.000)  | 149.9948980| 32.9828869|  4.5476583| 0.0000160| 0.0000689|TRUE  |orifice_area ~ type        |
-|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   5.4336692|  0.9223465|  5.8911368| 0.0000001| 0.0000008|TRUE  |valve_diameter ~ type      |
-|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 250.1206244| 44.1437443|  5.6660491| 0.0000002| 0.0000010|TRUE  |valve_area ~ type          |
-|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |   1.3406005|  1.0179301|  1.3169868| 0.1910110| 0.2257403|FALSE |a_coap_size_valve ~ type   |
-|Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0121495|  0.0599023|  0.2028216| 0.8397082| 0.8397082|FALSE |a_coap_orifice_area ~ type |
-|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.0855492|  0.0400184| -2.1377445| 0.0351042| 0.0456355|TRUE  |a_coap_valve_area ~ type   |
-|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -0.6562349|  0.7882625| -0.8325081| 0.4072102| 0.4411444|FALSE |magnitude ~ type           |
+|variable                                               |meanSDCases    |meanSDControls | difference|
+|:------------------------------------------------------|:--------------|:--------------|----------:|
+|Body surface area                                      |2.03 (0.202)   |1.87 (0.313)   |     0.1600|
+|NR fraction                                            |0.391 (0.12)   |0.335 (0.0682) |     0.0561|
+|RL fraction                                            |0.228 (0.133)  |0.331 (0.0906) |    -0.1030|
+|LN fraction                                            |0.381 (0.0945) |0.334 (0.0812) |     0.0469|
+|Total coaptation area, value                           |649 (189)      |515 (224)      |   134.0000|
+|Total coaptation area, calculated                      |649 (189)      |516 (224)      |   134.0000|
+|Orifice area                                           |637 (197)      |487 (120)      |   150.0000|
+|Valve diameter                                         |32.1 (4.49)    |26.7 (4.59)    |     5.4300|
+|Valve area                                             |825 (235)      |575 (199)      |   250.0000|
+|Total valve coaptation area relative to valve diameter |20.1 (4.37)    |18.7 (5.57)    |     1.3400|
+|Total valve coaptation area relative to orifice area   |1.06 (0.266)   |1.05 (0.321)   |     0.0121|
+|Total valve coaptation area relative to valve area     |0.807 (0.191)  |0.893 (0.203)  |    -0.0855|
+|Coaptation line length                                 |12.4 (3.75)    |13 (4)         |    -0.6560|
+|Ceiling centroid point X-coordinate                    |9.73 (3.96)    |6.96 (2.55)    |     2.7700|
+|Ceiling centroid point Y-coordinate                    |13.8 (3.72)    |10.8 (3.25)    |     3.0100|
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-03-06 12:11:58
+## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 08:01:24
 ```
 
 ## Adjusted comparisons
@@ -152,23 +171,25 @@ Output results.
 Results save as [CSV](../data/processed/compareAdjusted.csv).
 
 
-|variable                                               | nCases|meanSDCases       |rangeCases          | nControls|meanSDControls    |rangeControls       |  difference|     seDiff| tStatistic|    pValue|   pAdjust|sig   |formula                                        |
-|:------------------------------------------------------|------:|:-----------------|:-------------------|---------:|:-----------------|:-------------------|-----------:|----------:|----------:|---------:|---------:|:-----|:----------------------------------------------|
-|Body surface area                                      |     48|2.026 (0.202)     |(1.572, 2.497)      |        49|1.866 (0.313)     |(0.964, 2.782)      |   0.0880013|  0.0568092|  1.5490692| 0.1247254| 0.1870882|FALSE |bsa ~ type + orificeAreaScaled                 |
-|NR fraction                                            |     48|0.391 (0.120)     |(0.037, 0.637)      |        49|0.335 (0.068)     |(0.157, 0.481)      |   0.0594769|  0.0219383|  2.7110929| 0.0079731| 0.0191353|TRUE  |nr_frac ~ type + orificeAreaScaled             |
-|RL fraction                                            |     48|0.228 (0.133)     |(0.009, 0.559)      |        49|0.331 (0.091)     |(0.067, 0.616)      |  -0.1106108|  0.0254582| -4.3448074| 0.0000352| 0.0004227|TRUE  |rl_frac ~ type + orificeAreaScaled             |
-|LN fraction                                            |     48|0.381 (0.094)     |(0.152, 0.602)      |        49|0.334 (0.081)     |(0.088, 0.504)      |   0.0511340|  0.0197959|  2.5830569| 0.0113350| 0.0207082|TRUE  |ln_frac ~ type + orificeAreaScaled             |
-|Total coaptation area, value                           |     48|648.704 (189.488) |(398.000, 1171.000) |        49|515.095 (224.243) |(206.000, 1087.660) |  24.1502198| 38.4466254|  0.6281493| 0.5314294| 0.5322816|FALSE |total_area_value ~ type + orificeAreaScaled    |
-|Total coaptation area, calculated                      |     48|649.323 (189.494) |(398.560, 1171.491) |        49|515.761 (224.234) |(206.820, 1088.279) |  24.0990858| 38.4451682|  0.6268430| 0.5322816| 0.5322816|FALSE |total_area ~ type + orificeAreaScaled          |
-|Valve diameter                                         |     48|32.110 (4.487)    |(22.450, 47.260)    |        49|26.676 (4.594)    |(18.480, 36.680)    |   3.2558008|  0.8744716|  3.7231636| 0.0003352| 0.0020113|TRUE  |valve_diameter ~ type + orificeAreaScaled      |
-|Valve area                                             |     48|825.262 (234.532) |(395.843, 1754.193) |        49|575.142 (199.141) |(268.222, 1056.692) | 146.9124618| 42.0033528|  3.4976365| 0.0007188| 0.0028752|TRUE  |valve_area ~ type + orificeAreaScaled          |
-|Total valve coaptation area relative to valve diameter |     48|20.084 (4.365)    |(12.528, 32.113)    |        49|18.743 (5.574)    |(9.409, 34.659)     |  -0.7948366|  1.0019113| -0.7933204| 0.4295891| 0.5155070|FALSE |a_coap_size_valve ~ type + orificeAreaScaled   |
-|Total valve coaptation area relative to orifice area   |     48|1.059 (0.266)     |(0.559, 1.577)      |        49|1.047 (0.321)     |(0.449, 1.725)      |   0.0650553|  0.0651872|  0.9979759| 0.3208532| 0.4278042|FALSE |a_coap_orifice_area ~ type + orificeAreaScaled |
-|Total valve coaptation area relative to valve area     |     48|0.807 (0.191)     |(0.471, 1.338)      |        49|0.893 (0.203)     |(0.407, 1.405)      |  -0.1123824|  0.0439091| -2.5594337| 0.0120798| 0.0207082|TRUE  |a_coap_valve_area ~ type + orificeAreaScaled   |
-|Coaptation line length                                 |     48|12.380 (3.753)    |(3.129, 22.951)     |        49|13.036 (4.003)    |(5.630, 23.724)     |  -2.2127766|  0.7877198| -2.8090910| 0.0060435| 0.0181304|TRUE  |magnitude ~ type + orificeAreaScaled           |
+|variable                                               | difference|  seDiff|  pAdjust|sig   |
+|:------------------------------------------------------|----------:|-------:|--------:|:-----|
+|Body surface area                                      |     0.0880|  0.0568| 0.175000|FALSE |
+|NR fraction                                            |     0.0595|  0.0219| 0.015900|TRUE  |
+|RL fraction                                            |    -0.1110|  0.0255| 0.000493|TRUE  |
+|LN fraction                                            |     0.0511|  0.0198| 0.018800|TRUE  |
+|Total coaptation area, value                           |    24.2000| 38.4000| 0.532000|FALSE |
+|Total coaptation area, calculated                      |    24.1000| 38.4000| 0.532000|FALSE |
+|Valve diameter                                         |     3.2600|  0.8740| 0.002350|TRUE  |
+|Valve area                                             |   147.0000| 42.0000| 0.003350|TRUE  |
+|Total valve coaptation area relative to valve diameter |    -0.7950|  1.0000| 0.501000|FALSE |
+|Total valve coaptation area relative to orifice area   |     0.0651|  0.0652| 0.408000|FALSE |
+|Total valve coaptation area relative to valve area     |    -0.1120|  0.0439| 0.018800|TRUE  |
+|Coaptation line length                                 |    -2.2100|  0.7880| 0.015900|TRUE  |
+|Ceiling centroid point X-coordinate                    |     1.9700|  0.7230| 0.015900|TRUE  |
+|Ceiling centroid point Y-coordinate                    |     2.1000|  0.7550| 0.015900|TRUE  |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-03-06 12:11:58
+## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 08:01:24
 ```
 # Linear model of coaptation line length
 
@@ -379,22 +400,24 @@ The altenrative is that Kent distribution is more suitable.
 
 
 ```
-## Bootstrap p-value is 0.5580
+## Bootstrap p-value is 0.5550
 ## Fail to reject null hypothesis
 ```
 
 ## Circular summary statistics
 
+Circular summary statistics.
 
-|type                               |  latitude| longitude|
-|:----------------------------------|---------:|---------:|
-|All                                | -75.34583|  156.0474|
-|Cases                              | -73.58603|  160.8957|
-|Controls                           | -77.05687|  149.8446|
-|Aortic stenosis: none-trivial      | -75.42965|  153.2313|
-|Aortic stenosis: mild-severe       | -74.23478|  178.8612|
-|Aortic regurgitation: none-trivial | -75.25638|  152.4894|
-|Aortic regurgitation: mild-severe  | -75.66523|  175.2347|
+
+|type                               | latitude| longitude|
+|:----------------------------------|--------:|---------:|
+|All                                |    -75.3|       156|
+|Cases                              |    -73.6|       161|
+|Controls                           |    -77.1|       150|
+|Aortic stenosis: none-trivial      |    -75.4|       153|
+|Aortic stenosis: mild-severe       |    -74.2|       179|
+|Aortic regurgitation: none-trivial |    -75.3|       152|
+|Aortic regurgitation: mild-severe  |    -75.7|       175|
 
 
 ## ANOVA
@@ -405,11 +428,11 @@ aortic stenosis (none-trivial vs mild-severe), or
 aortic regurgitation (none-trivial vs mild-severe). 
 
 
-|effect                                            |      test|   p.value|    kappa|
-|:-------------------------------------------------|---------:|---------:|--------:|
-|Group: case vs control                            | 1.7657268| 0.1738577| 21.66473|
-|Aortic stenosis: none-trivial vs mild-severe      | 1.5235414| 0.2205891| 21.66473|
-|Aortic regurgitation: none-trivial vs mild-severe | 0.1964135| 0.8218390| 21.66473|
+|effect                                            |  test| p.value| kappa|
+|:-------------------------------------------------|-----:|-------:|-----:|
+|Group: case vs control                            | 1.770|   0.174|  21.7|
+|Aortic stenosis: none-trivial vs mild-severe      | 1.520|   0.221|  21.7|
+|Aortic regurgitation: none-trivial vs mild-severe | 0.196|   0.822|  21.7|
 
 
 
@@ -423,7 +446,7 @@ Unadjusted.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.04    0.00    0.02 
+##    0.07    0.00    0.03 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -493,7 +516,7 @@ Adjusted for orifice area area.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.06    0.00    0.03 
+##    0.09    0.00    0.04 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y

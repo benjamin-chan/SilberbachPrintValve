@@ -721,7 +721,34 @@ pre {
   position: relative;
   border-color: #4078c0;
 }
-</style><title>README</title></head><body><article class="markdown-body"><h1>
+</style>
+<link href='http://bootswatch.com/readable/bootstrap.css' rel='stylesheet' type='text/css'><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+MathJax.Hub.Config({
+  config: ["MMLorHTML.js"],
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX"],
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: false
+  },
+  TeX: {
+    extensions: ["AMSmath.js", "AMSsymbols.js"],
+    TagSide: "right",
+    TagIndent: ".8em",
+    MultLineWidth: "85%",
+    equationNumbers: {
+      autoNumber: "AMS",
+    },
+    unicode: {
+      fonts: "STIXGeneral,'Arial Unicode MS'"
+    }
+  },
+  showProcessingMessages: false
+});
+</script>
+<title>README</title></head><body><article class="markdown-body"><h1>
 <a id="user-content-printvalve-case-control-analysis" class="anchor" href="#printvalve-case-control-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PrintValve case-control analysis</h1>
 
 <table>
@@ -802,7 +829,7 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 
 <p>Unadjusted/unscaled comparisons, case vs controls</p>
 
-<p><a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" alt="Density plot" style="max-width:100%;"></a></p>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" alt="Boxplots" style="max-width:100%;"></a></p>
 
 <table>
 <thead>
@@ -892,6 +919,18 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 <td align="left">13 (4)</td>
 <td align="right">-0.6560</td>
 </tr>
+<tr>
+<td align="left">Ceiling centroid point X-coordinate</td>
+<td align="left">9.73 (3.96)</td>
+<td align="left">6.96 (2.55)</td>
+<td align="right">2.7700</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point Y-coordinate</td>
+<td align="left">13.8 (3.72)</td>
+<td align="left">10.8 (3.25)</td>
+<td align="right">3.0100</td>
+</tr>
 </tbody>
 </table>
 
@@ -913,28 +952,28 @@ p-values adjusted for multiple comparisons.</p>
 <td align="left">Body surface area</td>
 <td align="right">0.0880</td>
 <td align="right">0.0568</td>
-<td align="right">0.187000</td>
+<td align="right">0.175000</td>
 <td align="left">FALSE</td>
 </tr>
 <tr>
 <td align="left">NR fraction</td>
 <td align="right">0.0595</td>
 <td align="right">0.0219</td>
-<td align="right">0.019100</td>
+<td align="right">0.015900</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
 <td align="left">RL fraction</td>
 <td align="right">-0.1110</td>
 <td align="right">0.0255</td>
-<td align="right">0.000423</td>
+<td align="right">0.000493</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
 <td align="left">LN fraction</td>
 <td align="right">0.0511</td>
 <td align="right">0.0198</td>
-<td align="right">0.020700</td>
+<td align="right">0.018800</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
@@ -955,42 +994,56 @@ p-values adjusted for multiple comparisons.</p>
 <td align="left">Valve diameter</td>
 <td align="right">3.2600</td>
 <td align="right">0.8740</td>
-<td align="right">0.002010</td>
+<td align="right">0.002350</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
 <td align="left">Valve area</td>
 <td align="right">147.0000</td>
 <td align="right">42.0000</td>
-<td align="right">0.002880</td>
+<td align="right">0.003350</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve diameter</td>
 <td align="right">-0.7950</td>
 <td align="right">1.0000</td>
-<td align="right">0.516000</td>
+<td align="right">0.501000</td>
 <td align="left">FALSE</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to orifice area</td>
 <td align="right">0.0651</td>
 <td align="right">0.0652</td>
-<td align="right">0.428000</td>
+<td align="right">0.408000</td>
 <td align="left">FALSE</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve area</td>
 <td align="right">-0.1120</td>
 <td align="right">0.0439</td>
-<td align="right">0.020700</td>
+<td align="right">0.018800</td>
 <td align="left">TRUE</td>
 </tr>
 <tr>
 <td align="left">Coaptation line length</td>
 <td align="right">-2.2100</td>
 <td align="right">0.7880</td>
-<td align="right">0.018100</td>
+<td align="right">0.015900</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point X-coordinate</td>
+<td align="right">1.9700</td>
+<td align="right">0.7230</td>
+<td align="right">0.015900</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point Y-coordinate</td>
+<td align="right">2.1000</td>
+<td align="right">0.7550</td>
+<td align="right">0.015900</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -1168,13 +1221,13 @@ adjusted for orifice area.</p>
 <a id="user-content-coaptation-line-direction" class="anchor" href="#coaptation-line-direction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coaptation line direction</h3>
 
 <p>Cases vs controls
-<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" alt="Spherical coordinates" style="max-width:100%;"></a></p>
+<a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" alt="Spherical coordinates" style="max-width:100%;"></a></p>
 
 <p>Cases vs controls and aortic stenosis
-<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" alt="Spherical coordinates by aortic stenosis" style="max-width:100%;"></a></p>
+<a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" alt="Spherical coordinates by aortic stenosis" style="max-width:100%;"></a></p>
 
 <p>Cases vs controls and aortic regurgitation
-<a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" alt="Spherical coordinates by aortic regurgitation" style="max-width:100%;"></a></p>
+<a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" alt="Spherical coordinates by aortic regurgitation" style="max-width:100%;"></a></p>
 
 <p>Circular summary statistics.</p>
 
@@ -1267,26 +1320,37 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 <p>Example coaptation line (triple point) is below.
 An interactive representation of the coaptation line geometry is <a href="https://ggbm.at/CeF95YMN">here</a>.</p>
 
-<p><a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" target="_blank"><img src="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" alt="Line of coaptation" style="max-width:100%;"></a></p>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/Line_of_coaptation.png" alt="Line of coaptation" style="max-width:100%;"></a></p>
 
 <h2>
 <a id="user-content-outputs" class="anchor" href="#outputs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Outputs</h2>
 
 <ul>
-<li>Density plots of body size, valve area, and coaptation line length variables: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/scatterplots.svg">SVG</a>
+<li>Plots of body size, valve area, and coaptation line length variables (same information in different formats)
+
+<ul>
+<li>Density plots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.svg">SVG</a>
+</li>
+<li>Scatterplots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.svg">SVG</a>
+</li>
+<li>Boxplots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.svg">SVG</a>
+</li>
+<li>Violin plots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.svg">SVG</a>
+</li>
+</ul>
 </li>
 <li>Spherical cooardinates of coaptation lines
 
 <ul>
-<li>Cases vs controls: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.svg">SVG</a>
+<li>Cases vs controls: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.svg">SVG</a>
 </li>
-<li>Cases vs controls and aortic stenosis: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.svg">SVG</a>
+<li>Cases vs controls and aortic stenosis: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.svg">SVG</a>
 </li>
-<li>Cases vs controls and aortic regurgitation: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png">PNG</a>, <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.svg">SVG</a>
+<li>Cases vs controls and aortic regurgitation: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.svg">SVG</a>
 </li>
 </ul>
 </li>
-<li>Complete analysis: <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/docs/index.html">HTML</a> or <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/docs/index.md">Markdown</a>
+<li>Complete analysis: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.html">HTML</a> or <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.md">Markdown</a>
 </li>
 </ul>
 
@@ -1351,5 +1415,5 @@ An interactive representation of the coaptation line geometry is <a href="https:
 $ /usr/bin/Rscript script.R
 </code></pre>
 
-<p>R package versions are listed in <a href="///C://Users/Ben/Documents/Projects/SilberbachPrintValve/scripts/session.log"><code>scripts/session.log</code></a>.</p>
+<p>R package versions are listed in <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/scripts/session.log"><code>scripts/session.log</code></a>.</p>
 </article></body></html>

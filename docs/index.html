@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-03-06 12:11:44"
+date: "2017-03-13 08:00:40"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -886,7 +886,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-06 12:11:44
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 08:00:41
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -934,6 +934,20 @@ Each has their advantages and disadvantages.</p>
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png" alt="Scatterplots" style="max-width:100%;"></a></p>
 
 <h2>
+<a id="user-content-boxplots" class="anchor" href="#boxplots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Boxplots</h2>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.svg">SVG</a></p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" alt="Boxplots" style="max-width:100%;"></a></p>
+
+<h2>
+<a id="user-content-violin-plots" class="anchor" href="#violin-plots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Violin plots</h2>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.svg">SVG</a></p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png" alt="Violin plots" style="max-width:100%;"></a></p>
+
+<h2>
 <a id="user-content-unadjustedunscaled-comparisons" class="anchor" href="#unadjustedunscaled-comparisons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted/unscaled comparisons</h2>
 
 <p>Calculate mean (SD) and ranges.
@@ -947,234 +961,106 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <thead>
 <tr>
 <th align="left">variable</th>
-<th align="right">nCases</th>
 <th align="left">meanSDCases</th>
-<th align="left">rangeCases</th>
-<th align="right">nControls</th>
 <th align="left">meanSDControls</th>
-<th align="left">rangeControls</th>
 <th align="right">difference</th>
-<th align="right">seDiff</th>
-<th align="right">tStatistic</th>
-<th align="right">pValue</th>
-<th align="right">pAdjust</th>
-<th align="left">sig</th>
-<th align="left">formula</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Body surface area</td>
-<td align="right">48</td>
-<td align="left">2.026 (0.202)</td>
-<td align="left">(1.572, 2.497)</td>
-<td align="right">49</td>
-<td align="left">1.866 (0.313)</td>
-<td align="left">(0.964, 2.782)</td>
-<td align="right">0.1601531</td>
-<td align="right">0.0536110</td>
-<td align="right">2.9873184</td>
-<td align="right">0.0035808</td>
-<td align="right">0.0066501</td>
-<td align="left">TRUE</td>
-<td align="left">bsa ~ type</td>
+<td align="left">2.03 (0.202)</td>
+<td align="left">1.87 (0.313)</td>
+<td align="right">0.1600</td>
 </tr>
 <tr>
 <td align="left">NR fraction</td>
-<td align="right">48</td>
-<td align="left">0.391 (0.120)</td>
-<td align="left">(0.037, 0.637)</td>
-<td align="right">49</td>
-<td align="left">0.335 (0.068)</td>
-<td align="left">(0.157, 0.481)</td>
-<td align="right">0.0560878</td>
-<td align="right">0.0197899</td>
-<td align="right">2.8341556</td>
-<td align="right">0.0056126</td>
-<td align="right">0.0091205</td>
-<td align="left">TRUE</td>
-<td align="left">nr_frac ~ type</td>
+<td align="left">0.391 (0.12)</td>
+<td align="left">0.335 (0.0682)</td>
+<td align="right">0.0561</td>
 </tr>
 <tr>
 <td align="left">RL fraction</td>
-<td align="right">48</td>
 <td align="left">0.228 (0.133)</td>
-<td align="left">(0.009, 0.559)</td>
-<td align="right">49</td>
-<td align="left">0.331 (0.091)</td>
-<td align="left">(0.067, 0.616)</td>
-<td align="right">-0.1029746</td>
-<td align="right">0.0230101</td>
-<td align="right">-4.4751853</td>
-<td align="right">0.0000212</td>
-<td align="right">0.0000689</td>
-<td align="left">TRUE</td>
-<td align="left">rl_frac ~ type</td>
+<td align="left">0.331 (0.0906)</td>
+<td align="right">-0.1030</td>
 </tr>
 <tr>
 <td align="left">LN fraction</td>
-<td align="right">48</td>
-<td align="left">0.381 (0.094)</td>
-<td align="left">(0.152, 0.602)</td>
-<td align="right">49</td>
-<td align="left">0.334 (0.081)</td>
-<td align="left">(0.088, 0.504)</td>
-<td align="right">0.0468868</td>
-<td align="right">0.0178691</td>
-<td align="right">2.6239108</td>
-<td align="right">0.0101284</td>
-<td align="right">0.0146299</td>
-<td align="left">TRUE</td>
-<td align="left">ln_frac ~ type</td>
+<td align="left">0.381 (0.0945)</td>
+<td align="left">0.334 (0.0812)</td>
+<td align="right">0.0469</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, value</td>
-<td align="right">48</td>
-<td align="left">648.704 (189.488)</td>
-<td align="left">(398.000, 1171.000)</td>
-<td align="right">49</td>
-<td align="left">515.095 (224.243)</td>
-<td align="left">(206.000, 1087.660)</td>
-<td align="right">133.6092730</td>
-<td align="right">42.1952467</td>
-<td align="right">3.1664532</td>
-<td align="right">0.0020747</td>
-<td align="right">0.0045102</td>
-<td align="left">TRUE</td>
-<td align="left">total_area_value ~ type</td>
+<td align="left">649 (189)</td>
+<td align="left">515 (224)</td>
+<td align="right">134.0000</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, calculated</td>
-<td align="right">48</td>
-<td align="left">649.323 (189.494)</td>
-<td align="left">(398.560, 1171.491)</td>
-<td align="right">49</td>
-<td align="left">515.761 (224.234)</td>
-<td align="left">(206.820, 1088.279)</td>
-<td align="right">133.5623861</td>
-<td align="right">42.1947005</td>
-<td align="right">3.1653830</td>
-<td align="right">0.0020816</td>
-<td align="right">0.0045102</td>
-<td align="left">TRUE</td>
-<td align="left">total_area ~ type</td>
+<td align="left">649 (189)</td>
+<td align="left">516 (224)</td>
+<td align="right">134.0000</td>
 </tr>
 <tr>
 <td align="left">Orifice area</td>
-<td align="right">48</td>
-<td align="left">636.750 (196.511)</td>
-<td align="left">(341.000, 1221.000)</td>
-<td align="right">49</td>
-<td align="left">486.755 (119.977)</td>
-<td align="left">(299.000, 812.000)</td>
-<td align="right">149.9948980</td>
-<td align="right">32.9828869</td>
-<td align="right">4.5476583</td>
-<td align="right">0.0000160</td>
-<td align="right">0.0000689</td>
-<td align="left">TRUE</td>
-<td align="left">orifice_area ~ type</td>
+<td align="left">637 (197)</td>
+<td align="left">487 (120)</td>
+<td align="right">150.0000</td>
 </tr>
 <tr>
 <td align="left">Valve diameter</td>
-<td align="right">48</td>
-<td align="left">32.110 (4.487)</td>
-<td align="left">(22.450, 47.260)</td>
-<td align="right">49</td>
-<td align="left">26.676 (4.594)</td>
-<td align="left">(18.480, 36.680)</td>
-<td align="right">5.4336692</td>
-<td align="right">0.9223465</td>
-<td align="right">5.8911368</td>
-<td align="right">0.0000001</td>
-<td align="right">0.0000008</td>
-<td align="left">TRUE</td>
-<td align="left">valve_diameter ~ type</td>
+<td align="left">32.1 (4.49)</td>
+<td align="left">26.7 (4.59)</td>
+<td align="right">5.4300</td>
 </tr>
 <tr>
 <td align="left">Valve area</td>
-<td align="right">48</td>
-<td align="left">825.262 (234.532)</td>
-<td align="left">(395.843, 1754.193)</td>
-<td align="right">49</td>
-<td align="left">575.142 (199.141)</td>
-<td align="left">(268.222, 1056.692)</td>
-<td align="right">250.1206244</td>
-<td align="right">44.1437443</td>
-<td align="right">5.6660491</td>
-<td align="right">0.0000002</td>
-<td align="right">0.0000010</td>
-<td align="left">TRUE</td>
-<td align="left">valve_area ~ type</td>
+<td align="left">825 (235)</td>
+<td align="left">575 (199)</td>
+<td align="right">250.0000</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve diameter</td>
-<td align="right">48</td>
-<td align="left">20.084 (4.365)</td>
-<td align="left">(12.528, 32.113)</td>
-<td align="right">49</td>
-<td align="left">18.743 (5.574)</td>
-<td align="left">(9.409, 34.659)</td>
-<td align="right">1.3406005</td>
-<td align="right">1.0179301</td>
-<td align="right">1.3169868</td>
-<td align="right">0.1910110</td>
-<td align="right">0.2257403</td>
-<td align="left">FALSE</td>
-<td align="left">a_coap_size_valve ~ type</td>
+<td align="left">20.1 (4.37)</td>
+<td align="left">18.7 (5.57)</td>
+<td align="right">1.3400</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to orifice area</td>
-<td align="right">48</td>
-<td align="left">1.059 (0.266)</td>
-<td align="left">(0.559, 1.577)</td>
-<td align="right">49</td>
-<td align="left">1.047 (0.321)</td>
-<td align="left">(0.449, 1.725)</td>
-<td align="right">0.0121495</td>
-<td align="right">0.0599023</td>
-<td align="right">0.2028216</td>
-<td align="right">0.8397082</td>
-<td align="right">0.8397082</td>
-<td align="left">FALSE</td>
-<td align="left">a_coap_orifice_area ~ type</td>
+<td align="left">1.06 (0.266)</td>
+<td align="left">1.05 (0.321)</td>
+<td align="right">0.0121</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve area</td>
-<td align="right">48</td>
 <td align="left">0.807 (0.191)</td>
-<td align="left">(0.471, 1.338)</td>
-<td align="right">49</td>
 <td align="left">0.893 (0.203)</td>
-<td align="left">(0.407, 1.405)</td>
-<td align="right">-0.0855492</td>
-<td align="right">0.0400184</td>
-<td align="right">-2.1377445</td>
-<td align="right">0.0351042</td>
-<td align="right">0.0456355</td>
-<td align="left">TRUE</td>
-<td align="left">a_coap_valve_area ~ type</td>
+<td align="right">-0.0855</td>
 </tr>
 <tr>
 <td align="left">Coaptation line length</td>
-<td align="right">48</td>
-<td align="left">12.380 (3.753)</td>
-<td align="left">(3.129, 22.951)</td>
-<td align="right">49</td>
-<td align="left">13.036 (4.003)</td>
-<td align="left">(5.630, 23.724)</td>
-<td align="right">-0.6562349</td>
-<td align="right">0.7882625</td>
-<td align="right">-0.8325081</td>
-<td align="right">0.4072102</td>
-<td align="right">0.4411444</td>
-<td align="left">FALSE</td>
-<td align="left">magnitude ~ type</td>
+<td align="left">12.4 (3.75)</td>
+<td align="left">13 (4)</td>
+<td align="right">-0.6560</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point X-coordinate</td>
+<td align="left">9.73 (3.96)</td>
+<td align="left">6.96 (2.55)</td>
+<td align="right">2.7700</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point Y-coordinate</td>
+<td align="left">13.8 (3.72)</td>
+<td align="left">10.8 (3.25)</td>
+<td align="right">3.0100</td>
 </tr>
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-03-06 12:11:58
+<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 08:01:24
 </code></pre>
 
 <h2>
@@ -1193,218 +1079,115 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <thead>
 <tr>
 <th align="left">variable</th>
-<th align="right">nCases</th>
-<th align="left">meanSDCases</th>
-<th align="left">rangeCases</th>
-<th align="right">nControls</th>
-<th align="left">meanSDControls</th>
-<th align="left">rangeControls</th>
 <th align="right">difference</th>
 <th align="right">seDiff</th>
-<th align="right">tStatistic</th>
-<th align="right">pValue</th>
 <th align="right">pAdjust</th>
 <th align="left">sig</th>
-<th align="left">formula</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Body surface area</td>
-<td align="right">48</td>
-<td align="left">2.026 (0.202)</td>
-<td align="left">(1.572, 2.497)</td>
-<td align="right">49</td>
-<td align="left">1.866 (0.313)</td>
-<td align="left">(0.964, 2.782)</td>
-<td align="right">0.0880013</td>
-<td align="right">0.0568092</td>
-<td align="right">1.5490692</td>
-<td align="right">0.1247254</td>
-<td align="right">0.1870882</td>
+<td align="right">0.0880</td>
+<td align="right">0.0568</td>
+<td align="right">0.175000</td>
 <td align="left">FALSE</td>
-<td align="left">bsa ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">NR fraction</td>
-<td align="right">48</td>
-<td align="left">0.391 (0.120)</td>
-<td align="left">(0.037, 0.637)</td>
-<td align="right">49</td>
-<td align="left">0.335 (0.068)</td>
-<td align="left">(0.157, 0.481)</td>
-<td align="right">0.0594769</td>
-<td align="right">0.0219383</td>
-<td align="right">2.7110929</td>
-<td align="right">0.0079731</td>
-<td align="right">0.0191353</td>
+<td align="right">0.0595</td>
+<td align="right">0.0219</td>
+<td align="right">0.015900</td>
 <td align="left">TRUE</td>
-<td align="left">nr_frac ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">RL fraction</td>
-<td align="right">48</td>
-<td align="left">0.228 (0.133)</td>
-<td align="left">(0.009, 0.559)</td>
-<td align="right">49</td>
-<td align="left">0.331 (0.091)</td>
-<td align="left">(0.067, 0.616)</td>
-<td align="right">-0.1106108</td>
-<td align="right">0.0254582</td>
-<td align="right">-4.3448074</td>
-<td align="right">0.0000352</td>
-<td align="right">0.0004227</td>
+<td align="right">-0.1110</td>
+<td align="right">0.0255</td>
+<td align="right">0.000493</td>
 <td align="left">TRUE</td>
-<td align="left">rl_frac ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">LN fraction</td>
-<td align="right">48</td>
-<td align="left">0.381 (0.094)</td>
-<td align="left">(0.152, 0.602)</td>
-<td align="right">49</td>
-<td align="left">0.334 (0.081)</td>
-<td align="left">(0.088, 0.504)</td>
-<td align="right">0.0511340</td>
-<td align="right">0.0197959</td>
-<td align="right">2.5830569</td>
-<td align="right">0.0113350</td>
-<td align="right">0.0207082</td>
+<td align="right">0.0511</td>
+<td align="right">0.0198</td>
+<td align="right">0.018800</td>
 <td align="left">TRUE</td>
-<td align="left">ln_frac ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, value</td>
-<td align="right">48</td>
-<td align="left">648.704 (189.488)</td>
-<td align="left">(398.000, 1171.000)</td>
-<td align="right">49</td>
-<td align="left">515.095 (224.243)</td>
-<td align="left">(206.000, 1087.660)</td>
-<td align="right">24.1502198</td>
-<td align="right">38.4466254</td>
-<td align="right">0.6281493</td>
-<td align="right">0.5314294</td>
-<td align="right">0.5322816</td>
+<td align="right">24.2000</td>
+<td align="right">38.4000</td>
+<td align="right">0.532000</td>
 <td align="left">FALSE</td>
-<td align="left">total_area_value ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Total coaptation area, calculated</td>
-<td align="right">48</td>
-<td align="left">649.323 (189.494)</td>
-<td align="left">(398.560, 1171.491)</td>
-<td align="right">49</td>
-<td align="left">515.761 (224.234)</td>
-<td align="left">(206.820, 1088.279)</td>
-<td align="right">24.0990858</td>
-<td align="right">38.4451682</td>
-<td align="right">0.6268430</td>
-<td align="right">0.5322816</td>
-<td align="right">0.5322816</td>
+<td align="right">24.1000</td>
+<td align="right">38.4000</td>
+<td align="right">0.532000</td>
 <td align="left">FALSE</td>
-<td align="left">total_area ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Valve diameter</td>
-<td align="right">48</td>
-<td align="left">32.110 (4.487)</td>
-<td align="left">(22.450, 47.260)</td>
-<td align="right">49</td>
-<td align="left">26.676 (4.594)</td>
-<td align="left">(18.480, 36.680)</td>
-<td align="right">3.2558008</td>
-<td align="right">0.8744716</td>
-<td align="right">3.7231636</td>
-<td align="right">0.0003352</td>
-<td align="right">0.0020113</td>
+<td align="right">3.2600</td>
+<td align="right">0.8740</td>
+<td align="right">0.002350</td>
 <td align="left">TRUE</td>
-<td align="left">valve_diameter ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Valve area</td>
-<td align="right">48</td>
-<td align="left">825.262 (234.532)</td>
-<td align="left">(395.843, 1754.193)</td>
-<td align="right">49</td>
-<td align="left">575.142 (199.141)</td>
-<td align="left">(268.222, 1056.692)</td>
-<td align="right">146.9124618</td>
-<td align="right">42.0033528</td>
-<td align="right">3.4976365</td>
-<td align="right">0.0007188</td>
-<td align="right">0.0028752</td>
+<td align="right">147.0000</td>
+<td align="right">42.0000</td>
+<td align="right">0.003350</td>
 <td align="left">TRUE</td>
-<td align="left">valve_area ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve diameter</td>
-<td align="right">48</td>
-<td align="left">20.084 (4.365)</td>
-<td align="left">(12.528, 32.113)</td>
-<td align="right">49</td>
-<td align="left">18.743 (5.574)</td>
-<td align="left">(9.409, 34.659)</td>
-<td align="right">-0.7948366</td>
-<td align="right">1.0019113</td>
-<td align="right">-0.7933204</td>
-<td align="right">0.4295891</td>
-<td align="right">0.5155070</td>
+<td align="right">-0.7950</td>
+<td align="right">1.0000</td>
+<td align="right">0.501000</td>
 <td align="left">FALSE</td>
-<td align="left">a_coap_size_valve ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to orifice area</td>
-<td align="right">48</td>
-<td align="left">1.059 (0.266)</td>
-<td align="left">(0.559, 1.577)</td>
-<td align="right">49</td>
-<td align="left">1.047 (0.321)</td>
-<td align="left">(0.449, 1.725)</td>
-<td align="right">0.0650553</td>
-<td align="right">0.0651872</td>
-<td align="right">0.9979759</td>
-<td align="right">0.3208532</td>
-<td align="right">0.4278042</td>
+<td align="right">0.0651</td>
+<td align="right">0.0652</td>
+<td align="right">0.408000</td>
 <td align="left">FALSE</td>
-<td align="left">a_coap_orifice_area ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Total valve coaptation area relative to valve area</td>
-<td align="right">48</td>
-<td align="left">0.807 (0.191)</td>
-<td align="left">(0.471, 1.338)</td>
-<td align="right">49</td>
-<td align="left">0.893 (0.203)</td>
-<td align="left">(0.407, 1.405)</td>
-<td align="right">-0.1123824</td>
-<td align="right">0.0439091</td>
-<td align="right">-2.5594337</td>
-<td align="right">0.0120798</td>
-<td align="right">0.0207082</td>
+<td align="right">-0.1120</td>
+<td align="right">0.0439</td>
+<td align="right">0.018800</td>
 <td align="left">TRUE</td>
-<td align="left">a_coap_valve_area ~ type + orificeAreaScaled</td>
 </tr>
 <tr>
 <td align="left">Coaptation line length</td>
-<td align="right">48</td>
-<td align="left">12.380 (3.753)</td>
-<td align="left">(3.129, 22.951)</td>
-<td align="right">49</td>
-<td align="left">13.036 (4.003)</td>
-<td align="left">(5.630, 23.724)</td>
-<td align="right">-2.2127766</td>
-<td align="right">0.7877198</td>
-<td align="right">-2.8090910</td>
-<td align="right">0.0060435</td>
-<td align="right">0.0181304</td>
+<td align="right">-2.2100</td>
+<td align="right">0.7880</td>
+<td align="right">0.015900</td>
 <td align="left">TRUE</td>
-<td align="left">magnitude ~ type + orificeAreaScaled</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point X-coordinate</td>
+<td align="right">1.9700</td>
+<td align="right">0.7230</td>
+<td align="right">0.015900</td>
+<td align="left">TRUE</td>
+</tr>
+<tr>
+<td align="left">Ceiling centroid point Y-coordinate</td>
+<td align="right">2.1000</td>
+<td align="right">0.7550</td>
+<td align="right">0.015900</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-03-06 12:11:58
+<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 08:01:24
 </code></pre>
 
 <h1>
@@ -1932,12 +1715,14 @@ adjusted for orifice area.</p>
 The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
 The altenrative is that Kent distribution is more suitable.</p>
 
-<pre><code>## Bootstrap p-value is 0.5580
+<pre><code>## Bootstrap p-value is 0.5550
 ## Fail to reject null hypothesis
 </code></pre>
 
 <h2>
 <a id="user-content-circular-summary-statistics" class="anchor" href="#circular-summary-statistics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular summary statistics</h2>
+
+<p>Circular summary statistics.</p>
 
 <table>
 <thead>
@@ -1950,38 +1735,38 @@ The altenrative is that Kent distribution is more suitable.</p>
 <tbody>
 <tr>
 <td align="left">All</td>
-<td align="right">-75.34583</td>
-<td align="right">156.0474</td>
+<td align="right">-75.3</td>
+<td align="right">156</td>
 </tr>
 <tr>
 <td align="left">Cases</td>
-<td align="right">-73.58603</td>
-<td align="right">160.8957</td>
+<td align="right">-73.6</td>
+<td align="right">161</td>
 </tr>
 <tr>
 <td align="left">Controls</td>
-<td align="right">-77.05687</td>
-<td align="right">149.8446</td>
+<td align="right">-77.1</td>
+<td align="right">150</td>
 </tr>
 <tr>
 <td align="left">Aortic stenosis: none-trivial</td>
-<td align="right">-75.42965</td>
-<td align="right">153.2313</td>
+<td align="right">-75.4</td>
+<td align="right">153</td>
 </tr>
 <tr>
 <td align="left">Aortic stenosis: mild-severe</td>
-<td align="right">-74.23478</td>
-<td align="right">178.8612</td>
+<td align="right">-74.2</td>
+<td align="right">179</td>
 </tr>
 <tr>
 <td align="left">Aortic regurgitation: none-trivial</td>
-<td align="right">-75.25638</td>
-<td align="right">152.4894</td>
+<td align="right">-75.3</td>
+<td align="right">152</td>
 </tr>
 <tr>
 <td align="left">Aortic regurgitation: mild-severe</td>
-<td align="right">-75.66523</td>
-<td align="right">175.2347</td>
+<td align="right">-75.7</td>
+<td align="right">175</td>
 </tr>
 </tbody>
 </table>
@@ -2006,21 +1791,21 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 <tbody>
 <tr>
 <td align="left">Group: case vs control</td>
-<td align="right">1.7657268</td>
-<td align="right">0.1738577</td>
-<td align="right">21.66473</td>
+<td align="right">1.770</td>
+<td align="right">0.174</td>
+<td align="right">21.7</td>
 </tr>
 <tr>
 <td align="left">Aortic stenosis: none-trivial vs mild-severe</td>
-<td align="right">1.5235414</td>
-<td align="right">0.2205891</td>
-<td align="right">21.66473</td>
+<td align="right">1.520</td>
+<td align="right">0.221</td>
+<td align="right">21.7</td>
 </tr>
 <tr>
 <td align="left">Aortic regurgitation: none-trivial vs mild-severe</td>
-<td align="right">0.1964135</td>
-<td align="right">0.8218390</td>
-<td align="right">21.66473</td>
+<td align="right">0.196</td>
+<td align="right">0.822</td>
+<td align="right">21.7</td>
 </tr>
 </tbody>
 </table>
@@ -2032,7 +1817,7 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.04    0.00    0.02 
+##    0.07    0.00    0.03 
 ## 
 ## $beta
 ##          Cosinus of y Sinus of y
@@ -2158,7 +1943,7 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.06    0.00    0.03 
+##    0.09    0.00    0.04 
 ## 
 ## $beta
 ##                   Cosinus of y Sinus of y

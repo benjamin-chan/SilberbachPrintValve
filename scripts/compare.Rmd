@@ -13,7 +13,7 @@ Each has their advantages and disadvantages.
 ![Density plot](../figures/densityplots.png)
 
 ```{r densityplots, fig.show = "hide"}
-var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^magnitude$"
+var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^magnitude$|centroidCalcRotated[XY]"
 df1 <-
   df %>%
   select(matches(var)) %>%
@@ -125,7 +125,9 @@ results <-
         compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
         compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
         compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
-        compare("magnitude", "Coaptation line length")) %>%
+        compare("magnitude", "Coaptation line length"),
+        compare("centroidCalcRotatedX", "Ceiling centroid point X-coordinate"),
+        compare("centroidCalcRotatedY", "Ceiling centroid point Y-coordinate")) %>%
   mutate(pAdjust = p.adjust(pValue, method = "BH"),
          sig = pAdjust < 0.05) %>% 
   .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]
@@ -168,7 +170,9 @@ results <-
         compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter", covar = covar),
         compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area", covar = covar),
         compare("a_coap_valve_area", "Total valve coaptation area relative to valve area", covar = covar),
-        compare("magnitude", "Coaptation line length", covar = covar)) %>%
+        compare("magnitude", "Coaptation line length", covar = covar),
+        compare("centroidCalcRotatedX", "Ceiling centroid point X-coordinate", covar = covar),
+        compare("centroidCalcRotatedY", "Ceiling centroid point Y-coordinate", covar = covar)) %>%
   mutate(pAdjust = p.adjust(pValue, method = "BH"),
          sig = pAdjust < 0.05) %>% 
   .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")]

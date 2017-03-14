@@ -2,7 +2,11 @@
 
 [Interactive HTML](../figures/webGL/sphereplot.html)
 
-```{r, echo = TRUE}
+Predicted values from MANOVA.
+**Returns some weird results;**
+Predicted values do not plot in the middle of the *cloud* of data points.
+
+```{r, echo = TRUE, eval = FALSE}
 M <-
   df %>% 
   select(centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ, type, orifice_area) %>% 
@@ -15,13 +19,11 @@ pred <-
   bind_cols(df %>% select(type), 
             M %>% predict %>% data.frame) %>% 
   select(type, centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ) %>% 
-  rename(predX = centroidBottomRotatedX,
-         predY = centroidBottomRotatedY,
-         predZ = centroidBottomZ) %>% 
-  # unique %>% 
+  unique %>%
   bind_cols(., 
-            sphereplot::car2sph(.$predX, .$predY, .$predZ) %>% data.frame,
-            df %>% select(centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ))
+            sphereplot::car2sph(.$centroidBottomRotatedX, 
+                                .$centroidBottomRotatedY, 
+                                .$centroidBottomZ) %>% data.frame)
 pred
 ```
 

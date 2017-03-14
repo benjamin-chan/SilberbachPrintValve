@@ -27,6 +27,35 @@ pred <-
 pred
 ```
 
+Predicted `latitude` and `longitude` calculated from `Directional::circ.summary`.
+Predicted `magnitude` calculated from linear model, `lm`, independent of direction.
+
+```{r}
+matCases <- cirCoord %>% filter(type == "Case") %>% select(matches(latlon)) %>% as.matrix
+matControls <- cirCoord %>% filter(type == "Control") %>% select(matches(latlon)) %>% as.matrix
+M <- 
+  df %>%
+  select(matches("^type|Scaled|^magnitude$")) %>% 
+  lm(magnitude ~ type, data = .)
+pred <-
+  merge(data.frame(type = c("Case", "Control"),
+                   latitude = c(matCases[, "latitude"] %>%
+                                  circ.summary(rads = FALSE, plot = FALSE) %>%
+                                  .[["mesos"]],
+                                matControls[, "latitude"] %>%
+                                  circ.summary(rads = FALSE, plot = FALSE) %>%
+                                  .[["mesos"]]),
+                   longitude = c(matCases[, "longitude"] %>%
+                                   circ.summary(rads = FALSE, plot = FALSE) %>%
+                                   .[["mesos"]],
+                                 matControls[, "longitude"] %>%
+                                   circ.summary(rads = FALSE, plot = FALSE) %>%
+                                   .[["mesos"]])),
+        df %>% mutate(magnitude = predict(M)) %>% select(type, magnitude) %>% unique,
+        by = "type")
+pred %>% kable
+```
+
 ```{r}
 col <- brewer.pal(5, "Set1")
 rgl.sphgrid(radius = df$magnitude %>% max,
@@ -42,16 +71,16 @@ rgl.sphpoints(long = df %>% filter(type == "Control") %>% select(longitude),
               radius = df %>% filter(type == "Control") %>% select(magnitude),
               col = col[2],
               deg = TRUE, size = 5, alpha = 1/2)
-rgl.sphpoints(long = pred %>% filter(type == "Case") %>% select(long),
-              lat = pred %>% filter(type == "Case") %>% select(lat),
-              radius = pred %>% filter(type == "Case") %>% select(radius),
+rgl.sphpoints(long = pred %>% filter(type == "Case") %>% select(longitude),
+              lat = pred %>% filter(type == "Case") %>% select(latitude),
+              radius = pred %>% filter(type == "Case") %>% select(magnitude),
               col = col[1],
-              deg = TRUE, size = 10, alpha = 1/2)
-rgl.sphpoints(long = pred %>% filter(type == "Control") %>% select(long),
-              lat = pred %>% filter(type == "Control") %>% select(lat),
-              radius = pred %>% filter(type == "Control") %>% select(radius),
+              deg = TRUE, size = 20, alpha = 1/2)
+rgl.sphpoints(long = pred %>% filter(type == "Control") %>% select(longitude),
+              lat = pred %>% filter(type == "Control") %>% select(latitude),
+              radius = pred %>% filter(type == "Control") %>% select(magnitude),
               col = col[2],
-              deg = TRUE, size = 10, alpha = 1/2)
+              deg = TRUE, size = 20, alpha = 1/2)
 dir <- file.path("~/Projects/SilberbachPrintValve/figures/webGL")
 writeWebGL(dir = dir, filename = file.path(dir, "sphereplot.html"), width = 1080)
 ```

@@ -54,29 +54,21 @@ pred %>% kable
 
 ```{r}
 col <- brewer.pal(5, "Set1")
+origin <- c(0, 0, 0)
 rgl.sphgrid(radius = df$magnitude %>% max,
             col.long = col[1], col.lat = col[2],
             deggap = 30, longtype = "D", radlab = "Distance")
-rgl.sphpoints(long = df %>% filter(type == "Case") %>% select(longitude),
-              lat = df %>% filter(type == "Case") %>% select(latitude),
-              radius = df %>% filter(type == "Case") %>% select(magnitude),
-              col = col[1],
-              deg = TRUE, size = 5, alpha = 1/2)
-rgl.sphpoints(long = df %>% filter(type == "Control") %>% select(longitude),
-              lat = df %>% filter(type == "Control") %>% select(latitude),
-              radius = df %>% filter(type == "Control") %>% select(magnitude),
-              col = col[2],
-              deg = TRUE, size = 5, alpha = 1/2)
-rgl.sphpoints(long = pred %>% filter(type == "Case") %>% select(longitude),
-              lat = pred %>% filter(type == "Case") %>% select(latitude),
-              radius = pred %>% filter(type == "Case") %>% select(magnitude),
-              col = col[1],
-              deg = TRUE, size = 20, alpha = 1/2)
-rgl.sphpoints(long = pred %>% filter(type == "Control") %>% select(longitude),
-              lat = pred %>% filter(type == "Control") %>% select(latitude),
-              radius = pred %>% filter(type == "Control") %>% select(magnitude),
-              col = col[2],
-              deg = TRUE, size = 20, alpha = 1/2)
+G <- 
+  df %>% 
+  select(id, type, latitude, longitude, magnitude, coapX, coapY, coapZ) %>% 
+  mutate(col = ifelse(type == "Case", col[1], col[2])) %>% 
+  mutate(rand = sample(1:nrow(.), replace = FALSE)) %>% 
+  arrange(rand)
+for (i in 1:nrow(G)) {
+  arrow3d(origin, 
+          G[i, c("coapX", "coapY", "coapZ")], 
+          col = G[i, "col"], alpha = 1/3, type = "extrusion", barblen = 1/60)
+}
 dir <- file.path("~/Projects/SilberbachPrintValve/figures/webGL")
 writeWebGL(dir = dir, filename = file.path(dir, "sphereplot.html"), width = 1080)
 ```

@@ -13,7 +13,7 @@ Each has their advantages and disadvantages.
 ![Density plot](../figures/densityplots.png)
 
 ```{r densityplots, fig.show = "hide"}
-var <- "^id|^type$|bsa$|(_frac|_area|_area_value|_size_valve|_diameter)$|^magnitude$|centroidCalcRotated[XY]"
+var <- "^id|^type$|bsa$|(_frac|sdLeafletFrac|_area|_area_value|_size_valve|_diameter)$|^magnitude$|centroidCalcRotated[XY]"
 df1 <-
   df %>%
   select(matches(var)) %>%
@@ -117,6 +117,7 @@ results <-
         compare("nr_frac", "NR fraction"),
         compare("rl_frac", "RL fraction"),
         compare("ln_frac", "LN fraction"),
+        compare("sdLeafletFrac", "Standard deviation of leaflet fractions"),
         compare("total_area_value", "Total coaptation area, value"),
         compare("total_area", "Total coaptation area, calculated"),
         compare("orifice_area", "Orifice area"),

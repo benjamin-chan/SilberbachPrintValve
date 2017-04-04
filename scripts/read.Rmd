@@ -142,6 +142,13 @@ df <-
                   .missing = "None") %>% 
            factor(levels = c("None", "Mild-Severe"),
                   labels = c("No aortic regurgitation", "Mild-severe aortic regurgitation")))
+sdLeafletFrac <-
+  df %>% 
+  melt(id.vars = "id", 
+       measure.vars = c("nr_frac", "rl_frac", "ln_frac"), 
+       value.name = "sdLeafletFrac") %>% 
+  aggregate(sdLeafletFrac ~ id, data = ., FUN = sd)
+df <- merge(df, sdLeafletFrac, by = c("id"))
 ```
 
 Check calculation of `magnitude` against given `coapt_line_length`; it should be 1.0

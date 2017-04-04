@@ -3,27 +3,23 @@
 [Interactive HTML](../figures/webGL/sphereplot.html)
 
 Predicted values from MANOVA.
-**Returns some weird results;**
-Predicted values do not plot in the middle of the *cloud* of data points.
 
 ```{r, echo = TRUE, eval = FALSE}
 M <-
   df %>% 
-  select(centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ, type, orifice_area) %>% 
-  manova(cbind(centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ) ~ 
-           type,
-         data = .)
+  select(coapX, coapY, coapZ, type, orifice_area) %>% 
+  manova(cbind(coapX, coapY, coapZ) ~ type, data = .)
 summary.aov(M)
 summary.manova(M)
 pred <- 
   bind_cols(df %>% select(type), 
-            M %>% predict %>% data.frame) %>% 
-  select(type, centroidBottomRotatedX, centroidBottomRotatedY, centroidBottomZ) %>% 
+            M %>% predict %>% round(3) %>% data.frame) %>% 
+  select(type, coapX, coapY, coapZ) %>% 
   unique %>%
   bind_cols(., 
-            sphereplot::car2sph(.$centroidBottomRotatedX, 
-                                .$centroidBottomRotatedY, 
-                                .$centroidBottomZ) %>% data.frame)
+            sphereplot::car2sph(.$coapX, 
+                                .$coapY, 
+                                .$coapZ) %>% data.frame)
 pred
 ```
 

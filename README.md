@@ -83,6 +83,11 @@ p-values adjusted for multiple comparisons.
 |Ceiling centroid point Y-coordinate                    |     2.1000|  0.7550| 0.015900|TRUE  |
 
 
+### 3D plot
+
+[Interactive HTML](figures/webGL/sphereplot.html)
+
+
 ### Coaptation line length
 
 Summary from linear model estimating coaptation line length by case or control group status,

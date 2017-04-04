@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-03-13 10:11:11"
+date: "2017-04-04 15:39:17"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 10:11:13
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-04 15:39:20
 ```
 
 Summarize the entire data set.
@@ -135,26 +135,27 @@ Output results.
 Results save as [CSV](../data/processed/compareUnadjusted.csv).
 
 
-|variable                                               |meanSDCases    |meanSDControls | difference|
-|:------------------------------------------------------|:--------------|:--------------|----------:|
-|Body surface area                                      |2.03 (0.202)   |1.87 (0.313)   |     0.1600|
-|NR fraction                                            |0.391 (0.12)   |0.335 (0.0682) |     0.0561|
-|RL fraction                                            |0.228 (0.133)  |0.331 (0.0906) |    -0.1030|
-|LN fraction                                            |0.381 (0.0945) |0.334 (0.0812) |     0.0469|
-|Total coaptation area, value                           |649 (189)      |515 (224)      |   134.0000|
-|Total coaptation area, calculated                      |649 (189)      |516 (224)      |   134.0000|
-|Orifice area                                           |637 (197)      |487 (120)      |   150.0000|
-|Valve diameter                                         |32.1 (4.49)    |26.7 (4.59)    |     5.4300|
-|Valve area                                             |825 (235)      |575 (199)      |   250.0000|
-|Total valve coaptation area relative to valve diameter |20.1 (4.37)    |18.7 (5.57)    |     1.3400|
-|Total valve coaptation area relative to orifice area   |1.06 (0.266)   |1.05 (0.321)   |     0.0121|
-|Total valve coaptation area relative to valve area     |0.807 (0.191)  |0.893 (0.203)  |    -0.0855|
-|Coaptation line length                                 |12.4 (3.75)    |13 (4)         |    -0.6560|
-|Ceiling centroid point X-coordinate                    |9.73 (3.96)    |6.96 (2.55)    |     2.7700|
-|Ceiling centroid point Y-coordinate                    |13.8 (3.72)    |10.8 (3.25)    |     3.0100|
+|variable                                               |meanSDCases    |meanSDControls  | difference|
+|:------------------------------------------------------|:--------------|:---------------|----------:|
+|Body surface area                                      |2.03 (0.202)   |1.87 (0.313)    |     0.1600|
+|NR fraction                                            |0.391 (0.12)   |0.335 (0.0682)  |     0.0561|
+|RL fraction                                            |0.228 (0.133)  |0.331 (0.0906)  |    -0.1030|
+|LN fraction                                            |0.381 (0.0945) |0.334 (0.0812)  |     0.0469|
+|Standard deviation of leaflet fractions                |0.152 (0.0742) |0.0838 (0.0506) |     0.0678|
+|Total coaptation area, value                           |649 (189)      |515 (224)       |   134.0000|
+|Total coaptation area, calculated                      |649 (189)      |516 (224)       |   134.0000|
+|Orifice area                                           |637 (197)      |487 (120)       |   150.0000|
+|Valve diameter                                         |32.1 (4.49)    |26.7 (4.59)     |     5.4300|
+|Valve area                                             |825 (235)      |575 (199)       |   250.0000|
+|Total valve coaptation area relative to valve diameter |20.1 (4.37)    |18.7 (5.57)     |     1.3400|
+|Total valve coaptation area relative to orifice area   |1.06 (0.266)   |1.05 (0.321)    |     0.0121|
+|Total valve coaptation area relative to valve area     |0.807 (0.191)  |0.893 (0.203)   |    -0.0855|
+|Coaptation line length                                 |12.4 (3.75)    |13 (4)          |    -0.6560|
+|Ceiling centroid point X-coordinate                    |9.73 (3.96)    |6.96 (2.55)     |     2.7700|
+|Ceiling centroid point Y-coordinate                    |13.8 (3.72)    |10.8 (3.25)     |     3.0100|
 
 ```
-## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 10:11:51
+## File ../data/processed/compareUnadjusted.csv was written on 2017-04-04 15:40:04
 ```
 
 ## Adjusted comparisons
@@ -189,11 +190,53 @@ Results save as [CSV](../data/processed/compareAdjusted.csv).
 |Ceiling centroid point Y-coordinate                    |     2.1000|  0.7550| 0.015900|TRUE  |
 
 ```
-## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 10:11:51
+## File ../data/processed/compareAdjusted.csv was written on 2017-04-04 15:40:04
 ```
 # 3D plot
 
 [Interactive HTML](../figures/webGL/sphereplot.html)
+
+Predicted values from MANOVA.
+
+
+```r
+M <-
+  df %>% 
+  select(coapX, coapY, coapZ, type, orifice_area) %>% 
+  manova(cbind(coapX, coapY, coapZ) ~ type, data = .)
+summary.aov(M)
+summary.manova(M)
+pred <- 
+  bind_cols(df %>% select(type), 
+            M %>% predict %>% round(3) %>% data.frame) %>% 
+  select(type, coapX, coapY, coapZ) %>% 
+  unique %>%
+  bind_cols(., 
+            sphereplot::car2sph(.$coapX, 
+                                .$coapY, 
+                                .$coapZ) %>% data.frame)
+pred
+```
+
+Predicted `latitude` and `longitude` calculated from `Directional::circ.summary`.
+Predicted `magnitude` calculated from linear model, `lm`, independent of direction.
+
+
+```
+## Error in eval(expr, envir, enclos): object 'cirCoord' not found
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'cirCoord' not found
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'matCases' not found
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'pred' not found
+```
 
 
 # Linear model of coaptation line length
@@ -405,7 +448,7 @@ The altenrative is that Kent distribution is more suitable.
 
 
 ```
-## Bootstrap p-value is 0.5550
+## Bootstrap p-value is 0.5790
 ## Fail to reject null hypothesis
 ```
 
@@ -451,17 +494,17 @@ Unadjusted.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.01 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
-##          Cosinus of y Sinus of y
-##           1.331727706  -6.021609
-## typeCase  0.006409535   1.344292
+##           Cosinus of y Sinus of y
+## Intercept  1.331727706  -6.021609
+## X1         0.006409535   1.344292
 ## 
 ## $seb
-##          Cosinus of y Sinus of y
-##             0.1404381  0.1042759
-## typeCase    0.2035170  0.2031161
+##           Cosinus of y Sinus of y
+## Intercept    0.1404381  0.1042759
+## X1           0.2035170  0.2031161
 ## 
 ## $loglik
 ## [1] 25.35768
@@ -559,7 +602,7 @@ Adjusted for coaptation line length.
 ```
 ## $runtime
 ##    user  system elapsed 
-##    0.07    0.00    0.03 
+##    0.08    0.02    0.05 
 ## 
 ## $beta
 ##                 Cosinus of y Sinus of y
@@ -599,17 +642,17 @@ Unadjusted.
 ```
 ## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
-##          Cosinus of y  Sinus of y
-##            -0.4600674  0.27089631
-## typeCase   -0.2294334 -0.06964816
+##           Cosinus of y  Sinus of y
+## Intercept   -0.4600674  0.27089631
+## X1          -0.2294334 -0.06964816
 ## 
 ## $seb
-##          Cosinus of y Sinus of y
-##             0.1192794  0.1347447
-## typeCase    0.1991933  0.2034726
+##           Cosinus of y Sinus of y
+## Intercept    0.1192794  0.1347447
+## X1           0.1991933  0.2034726
 ## 
 ## $loglik
 ## [1] -164.3917
@@ -669,7 +712,7 @@ Adjusted for orifice area area.
 ```
 ## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y

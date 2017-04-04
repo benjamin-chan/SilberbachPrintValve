@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-03-13 10:11:11"
+date: "2017-04-04 15:39:17"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -886,7 +886,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-03-13 10:11:13
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-04 15:39:20
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -992,6 +992,12 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 <td align="right">0.0469</td>
 </tr>
 <tr>
+<td align="left">Standard deviation of leaflet fractions</td>
+<td align="left">0.152 (0.0742)</td>
+<td align="left">0.0838 (0.0506)</td>
+<td align="right">0.0678</td>
+</tr>
+<tr>
 <td align="left">Total coaptation area, value</td>
 <td align="left">649 (189)</td>
 <td align="left">515 (224)</td>
@@ -1060,7 +1066,7 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-03-13 10:11:51
+<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-04-04 15:40:04
 </code></pre>
 
 <h2>
@@ -1187,13 +1193,47 @@ Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintVa
 </tbody>
 </table>
 
-<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-03-13 10:11:51
+<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-04-04 15:40:04
 </code></pre>
 
 <h1>
 <a id="user-content-3d-plot" class="anchor" href="#3d-plot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3D plot</h1>
 
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplot.html">Interactive HTML</a></p>
+
+<p>Predicted values from MANOVA.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">M</span> <span class="pl-k">&lt;-</span>
+  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
+  select(<span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>, <span class="pl-smi">type</span>, <span class="pl-smi">orifice_area</span>) %<span class="pl-k">&gt;</span>% 
+  manova(cbind(<span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>) <span class="pl-k">~</span> <span class="pl-smi">type</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> .)
+summary.aov(<span class="pl-smi">M</span>)
+summary.manova(<span class="pl-smi">M</span>)
+<span class="pl-smi">pred</span> <span class="pl-k">&lt;-</span> 
+  bind_cols(<span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-smi">type</span>), 
+            <span class="pl-smi">M</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">predict</span> %<span class="pl-k">&gt;</span>% round(<span class="pl-c1">3</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>) %<span class="pl-k">&gt;</span>% 
+  select(<span class="pl-smi">type</span>, <span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>) %<span class="pl-k">&gt;</span>% 
+  <span class="pl-smi">unique</span> %<span class="pl-k">&gt;</span>%
+  bind_cols(., 
+            <span class="pl-e">sphereplot</span><span class="pl-k">::</span>car2sph(.<span class="pl-k">$</span><span class="pl-smi">coapX</span>, 
+                                .<span class="pl-k">$</span><span class="pl-smi">coapY</span>, 
+                                .<span class="pl-k">$</span><span class="pl-smi">coapZ</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>)
+<span class="pl-smi">pred</span></pre></div>
+
+<p>Predicted <code>latitude</code> and <code>longitude</code> calculated from <code>Directional::circ.summary</code>.
+Predicted <code>magnitude</code> calculated from linear model, <code>lm</code>, independent of direction.</p>
+
+<pre><code>## Error in eval(expr, envir, enclos): object 'cirCoord' not found
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object 'cirCoord' not found
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object 'matCases' not found
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object 'pred' not found
+</code></pre>
 
 <h1>
 <a id="user-content-linear-model-of-coaptation-line-length" class="anchor" href="#linear-model-of-coaptation-line-length" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear model of coaptation line length</h1>
@@ -1720,7 +1760,7 @@ adjusted for orifice area.</p>
 The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
 The altenrative is that Kent distribution is more suitable.</p>
 
-<pre><code>## Bootstrap p-value is 0.5550
+<pre><code>## Bootstrap p-value is 0.5790
 ## Fail to reject null hypothesis
 </code></pre>
 
@@ -1822,17 +1862,17 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.03    0.00    0.01 
+##    0.06    0.00    0.03 
 ## 
 ## $beta
-##          Cosinus of y Sinus of y
-##           1.331727706  -6.021609
-## typeCase  0.006409535   1.344292
+##           Cosinus of y Sinus of y
+## Intercept  1.331727706  -6.021609
+## X1         0.006409535   1.344292
 ## 
 ## $seb
-##          Cosinus of y Sinus of y
-##             0.1404381  0.1042759
-## typeCase    0.2035170  0.2031161
+##           Cosinus of y Sinus of y
+## Intercept    0.1404381  0.1042759
+## X1           0.2035170  0.2031161
 ## 
 ## $loglik
 ## [1] 25.35768
@@ -2029,7 +2069,7 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##    0.07    0.00    0.03 
+##    0.08    0.02    0.05 
 ## 
 ## $beta
 ##                 Cosinus of y Sinus of y
@@ -2113,17 +2153,17 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
-##          Cosinus of y  Sinus of y
-##            -0.4600674  0.27089631
-## typeCase   -0.2294334 -0.06964816
+##           Cosinus of y  Sinus of y
+## Intercept   -0.4600674  0.27089631
+## X1          -0.2294334 -0.06964816
 ## 
 ## $seb
-##          Cosinus of y Sinus of y
-##             0.1192794  0.1347447
-## typeCase    0.1991933  0.2034726
+##           Cosinus of y Sinus of y
+## Intercept    0.1192794  0.1347447
+## X1           0.1991933  0.2034726
 ## 
 ## $loglik
 ## [1] -164.3917
@@ -2239,7 +2279,7 @@ aortic regurgitation (none-trivial vs mild-severe). </p>
 
 <pre><code>## $runtime
 ##    user  system elapsed 
-##       0       0       0 
+##    0.03    0.00    0.01 
 ## 
 ## $beta
 ##                   Cosinus of y  Sinus of y

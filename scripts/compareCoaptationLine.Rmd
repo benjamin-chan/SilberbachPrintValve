@@ -1,0 +1,73 @@
+# Compare coaptation lines in 3D space
+
+Observed coaptation lines.
+
+```{r}
+col <- brewer.pal(5, "Set1")
+origin <- c(0, 0, 0)
+rgl.sphgrid(radius = df$magnitude %>% max,
+            col.long = col[1], col.lat = col[2],
+            deggap = 30, longtype = "D", radlab = "Distance")
+G <- 
+  df %>% 
+  select(id, type, latitude, longitude, magnitude, coapX, coapY, coapZ) %>% 
+  mutate(col = ifelse(type == "Case", col[1], col[2])) %>% 
+  mutate(rand = sample(1:nrow(.), replace = FALSE)) %>% 
+  arrange(rand)
+for (i in 1:nrow(G)) {
+  arrow3d(origin, 
+          G[i, c("coapX", "coapY", "coapZ")], 
+          col = G[i, "col"], alpha = 1/3, type = "extrusion", barblen = 1/60)
+}
+dir <- file.path("~/Projects/SilberbachPrintValve/figures/webGL")
+writeWebGL(dir = dir, filename = file.path(dir, "sphereplotObservedCoapLines.html"), width = 1080)
+```
+
+[Interactive HTML](../figures/webGL/sphereplotObservedCoapLines.html)
+
+Calculate predicted coaptation lines from MANOVA.
+Adjust for scaled orifice area, `orificeAreaScaled`.
+
+```{r, eval = FALSE}
+M <-
+  df %>% 
+  select(coapX, coapY, coapZ, type, orificeAreaScaled) %>% 
+  manova(cbind(coapX, coapY, coapZ) ~ type + orificeAreaScaled, data = .)
+newdata <- data.frame(type = c("Case", "Control"), orificeAreaScaled = rep(0, 2))
+pred <- 
+  bind_cols(newdata,
+            M %>% predict(newdata = newdata) %>% round(2) %>% data.frame) %>% 
+  bind_cols(., 
+            sphereplot::car2sph(.$coapX, 
+                                .$coapY, 
+                                .$coapZ) %>% round(2) %>% data.frame)
+pred
+```
+
+Predicted coaptation lines.
+
+```{r}
+G <- 
+  pred %>% 
+  select(type, lat, long, radius, coapX, coapY, coapZ) %>% 
+  mutate(col = ifelse(type == "Case", col[1], col[2]))
+rgl.sphgrid(radius = df$magnitude %>% max,
+            col.long = col[1], col.lat = col[2],
+            deggap = 30, longtype = "D", radlab = "Distance")
+for (i in 1:nrow(G)) {
+  arrow3d(origin, 
+          G[i, c("coapX", "coapY", "coapZ")], 
+          col = G[i, "col"], alpha = 1/2, type = "extrusion", barblen = 1/25)
+}
+dir <- file.path("~/Projects/SilberbachPrintValve/figures/webGL")
+writeWebGL(dir = dir, filename = file.path(dir, "sphereplotPredictedCoapLines.html"), width = 1080)
+```
+
+[Interactive HTML](../figures/webGL/sphereplotPredictedCoapLines.html)
+
+Show MANOVA details.
+
+```{r}
+M %>% tidy
+summary.aov(M)
+```

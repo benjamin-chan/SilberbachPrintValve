@@ -13,9 +13,9 @@ files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
            "compare.Rmd",
-           "sphereplot.Rmd",
            "analyzeRadial.Rmd",
            "analyzeDirectional.Rmd")
+           "compareCoaptationLine.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])

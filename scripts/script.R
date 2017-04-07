@@ -12,9 +12,8 @@ sink("script.log")
 files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
-           "compare.Rmd",
-           "analyzeRadial.Rmd",
-           "analyzeDirectional.Rmd")
+           # "compare.Rmd",
+           "compareLeafletCoaptation.Rmd",
            "compareCoaptationLine.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {

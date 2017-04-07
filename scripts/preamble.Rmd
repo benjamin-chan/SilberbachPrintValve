@@ -5,12 +5,12 @@ setwd("~/Projects/SilberbachPrintValve/scripts")
 # Load libraries.
 library(readxl)
 library(magrittr)
+library(multcomp)
 library(dplyr)
 library(reshape2)
 library(broom)
 library(ggplot2)
 library(knitr)
-library(Directional)
 library(sphereplot)
 library(RColorBrewer)
 

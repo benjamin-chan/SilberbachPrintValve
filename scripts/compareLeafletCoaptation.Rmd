@@ -54,7 +54,9 @@ p <-
         data.frame(contrast = "Cases: RL vs NR & LN", 
                    p = pContrast(M, matrix(c(0, 0, 1, 0, 0, 0), 1))),
         data.frame(contrast = "Controls: RL vs NR & LN", 
-                   p = pContrast(M, matrix(c(0, 0, 0.5, 0, 0.5, 0), 1))))
+                   p = pContrast(M, matrix(c(0, 0, 0.5, 0, 0.5, 0), 1))),
+        data.frame(contrast = "RL: Cases vs Controls", 
+                   p = pContrast(M, matrix(c(0, 0.5, 0, 0, 0.5, 0), 1))))
 ```
 
 * Among cases
@@ -63,6 +65,8 @@ p <-
 * Among controls
   * NR and LN are `r paste0(isSig(p[2, "p"]), "ly")` different (p = `r sprintf("%.03f", p[2, "p"])`)
   * RL is `r paste0(isSig(p[4, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[4, "p"])`)
+* Between cases and controls
+  * RL is `r paste0(isSig(p[5, "p"]), "ly")` different (p = `r sprintf("%.03f", p[5, "p"])`)
 
 ```{r}
 p %>% kable

@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-04-07 11:31:43"
+date: "2017-04-07 14:26:39"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -886,7 +886,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 11:31:45
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 14:26:42
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -906,6 +906,141 @@ An interactive representation of the coaptation line geometry is <a href="https:
 <tr>
 <td align="left">Control</td>
 <td align="right">49</td>
+</tr>
+</tbody>
+</table>
+
+<h1>
+<a id="user-content-compare-leaflet-coaptation-fractions" class="anchor" href="#compare-leaflet-coaptation-fractions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare leaflet coaptation fractions</h1>
+
+<p>Comparison variables are</p>
+
+<ul>
+<li>
+<code>nr_frac</code> Fraction of coaptation area between non-coronary and right coronary leaflets of total coaptation area</li>
+<li>
+<code>rl_frac</code> Fraction of coaptation area between right and left coronary leaflets of total coaptation area</li>
+<li>
+<code>ln_frac</code> Fraction of coaptation area between left coronary and non-coronary leaflets of total coaptation areas</li>
+</ul>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png">PNG</a>, <a href="../figures/lineplotsLeafletCoapFrac.svg">SVG</a></p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" alt="Line plot" style="max-width:100%;"></a></p>
+
+<p>Use a linear model to test if leaflet fractions are different.</p>
+
+<ul>
+<li>Among cases
+
+<ul>
+<li>NR and LN are not significantly different (p = 0.635)</li>
+<li>RL is significantly different from NR and LN (p = 0.000)</li>
+</ul>
+</li>
+<li>Among controls
+
+<ul>
+<li>NR and LN are not significantly different (p = 0.979)</li>
+<li>RL is not significantly different from NR and LN (p = 0.855)</li>
+<li>NR, RL, and LN are not significantly different from each other (p = 0.876)</li>
+</ul>
+</li>
+<li>Between cases and controls
+
+<ul>
+<li>RL is significantly different (p = 0.000)</li>
+</ul>
+</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="left">contrast</th>
+<th align="right">p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Cases: NR vs LN</td>
+<td align="right">0.6346002</td>
+</tr>
+<tr>
+<td align="left">Cases: RL vs NR &amp; LN</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr>
+<td align="left">Controls: NR vs LN</td>
+<td align="right">0.9793845</td>
+</tr>
+<tr>
+<td align="left">Controls: RL vs NR &amp; LN</td>
+<td align="right">0.8552162</td>
+</tr>
+<tr>
+<td align="left">Controls: NR vs RL vs LN</td>
+<td align="right">0.8755377</td>
+</tr>
+<tr>
+<td align="left">RL: Cases vs Controls</td>
+<td align="right">0.0000007</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(Intercept)</td>
+<td align="right">0.391</td>
+<td align="right">0.014</td>
+<td align="right">27.043</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">typeControl</td>
+<td align="right">-0.056</td>
+<td align="right">0.020</td>
+<td align="right">-2.758</td>
+<td align="right">0.006</td>
+</tr>
+<tr>
+<td align="left">variableRL</td>
+<td align="right">-0.163</td>
+<td align="right">0.020</td>
+<td align="right">-7.963</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">variableLN</td>
+<td align="right">-0.010</td>
+<td align="right">0.020</td>
+<td align="right">-0.476</td>
+<td align="right">0.635</td>
+</tr>
+<tr>
+<td align="left">typeControl:variableRL</td>
+<td align="right">0.159</td>
+<td align="right">0.029</td>
+<td align="right">5.531</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">typeControl:variableLN</td>
+<td align="right">0.009</td>
+<td align="right">0.029</td>
+<td align="right">0.320</td>
+<td align="right">0.749</td>
 </tr>
 </tbody>
 </table>
@@ -1021,152 +1156,4 @@ Adjust for scaled orifice area, <code>orificeAreaScaled</code>.</p>
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
-
-<h1>
-<a id="user-content-compare-leaflet-coaptation-fractions" class="anchor" href="#compare-leaflet-coaptation-fractions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare leaflet coaptation fractions</h1>
-
-<p>Comparison variables are</p>
-
-<ul>
-<li>
-<code>nr_frac</code> Fraction of coaptation area between non-coronary and right coronary leaflets of total coaptation area</li>
-<li>
-<code>rl_frac</code> Fraction of coaptation area between right and left coronary leaflets of total coaptation area</li>
-<li>
-<code>ln_frac</code> Fraction of coaptation area between left coronary and non-coronary leaflets of total coaptation areas</li>
-</ul>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png">PNG</a>, <a href="../figures/lineplotsLeafletCoapFrac.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" alt="Line plot" style="max-width:100%;"></a></p>
-
-<p>Use a linear model to test if leaflet fractions are different.</p>
-
-<pre><code>## 
-## Attaching package: 'MASS'
-</code></pre>
-
-<pre><code>## The following object is masked from 'package:dplyr':
-## 
-##     select
-</code></pre>
-
-<pre><code>## 
-## Attaching package: 'TH.data'
-</code></pre>
-
-<pre><code>## The following object is masked from 'package:MASS':
-## 
-##     geyser
-</code></pre>
-
-<ul>
-<li>Among cases
-
-<ul>
-<li>NR and LN are not significantly different (p = 0.635)</li>
-<li>RL is significantly different from NR and LN (p = 0.000)</li>
-</ul>
-</li>
-<li>Among controls
-
-<ul>
-<li>NR and LN are not significantly different (p = 0.979)</li>
-<li>RL is not significantly different from NR and LN (p = 0.855)</li>
-</ul>
-</li>
-<li>Between cases and controls
-
-<ul>
-<li>RL is significantly different (p = 0.000)</li>
-</ul>
-</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th align="left">contrast</th>
-<th align="right">p</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Cases: NR vs LN</td>
-<td align="right">0.6346002</td>
-</tr>
-<tr>
-<td align="left">Controls: NR vs LN</td>
-<td align="right">0.9793845</td>
-</tr>
-<tr>
-<td align="left">Cases: RL vs NR &amp; LN</td>
-<td align="right">0.0000000</td>
-</tr>
-<tr>
-<td align="left">Controls: RL vs NR &amp; LN</td>
-<td align="right">0.8552162</td>
-</tr>
-<tr>
-<td align="left">RL: Cases vs Controls</td>
-<td align="right">0.0000007</td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">(Intercept)</td>
-<td align="right">0.391</td>
-<td align="right">0.014</td>
-<td align="right">27.043</td>
-<td align="right">0.000</td>
-</tr>
-<tr>
-<td align="left">typeControl</td>
-<td align="right">-0.056</td>
-<td align="right">0.020</td>
-<td align="right">-2.758</td>
-<td align="right">0.006</td>
-</tr>
-<tr>
-<td align="left">variableRL</td>
-<td align="right">-0.163</td>
-<td align="right">0.020</td>
-<td align="right">-7.963</td>
-<td align="right">0.000</td>
-</tr>
-<tr>
-<td align="left">variableLN</td>
-<td align="right">-0.010</td>
-<td align="right">0.020</td>
-<td align="right">-0.476</td>
-<td align="right">0.635</td>
-</tr>
-<tr>
-<td align="left">typeControl:variableRL</td>
-<td align="right">0.159</td>
-<td align="right">0.029</td>
-<td align="right">5.531</td>
-<td align="right">0.000</td>
-</tr>
-<tr>
-<td align="left">typeControl:variableLN</td>
-<td align="right">0.009</td>
-<td align="right">0.029</td>
-<td align="right">0.320</td>
-<td align="right">0.749</td>
-</tr>
-</tbody>
-</table>
 </article></body></html>

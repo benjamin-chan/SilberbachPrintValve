@@ -40,6 +40,19 @@ Due to missing data, the sample size for each group is not 50.
 |Case    | 48|
 |Control | 49|
 
+### Compare leaflet coaptation fractions
+
+![Line plot](figures/lineplotsLeafletsCoapFrac.png)
+
+* Among cases
+  * NR and LN are not significantly different (p = 0.635)
+  * RL is significantly different from NR and LN (p = 0.000)
+* Among controls
+  * NR and LN are not significantly different (p = 0.979)
+  * RL is not significantly different from NR and LN (p = 0.855)
+  * NR, RL, and LN are not significantly different from each other (p = 0.876)
+* Between cases and controls
+  * RL is significantly different (p = 0.000)
 
 ### Compare coaptation lines in 3D space
 
@@ -51,19 +64,6 @@ Predicted coaptation lines.
 
 **Coaptation lines are not significantly different (p = 0.166).**
 Adjust for scaled orifice area, `orificeAreaScaled`.
-
-### Compare leaflet coaptation fractions
-
-![Line plot](figures/lineplotsLeafletsCoapFrac.png)
-
-* Among cases
-  * NR and LN are not significantly different (p = 0.635)
-  * RL is significantly different from NR and LN (p = 0.000)
-* Among controls
-  * NR and LN are not significantly different (p = 0.979)
-  * RL is not significantly different from NR and LN (p = 0.855)
-* Between cases and controls
-  * RL is significantly different (p = 0.000)
 
 
 ## Method

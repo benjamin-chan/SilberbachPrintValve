@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-04-07 11:31:43"
+date: "2017-04-07 14:26:39"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 11:31:45
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 14:26:42
 ```
 
 Summarize the entire data set.
@@ -82,6 +82,54 @@ Summarize the entire data set.
 |:-------|--:|
 |Case    | 48|
 |Control | 49|
+# Compare leaflet coaptation fractions
+
+Comparison variables are
+
+* `nr_frac` Fraction of coaptation area between non-coronary and right coronary leaflets of total coaptation area
+* `rl_frac` Fraction of coaptation area between right and left coronary leaflets of total coaptation area
+* `ln_frac` Fraction of coaptation area between left coronary and non-coronary leaflets of total coaptation areas
+
+[PNG](../figures/lineplotsLeafletsCoapFrac.png), [SVG](../figures/lineplotsLeafletCoapFrac.svg)
+
+![Line plot](../figures/lineplotsLeafletsCoapFrac.png)
+
+
+
+Use a linear model to test if leaflet fractions are different.
+
+
+
+* Among cases
+  * NR and LN are not significantly different (p = 0.635)
+  * RL is significantly different from NR and LN (p = 0.000)
+* Among controls
+  * NR and LN are not significantly different (p = 0.979)
+  * RL is not significantly different from NR and LN (p = 0.855)
+  * NR, RL, and LN are not significantly different from each other (p = 0.876)
+* Between cases and controls
+  * RL is significantly different (p = 0.000)
+
+
+|contrast                 |         p|
+|:------------------------|---------:|
+|Cases: NR vs LN          | 0.6346002|
+|Cases: RL vs NR & LN     | 0.0000000|
+|Controls: NR vs LN       | 0.9793845|
+|Controls: RL vs NR & LN  | 0.8552162|
+|Controls: NR vs RL vs LN | 0.8755377|
+|RL: Cases vs Controls    | 0.0000007|
+
+
+
+|term                   | estimate| std.error| statistic| p.value|
+|:----------------------|--------:|---------:|---------:|-------:|
+|(Intercept)            |    0.391|     0.014|    27.043|   0.000|
+|typeControl            |   -0.056|     0.020|    -2.758|   0.006|
+|variableRL             |   -0.163|     0.020|    -7.963|   0.000|
+|variableLN             |   -0.010|     0.020|    -0.476|   0.635|
+|typeControl:variableRL |    0.159|     0.029|     5.531|   0.000|
+|typeControl:variableLN |    0.009|     0.029|     0.320|   0.749|
 # Compare coaptation lines in 3D space
 
 Observed coaptation lines.
@@ -138,70 +186,3 @@ Show MANOVA details.
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-# Compare leaflet coaptation fractions
-
-Comparison variables are
-
-* `nr_frac` Fraction of coaptation area between non-coronary and right coronary leaflets of total coaptation area
-* `rl_frac` Fraction of coaptation area between right and left coronary leaflets of total coaptation area
-* `ln_frac` Fraction of coaptation area between left coronary and non-coronary leaflets of total coaptation areas
-
-[PNG](../figures/lineplotsLeafletsCoapFrac.png), [SVG](../figures/lineplotsLeafletCoapFrac.svg)
-
-![Line plot](../figures/lineplotsLeafletsCoapFrac.png)
-
-
-
-Use a linear model to test if leaflet fractions are different.
-
-
-```
-## 
-## Attaching package: 'MASS'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     select
-```
-
-```
-## 
-## Attaching package: 'TH.data'
-```
-
-```
-## The following object is masked from 'package:MASS':
-## 
-##     geyser
-```
-
-* Among cases
-  * NR and LN are not significantly different (p = 0.635)
-  * RL is significantly different from NR and LN (p = 0.000)
-* Among controls
-  * NR and LN are not significantly different (p = 0.979)
-  * RL is not significantly different from NR and LN (p = 0.855)
-* Between cases and controls
-  * RL is significantly different (p = 0.000)
-
-
-|contrast                |         p|
-|:-----------------------|---------:|
-|Cases: NR vs LN         | 0.6346002|
-|Controls: NR vs LN      | 0.9793845|
-|Cases: RL vs NR & LN    | 0.0000000|
-|Controls: RL vs NR & LN | 0.8552162|
-|RL: Cases vs Controls   | 0.0000007|
-
-
-
-|term                   | estimate| std.error| statistic| p.value|
-|:----------------------|--------:|---------:|---------:|-------:|
-|(Intercept)            |    0.391|     0.014|    27.043|   0.000|
-|typeControl            |   -0.056|     0.020|    -2.758|   0.006|
-|variableRL             |   -0.163|     0.020|    -7.963|   0.000|
-|variableLN             |   -0.010|     0.020|    -0.476|   0.635|
-|typeControl:variableRL |    0.159|     0.029|     5.531|   0.000|
-|typeControl:variableLN |    0.009|     0.029|     0.320|   0.749|

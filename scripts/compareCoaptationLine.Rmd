@@ -28,7 +28,7 @@ writeWebGL(dir = dir, filename = file.path(dir, "sphereplotObservedCoapLines.htm
 Calculate predicted coaptation lines from MANOVA.
 Adjust for scaled orifice area, `orificeAreaScaled`.
 
-```{r, eval = FALSE}
+```{r}
 M <-
   df %>% 
   select(coapX, coapY, coapZ, type, orificeAreaScaled) %>% 

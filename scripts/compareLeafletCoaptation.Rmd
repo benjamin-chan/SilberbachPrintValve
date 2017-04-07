@@ -46,12 +46,15 @@ Use a linear model to test if NR and LN fractions are different.
 M <- 
   df1 %>% 
   lm(frac ~ type + variable + type * variable, data = .)
-tidy(M) %>% kable(digits = 3)
 p <- tidy(M) %>% filter(grepl("variableLN", term)) %>% select(p.value)
 ```
 
 * For the cases, NR and LN are `r paste0(isSig(p[1, ]), "ly")` different (p = `r sprintf("%.03f", p[1, ])`)
 * For the controls, NR and LN are `r paste0(isSig(p[2, ]), "ly")` different (p = `r sprintf("%.03f", p[2, ])`)
+
+```{r}
+tidy(M) %>% kable(digits = 3)
+```
 
 Since NR and LN are not different for both cases and controls,
 test if RL fractions are different from NR and LN.
@@ -62,10 +65,12 @@ M <-
   mutate(indCasesRL = type == "Case" & variable == "RL",
          indControlRL = type == "Control" & variable == "RL") %>% 
   lm(frac ~ indCasesRL + type + indControlRL, data = .)
-tidy(M) %>% kable(digits = 3)
 p <- tidy(M) %>% filter(grepl("RLTRUE", term)) %>% select(p.value)
 ```
 
 * For the cases, RL is `r paste0(isSig(p[1, ]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[1, ])`)
 * For the controls, RL is `r paste0(isSig(p[2, ]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[2, ])`)
+
+```{r}
+tidy(M) %>% kable(digits = 3)
 ```

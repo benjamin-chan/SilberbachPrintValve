@@ -41,7 +41,7 @@ pred <-
             sphereplot::car2sph(.$coapX, 
                                 .$coapY, 
                                 .$coapZ) %>% round(2) %>% data.frame)
-pred
+pred %>% kable
 ```
 
 Predicted coaptation lines.
@@ -68,6 +68,6 @@ writeWebGL(dir = dir, filename = file.path(dir, "sphereplotPredictedCoapLines.ht
 Show MANOVA details.
 
 ```{r}
-M %>% tidy
+M %>% tidy %>% kable
 summary.aov(M)
 ```

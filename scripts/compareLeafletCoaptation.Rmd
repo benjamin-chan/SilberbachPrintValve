@@ -49,10 +49,10 @@ M <-
 p <- 
   rbind(data.frame(contrast = "Cases: NR vs LN", 
                    p = pContrast(M, matrix(c(0, 0, 0, 1, 0, 0), 1))),
-        data.frame(contrast = "Controls: NR vs LN", 
-                   p = pContrast(M, matrix(c(0, 0, 0, 0.5, 0, 0.5), 1))),
         data.frame(contrast = "Cases: RL vs NR & LN", 
                    p = pContrast(M, matrix(c(0, 0, 1, 0, 0, 0), 1))),
+        data.frame(contrast = "Controls: NR vs LN", 
+                   p = pContrast(M, matrix(c(0, 0, 0, 0.5, 0, 0.5), 1))),
         data.frame(contrast = "Controls: RL vs NR & LN", 
                    p = pContrast(M, matrix(c(0, 0, 0.5, 0, 0.5, 0), 1))),
         data.frame(contrast = "RL: Cases vs Controls", 
@@ -61,9 +61,9 @@ p <-
 
 * Among cases
   * NR and LN are `r paste0(isSig(p[1, "p"]), "ly")` different (p = `r sprintf("%.03f", p[1, "p"])`)
-  * RL is `r paste0(isSig(p[3, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[3, "p"])`)
+  * RL is `r paste0(isSig(p[2, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[2, "p"])`)
 * Among controls
-  * NR and LN are `r paste0(isSig(p[2, "p"]), "ly")` different (p = `r sprintf("%.03f", p[2, "p"])`)
+  * NR and LN are `r paste0(isSig(p[3, "p"]), "ly")` different (p = `r sprintf("%.03f", p[3, "p"])`)
   * RL is `r paste0(isSig(p[4, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[4, "p"])`)
 * Between cases and controls
   * RL is `r paste0(isSig(p[5, "p"]), "ly")` different (p = `r sprintf("%.03f", p[5, "p"])`)

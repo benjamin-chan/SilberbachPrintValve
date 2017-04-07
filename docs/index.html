@@ -751,7 +751,7 @@ MathJax.Hub.Config({
 <title>index</title></head><body><article class="markdown-body"><hr>
 
 <p>title: "PrintValve case-control analysis"
-date: "2017-04-04 15:39:17"
+date: "2017-04-07 11:31:43"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
   html_document:
@@ -886,7 +886,7 @@ An interactive representation of the coaptation line geometry is <a href="https:
 
 <p>Output a subset for spot-checking.</p>
 
-<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-04 15:39:20
+<pre><code>## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 11:31:45
 </code></pre>
 
 <p>Summarize the entire data set.</p>
@@ -911,1528 +911,261 @@ An interactive representation of the coaptation line geometry is <a href="https:
 </table>
 
 <h1>
-<a id="user-content-compare-cases-and-controls" class="anchor" href="#compare-cases-and-controls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare cases and controls</h1>
+<a id="user-content-compare-coaptation-lines-in-3d-space" class="anchor" href="#compare-coaptation-lines-in-3d-space" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare coaptation lines in 3D space</h1>
 
-<p>The case-control variable is <code>type</code>.</p>
+<p>Observed coaptation lines.</p>
 
-<p>Plot comparisons.
-Use multiple visualizations, density plots and scatterplots.
-Each has their advantages and disadvantages.</p>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotObservedCoapLines.html">Interactive HTML</a></p>
 
-<h2>
-<a id="user-content-density-plots" class="anchor" href="#density-plots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Density plots</h2>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/densityplots.png" alt="Density plot" style="max-width:100%;"></a></p>
-
-<h2>
-<a id="user-content-scatterplots" class="anchor" href="#scatterplots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scatterplots</h2>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/scatterplots.png" alt="Scatterplots" style="max-width:100%;"></a></p>
-
-<h2>
-<a id="user-content-boxplots" class="anchor" href="#boxplots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Boxplots</h2>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplots.png" alt="Boxplots" style="max-width:100%;"></a></p>
-
-<h2>
-<a id="user-content-violin-plots" class="anchor" href="#violin-plots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Violin plots</h2>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplots.png" alt="Violin plots" style="max-width:100%;"></a></p>
-
-<h2>
-<a id="user-content-unadjustedunscaled-comparisons" class="anchor" href="#unadjustedunscaled-comparisons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted/unscaled comparisons</h2>
-
-<p>Calculate mean (SD) and ranges.
-Calculate differences in means.
-Adjust p-values for multiple comparisons.</p>
-
-<p>Output results.
-Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/data/processed/compareUnadjusted.csv">CSV</a>.</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">variable</th>
-<th align="left">meanSDCases</th>
-<th align="left">meanSDControls</th>
-<th align="right">difference</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Body surface area</td>
-<td align="left">2.03 (0.202)</td>
-<td align="left">1.87 (0.313)</td>
-<td align="right">0.1600</td>
-</tr>
-<tr>
-<td align="left">NR fraction</td>
-<td align="left">0.391 (0.12)</td>
-<td align="left">0.335 (0.0682)</td>
-<td align="right">0.0561</td>
-</tr>
-<tr>
-<td align="left">RL fraction</td>
-<td align="left">0.228 (0.133)</td>
-<td align="left">0.331 (0.0906)</td>
-<td align="right">-0.1030</td>
-</tr>
-<tr>
-<td align="left">LN fraction</td>
-<td align="left">0.381 (0.0945)</td>
-<td align="left">0.334 (0.0812)</td>
-<td align="right">0.0469</td>
-</tr>
-<tr>
-<td align="left">Standard deviation of leaflet fractions</td>
-<td align="left">0.152 (0.0742)</td>
-<td align="left">0.0838 (0.0506)</td>
-<td align="right">0.0678</td>
-</tr>
-<tr>
-<td align="left">Total coaptation area, value</td>
-<td align="left">649 (189)</td>
-<td align="left">515 (224)</td>
-<td align="right">134.0000</td>
-</tr>
-<tr>
-<td align="left">Total coaptation area, calculated</td>
-<td align="left">649 (189)</td>
-<td align="left">516 (224)</td>
-<td align="right">134.0000</td>
-</tr>
-<tr>
-<td align="left">Orifice area</td>
-<td align="left">637 (197)</td>
-<td align="left">487 (120)</td>
-<td align="right">150.0000</td>
-</tr>
-<tr>
-<td align="left">Valve diameter</td>
-<td align="left">32.1 (4.49)</td>
-<td align="left">26.7 (4.59)</td>
-<td align="right">5.4300</td>
-</tr>
-<tr>
-<td align="left">Valve area</td>
-<td align="left">825 (235)</td>
-<td align="left">575 (199)</td>
-<td align="right">250.0000</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to valve diameter</td>
-<td align="left">20.1 (4.37)</td>
-<td align="left">18.7 (5.57)</td>
-<td align="right">1.3400</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to orifice area</td>
-<td align="left">1.06 (0.266)</td>
-<td align="left">1.05 (0.321)</td>
-<td align="right">0.0121</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to valve area</td>
-<td align="left">0.807 (0.191)</td>
-<td align="left">0.893 (0.203)</td>
-<td align="right">-0.0855</td>
-</tr>
-<tr>
-<td align="left">Coaptation line length</td>
-<td align="left">12.4 (3.75)</td>
-<td align="left">13 (4)</td>
-<td align="right">-0.6560</td>
-</tr>
-<tr>
-<td align="left">Ceiling centroid point X-coordinate</td>
-<td align="left">9.73 (3.96)</td>
-<td align="left">6.96 (2.55)</td>
-<td align="right">2.7700</td>
-</tr>
-<tr>
-<td align="left">Ceiling centroid point Y-coordinate</td>
-<td align="left">13.8 (3.72)</td>
-<td align="left">10.8 (3.25)</td>
-<td align="right">3.0100</td>
-</tr>
-</tbody>
-</table>
-
-<pre><code>## File ../data/processed/compareUnadjusted.csv was written on 2017-04-04 15:40:04
-</code></pre>
-
-<h2>
-<a id="user-content-adjusted-comparisons" class="anchor" href="#adjusted-comparisons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted comparisons</h2>
-
-<p>Adjusted for <strong>orifice area.</strong></p>
-
-<p>Calculate mean (SD) and ranges.
-Calculate differences in means.
-Adjust p-values for multiple comparisons.</p>
-
-<p>Output results.
-Results save as <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/data/processed/compareAdjusted.csv">CSV</a>.</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">variable</th>
-<th align="right">difference</th>
-<th align="right">seDiff</th>
-<th align="right">pAdjust</th>
-<th align="left">sig</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Body surface area</td>
-<td align="right">0.0880</td>
-<td align="right">0.0568</td>
-<td align="right">0.175000</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="left">NR fraction</td>
-<td align="right">0.0595</td>
-<td align="right">0.0219</td>
-<td align="right">0.015900</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">RL fraction</td>
-<td align="right">-0.1110</td>
-<td align="right">0.0255</td>
-<td align="right">0.000493</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">LN fraction</td>
-<td align="right">0.0511</td>
-<td align="right">0.0198</td>
-<td align="right">0.018800</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Total coaptation area, value</td>
-<td align="right">24.2000</td>
-<td align="right">38.4000</td>
-<td align="right">0.532000</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="left">Total coaptation area, calculated</td>
-<td align="right">24.1000</td>
-<td align="right">38.4000</td>
-<td align="right">0.532000</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="left">Valve diameter</td>
-<td align="right">3.2600</td>
-<td align="right">0.8740</td>
-<td align="right">0.002350</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Valve area</td>
-<td align="right">147.0000</td>
-<td align="right">42.0000</td>
-<td align="right">0.003350</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to valve diameter</td>
-<td align="right">-0.7950</td>
-<td align="right">1.0000</td>
-<td align="right">0.501000</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to orifice area</td>
-<td align="right">0.0651</td>
-<td align="right">0.0652</td>
-<td align="right">0.408000</td>
-<td align="left">FALSE</td>
-</tr>
-<tr>
-<td align="left">Total valve coaptation area relative to valve area</td>
-<td align="right">-0.1120</td>
-<td align="right">0.0439</td>
-<td align="right">0.018800</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Coaptation line length</td>
-<td align="right">-2.2100</td>
-<td align="right">0.7880</td>
-<td align="right">0.015900</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Ceiling centroid point X-coordinate</td>
-<td align="right">1.9700</td>
-<td align="right">0.7230</td>
-<td align="right">0.015900</td>
-<td align="left">TRUE</td>
-</tr>
-<tr>
-<td align="left">Ceiling centroid point Y-coordinate</td>
-<td align="right">2.1000</td>
-<td align="right">0.7550</td>
-<td align="right">0.015900</td>
-<td align="left">TRUE</td>
-</tr>
-</tbody>
-</table>
-
-<pre><code>## File ../data/processed/compareAdjusted.csv was written on 2017-04-04 15:40:04
-</code></pre>
-
-<h1>
-<a id="user-content-3d-plot" class="anchor" href="#3d-plot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3D plot</h1>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplot.html">Interactive HTML</a></p>
-
-<p>Predicted values from MANOVA.</p>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">M</span> <span class="pl-k">&lt;-</span>
-  <span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% 
-  select(<span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>, <span class="pl-smi">type</span>, <span class="pl-smi">orifice_area</span>) %<span class="pl-k">&gt;</span>% 
-  manova(cbind(<span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>) <span class="pl-k">~</span> <span class="pl-smi">type</span>, <span class="pl-v">data</span> <span class="pl-k">=</span> .)
-summary.aov(<span class="pl-smi">M</span>)
-summary.manova(<span class="pl-smi">M</span>)
-<span class="pl-smi">pred</span> <span class="pl-k">&lt;-</span> 
-  bind_cols(<span class="pl-smi">df</span> %<span class="pl-k">&gt;</span>% select(<span class="pl-smi">type</span>), 
-            <span class="pl-smi">M</span> %<span class="pl-k">&gt;</span>% <span class="pl-smi">predict</span> %<span class="pl-k">&gt;</span>% round(<span class="pl-c1">3</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>) %<span class="pl-k">&gt;</span>% 
-  select(<span class="pl-smi">type</span>, <span class="pl-smi">coapX</span>, <span class="pl-smi">coapY</span>, <span class="pl-smi">coapZ</span>) %<span class="pl-k">&gt;</span>% 
-  <span class="pl-smi">unique</span> %<span class="pl-k">&gt;</span>%
-  bind_cols(., 
-            <span class="pl-e">sphereplot</span><span class="pl-k">::</span>car2sph(.<span class="pl-k">$</span><span class="pl-smi">coapX</span>, 
-                                .<span class="pl-k">$</span><span class="pl-smi">coapY</span>, 
-                                .<span class="pl-k">$</span><span class="pl-smi">coapZ</span>) %<span class="pl-k">&gt;</span>% <span class="pl-smi">data.frame</span>)
-<span class="pl-smi">pred</span></pre></div>
-
-<p>Predicted <code>latitude</code> and <code>longitude</code> calculated from <code>Directional::circ.summary</code>.
-Predicted <code>magnitude</code> calculated from linear model, <code>lm</code>, independent of direction.</p>
-
-<pre><code>## Error in eval(expr, envir, enclos): object 'cirCoord' not found
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object 'cirCoord' not found
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object 'matCases' not found
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object 'pred' not found
-</code></pre>
-
-<h1>
-<a id="user-content-linear-model-of-coaptation-line-length" class="anchor" href="#linear-model-of-coaptation-line-length" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear model of coaptation line length</h1>
-
-<h2>
-<a id="user-content-unadjusted" class="anchor" href="#unadjusted" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unadjusted</h2>
-
-<p>Summary from linear model estimating coaptation line length by case or control group status,
-<strong>unadjusted.</strong></p>
-
-<ul>
-<li>Model statistics</li>
-<li>ANOVA table</li>
-<li>Predicted values, and confidence and prediction intervals</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th align="right">r.squared</th>
-<th align="right">adj.r.squared</th>
-<th align="right">sigma</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-<th align="right">df</th>
-<th align="right">logLik</th>
-<th align="right">AIC</th>
-<th align="right">BIC</th>
-<th align="right">deviance</th>
-<th align="right">df.residual</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="right">0.007</td>
-<td align="right">-0.003</td>
-<td align="right">3.882</td>
-<td align="right">0.693</td>
-<td align="right">0.407</td>
-<td align="right">2</td>
-<td align="right">-268.181</td>
-<td align="right">542.362</td>
-<td align="right">550.086</td>
-<td align="right">1431.301</td>
-<td align="right">95</td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">(Intercept)</td>
-<td align="right">12.38</td>
-<td align="right">0.56</td>
-<td align="right">22.10</td>
-<td align="right">0.0000</td>
-</tr>
-<tr>
-<td align="left">typeControl</td>
-<td align="right">0.66</td>
-<td align="right">0.79</td>
-<td align="right">0.83</td>
-<td align="right">0.4072</td>
-</tr>
-</tbody>
-</table>
+<p>Calculate predicted coaptation lines from MANOVA.
+Adjust for scaled orifice area, <code>orificeAreaScaled</code>.</p>
 
 <table>
 <thead>
 <tr>
 <th align="left">type</th>
-<th align="right">fit</th>
-<th align="right">lowerConf</th>
-<th align="right">upperConf</th>
-<th align="right">lowerPred</th>
-<th align="right">upperPred</th>
+<th align="right">orificeAreaScaled</th>
+<th align="right">coapX</th>
+<th align="right">coapY</th>
+<th align="right">coapZ</th>
+<th align="right">long</th>
+<th align="right">lat</th>
+<th align="right">radius</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Case</td>
-<td align="right">12.38</td>
-<td align="right">11.27</td>
-<td align="right">13.49</td>
-<td align="right">4.59</td>
-<td align="right">20.17</td>
+<td align="right">0</td>
+<td align="right">1.66</td>
+<td align="right">-0.52</td>
+<td align="right">-10.90</td>
+<td align="right">-17.39</td>
+<td align="right">-80.93</td>
+<td align="right">11.04</td>
 </tr>
 <tr>
 <td align="left">Control</td>
-<td align="right">13.04</td>
-<td align="right">11.93</td>
-<td align="right">14.14</td>
-<td align="right">5.25</td>
-<td align="right">20.82</td>
+<td align="right">0</td>
+<td align="right">0.33</td>
+<td align="right">-0.27</td>
+<td align="right">-13.45</td>
+<td align="right">-39.29</td>
+<td align="right">-88.18</td>
+<td align="right">13.46</td>
 </tr>
 </tbody>
 </table>
 
-<p><strong>Interpretation</strong>
-Coaptation line length in the control population is, on average,
-0.66 mm longer 
-(95% CI: 
--0.89, 
-2.2;
-p-value:
-0.4072)
-than in the case population,
-unadjusted.</p>
+<p>Predicted coaptation lines.</p>
 
-<h2>
-<a id="user-content-adjusted-for-body-surface-area" class="anchor" href="#adjusted-for-body-surface-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for body surface area</h2>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotPredictedCoapLines.html">Interactive HTML</a></p>
 
-<p>Summary from linear model estimating coaptation line length by case or control group status,
-<strong>adjusted for body surface area.</strong></p>
+<p><strong>Coaptation lines are not significantly different (p = 0.166).</strong></p>
 
-<ul>
-<li>Model statistics</li>
-<li>ANOVA table</li>
-<li>Predicted values, and confidence and prediction intervals</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th align="right">r.squared</th>
-<th align="right">adj.r.squared</th>
-<th align="right">sigma</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-<th align="right">df</th>
-<th align="right">logLik</th>
-<th align="right">AIC</th>
-<th align="right">BIC</th>
-<th align="right">deviance</th>
-<th align="right">df.residual</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="right">0.117</td>
-<td align="right">0.099</td>
-<td align="right">3.679</td>
-<td align="right">6.249</td>
-<td align="right">0.003</td>
-<td align="right">3</td>
-<td align="right">-262.479</td>
-<td align="right">532.959</td>
-<td align="right">543.258</td>
-<td align="right">1272.551</td>
-<td align="right">94</td>
-</tr>
-</tbody>
-</table>
+<p>Show MANOVA details.</p>
 
 <table>
 <thead>
 <tr>
 <th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">(Intercept)</td>
-<td align="right">11.98</td>
-<td align="right">0.54</td>
-<td align="right">22.05</td>
-<td align="right">0.0000</td>
-</tr>
-<tr>
-<td align="left">typeControl</td>
-<td align="right">1.44</td>
-<td align="right">0.78</td>
-<td align="right">1.84</td>
-<td align="right">0.0685</td>
-</tr>
-<tr>
-<td align="left">bsaScaled</td>
-<td align="right">1.34</td>
-<td align="right">0.39</td>
-<td align="right">3.42</td>
-<td align="right">0.0009</td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="right">bsaScaled</th>
-<th align="left">scaling</th>
-<th align="right">fit</th>
-<th align="right">lowerConf</th>
-<th align="right">upperConf</th>
-<th align="right">lowerPred</th>
-<th align="right">upperPred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">10.64</td>
-<td align="right">9.18</td>
-<td align="right">12.10</td>
-<td align="right">3.19</td>
-<td align="right">18.09</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">11.98</td>
-<td align="right">10.90</td>
-<td align="right">13.06</td>
-<td align="right">4.60</td>
-<td align="right">19.37</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">13.33</td>
-<td align="right">12.14</td>
-<td align="right">14.52</td>
-<td align="right">5.93</td>
-<td align="right">20.73</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">12.08</td>
-<td align="right">10.90</td>
-<td align="right">13.26</td>
-<td align="right">4.68</td>
-<td align="right">19.48</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">13.42</td>
-<td align="right">12.36</td>
-<td align="right">14.49</td>
-<td align="right">6.04</td>
-<td align="right">20.81</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">14.77</td>
-<td align="right">13.32</td>
-<td align="right">16.22</td>
-<td align="right">7.32</td>
-<td align="right">22.22</td>
-</tr>
-</tbody>
-</table>
-
-<p><strong>Interpretation</strong>
-Coaptation line length in the control population is, on average,
-1.44 mm longer 
-(95% CI: 
--0.09, 
-2.97;
-p-value:
-0.0685)
-than in the case population,
-adjusted for body surface area.</p>
-
-<h2>
-<a id="user-content-adjusted-for-orifice-area" class="anchor" href="#adjusted-for-orifice-area" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adjusted for orifice area</h2>
-
-<p>Summary from linear model estimating coaptation line length by case or control group status,
-<strong>adjusted for orifice area.</strong></p>
-
-<ul>
-<li>Model statistics</li>
-<li>ANOVA table</li>
-<li>Predicted values, and confidence and prediction intervals</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th align="right">r.squared</th>
-<th align="right">adj.r.squared</th>
-<th align="right">sigma</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
 <th align="right">df</th>
-<th align="right">logLik</th>
-<th align="right">AIC</th>
-<th align="right">BIC</th>
-<th align="right">deviance</th>
-<th align="right">df.residual</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="right">0.194</td>
-<td align="right">0.177</td>
-<td align="right">3.515</td>
-<td align="right">11.343</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">-258.048</td>
-<td align="right">524.097</td>
-<td align="right">534.396</td>
-<td align="right">1161.443</td>
-<td align="right">94</td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
+<th align="right">pillai</th>
 <th align="right">statistic</th>
+<th align="right">num.df</th>
+<th align="right">den.df</th>
 <th align="right">p.value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">(Intercept)</td>
-<td align="right">11.59</td>
-<td align="right">0.53</td>
-<td align="right">21.69</td>
-<td align="right">0.000</td>
-</tr>
-<tr>
-<td align="left">typeControl</td>
-<td align="right">2.21</td>
-<td align="right">0.79</td>
-<td align="right">2.81</td>
-<td align="right">0.006</td>
+<td align="left">type</td>
+<td align="right">1</td>
+<td align="right">0.0533970</td>
+<td align="right">1.729879</td>
+<td align="right">3</td>
+<td align="right">92</td>
+<td align="right">0.1663346</td>
 </tr>
 <tr>
 <td align="left">orificeAreaScaled</td>
-<td align="right">1.85</td>
-<td align="right">0.40</td>
-<td align="right">4.67</td>
-<td align="right">0.000</td>
+<td align="right">1</td>
+<td align="right">0.2204778</td>
+<td align="right">8.673671</td>
+<td align="right">3</td>
+<td align="right">92</td>
+<td align="right">0.0000397</td>
 </tr>
 </tbody>
 </table>
 
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="right">orificeAreaScaled</th>
-<th align="left">scaling</th>
-<th align="right">fit</th>
-<th align="right">lowerConf</th>
-<th align="right">upperConf</th>
-<th align="right">lowerPred</th>
-<th align="right">upperPred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">9.74</td>
-<td align="right">8.24</td>
-<td align="right">11.25</td>
-<td align="right">2.60</td>
-<td align="right">16.88</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">11.59</td>
-<td align="right">10.53</td>
-<td align="right">12.65</td>
-<td align="right">4.53</td>
-<td align="right">18.65</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">13.44</td>
-<td align="right">12.34</td>
-<td align="right">14.55</td>
-<td align="right">6.38</td>
-<td align="right">20.51</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">11.96</td>
-<td align="right">10.86</td>
-<td align="right">13.05</td>
-<td align="right">4.89</td>
-<td align="right">19.02</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">13.81</td>
-<td align="right">12.76</td>
-<td align="right">14.86</td>
-<td align="right">6.75</td>
-<td align="right">20.86</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">15.66</td>
-<td align="right">14.16</td>
-<td align="right">17.15</td>
-<td align="right">8.52</td>
-<td align="right">22.79</td>
-</tr>
-</tbody>
-</table>
-
-<p><strong>Interpretation</strong>
-Coaptation line length in the control population is, on average,
-2.21 mm longer 
-(95% CI: 
-0.67, 
-3.76;
-p-value:
-0.006)
-than in the case population,
-adjusted for orifice area.</p>
+<pre><code>##  Response coapX :
+##                   Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## type               1  22.47 22.4743  3.6570 0.05888 .
+## orificeAreaScaled  1  15.39 15.3926  2.5047 0.11687  
+## Residuals         94 577.69  6.1456                  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##  Response coapY :
+##                   Df Sum Sq Mean Sq F value Pr(&gt;F)
+## type               1   2.52  2.5248  0.5557 0.4579
+## orificeAreaScaled  1   0.65  0.6546  0.1441 0.7051
+## Residuals         94 427.08  4.5434               
+## 
+##  Response coapZ :
+##                   Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## type               1   17.24   17.24   1.339    0.2502    
+## orificeAreaScaled  1  322.63  322.63  25.063 2.585e-06 ***
+## Residuals         94 1210.04   12.87                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+</code></pre>
 
 <h1>
-<a id="user-content-directional-analysis-of-coaptation-line" class="anchor" href="#directional-analysis-of-coaptation-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directional analysis of coaptation line</h1>
+<a id="user-content-compare-leaflet-coaptation-fractions" class="anchor" href="#compare-leaflet-coaptation-fractions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare leaflet coaptation fractions</h1>
 
-<p>Citation for package <code>Directional</code>.</p>
+<p>Comparison variables are</p>
+
+<ul>
+<li>
+<code>nr_frac</code> Fraction of coaptation area between non-coronary and right coronary leaflets of total coaptation area</li>
+<li>
+<code>rl_frac</code> Fraction of coaptation area between right and left coronary leaflets of total coaptation area</li>
+<li>
+<code>ln_frac</code> Fraction of coaptation area between left coronary and non-coronary leaflets of total coaptation areas</li>
+</ul>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png">PNG</a>, <a href="../figures/lineplotsLeafletCoapFrac.svg">SVG</a></p>
+
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png" alt="Line plot" style="max-width:100%;"></a></p>
+
+<p>Use a linear model to test if leaflet fractions are different.</p>
 
 <pre><code>## 
-## To cite package 'Directional' in publications use:
+## Attaching package: 'MASS'
+</code></pre>
+
+<pre><code>## The following object is masked from 'package:dplyr':
 ## 
-##   Michail Tsagris, Giorgos Athineou and Anamul Sajib (2016).
-##   Directional: Directional Statistics. R package version 2.3.
-##   https://CRAN.R-project.org/package=Directional
+##     select
+</code></pre>
+
+<pre><code>## 
+## Attaching package: 'TH.data'
+</code></pre>
+
+<pre><code>## The following object is masked from 'package:MASS':
 ## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {Directional: Directional Statistics},
-##     author = {Michail Tsagris and Giorgos Athineou and Anamul Sajib},
-##     year = {2016},
-##     note = {R package version 2.3},
-##     url = {https://CRAN.R-project.org/package=Directional},
-##   }
-## 
-## ATTENTION: This citation information has been auto-generated from
-## the package DESCRIPTION file and may need manual editing, see
-## 'help("citation")'.
+##     geyser
 </code></pre>
 
-<h2>
-<a id="user-content-plots" class="anchor" href="#plots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plots</h2>
+<ul>
+<li>Among cases
 
-<p>Spherical coordinates of coaptation lines</p>
+<ul>
+<li>NR and LN are not significantly different (p = 0.635)</li>
+<li>RL is significantly different from NR and LN (p = 0.000)</li>
+</ul>
+</li>
+<li>Among controls
 
-<h3>
-<a id="user-content-overall" class="anchor" href="#overall" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overall</h3>
+<ul>
+<li>NR and LN are not significantly different (p = 0.979)</li>
+<li>RL is not significantly different from NR and LN (p = 0.855)</li>
+</ul>
+</li>
+<li>Between cases and controls
 
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSpherical.png" alt="Spherical coordinates" style="max-width:100%;"></a></p>
-
-<pre><code>## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-</code></pre>
-
-<h3>
-<a id="user-content-by-aortic-stenosis" class="anchor" href="#by-aortic-stenosis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>By aortic stenosis</h3>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalStenosis.png" alt="Spherical coordinates by aortic stenosis" style="max-width:100%;"></a></p>
-
-<pre><code>## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-</code></pre>
-
-<h3>
-<a id="user-content-by-aortic-regurgitation" class="anchor" href="#by-aortic-regurgitation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>By aortic regurgitation</h3>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.svg">SVG</a></p>
-
-<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotSphericalRegurgitation.png" alt="Spherical coordinates by aortic regurgitation" style="max-width:100%;"></a></p>
-
-<pre><code>## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-</code></pre>
-
-<p>Create data matrices.</p>
-
-<p>Test whether Kent's ovalness parameter (beta) is equal to zero.
-The null hypothesis is whether a von Mises-Fisher distribution fits the data well. 
-The altenrative is that Kent distribution is more suitable.</p>
-
-<pre><code>## Bootstrap p-value is 0.5790
-## Fail to reject null hypothesis
-</code></pre>
-
-<h2>
-<a id="user-content-circular-summary-statistics" class="anchor" href="#circular-summary-statistics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular summary statistics</h2>
-
-<p>Circular summary statistics.</p>
+<ul>
+<li>RL is significantly different (p = 0.000)</li>
+</ul>
+</li>
+</ul>
 
 <table>
 <thead>
 <tr>
-<th align="left">type</th>
-<th align="right">latitude</th>
-<th align="right">longitude</th>
+<th align="left">contrast</th>
+<th align="right">p</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">All</td>
-<td align="right">-75.3</td>
-<td align="right">156</td>
+<td align="left">Cases: NR vs LN</td>
+<td align="right">0.6346002</td>
 </tr>
 <tr>
-<td align="left">Cases</td>
-<td align="right">-73.6</td>
-<td align="right">161</td>
+<td align="left">Controls: NR vs LN</td>
+<td align="right">0.9793845</td>
 </tr>
 <tr>
-<td align="left">Controls</td>
-<td align="right">-77.1</td>
-<td align="right">150</td>
+<td align="left">Cases: RL vs NR &amp; LN</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr>
-<td align="left">Aortic stenosis: none-trivial</td>
-<td align="right">-75.4</td>
-<td align="right">153</td>
+<td align="left">Controls: RL vs NR &amp; LN</td>
+<td align="right">0.8552162</td>
 </tr>
 <tr>
-<td align="left">Aortic stenosis: mild-severe</td>
-<td align="right">-74.2</td>
-<td align="right">179</td>
-</tr>
-<tr>
-<td align="left">Aortic regurgitation: none-trivial</td>
-<td align="right">-75.3</td>
-<td align="right">152</td>
-</tr>
-<tr>
-<td align="left">Aortic regurgitation: mild-severe</td>
-<td align="right">-75.7</td>
-<td align="right">175</td>
+<td align="left">RL: Cases vs Controls</td>
+<td align="right">0.0000007</td>
 </tr>
 </tbody>
 </table>
 
-<h2>
-<a id="user-content-anova" class="anchor" href="#anova" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ANOVA</h2>
-
-<p>There does not appear to be statistically different directions by 
-group (case vs control), 
-aortic stenosis (none-trivial vs mild-severe), or 
-aortic regurgitation (none-trivial vs mild-severe). </p>
-
 <table>
 <thead>
 <tr>
-<th align="left">effect</th>
-<th align="right">test</th>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
 <th align="right">p.value</th>
-<th align="right">kappa</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Group: case vs control</td>
-<td align="right">1.770</td>
-<td align="right">0.174</td>
-<td align="right">21.7</td>
+<td align="left">(Intercept)</td>
+<td align="right">0.391</td>
+<td align="right">0.014</td>
+<td align="right">27.043</td>
+<td align="right">0.000</td>
 </tr>
 <tr>
-<td align="left">Aortic stenosis: none-trivial vs mild-severe</td>
-<td align="right">1.520</td>
-<td align="right">0.221</td>
-<td align="right">21.7</td>
+<td align="left">typeControl</td>
+<td align="right">-0.056</td>
+<td align="right">0.020</td>
+<td align="right">-2.758</td>
+<td align="right">0.006</td>
 </tr>
 <tr>
-<td align="left">Aortic regurgitation: none-trivial vs mild-severe</td>
-<td align="right">0.196</td>
-<td align="right">0.822</td>
-<td align="right">21.7</td>
-</tr>
-</tbody>
-</table>
-
-<h2>
-<a id="user-content-circular-regression-for-latitude-polar-angle" class="anchor" href="#circular-regression-for-latitude-polar-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for latitude (polar angle)</h2>
-
-<p>Unadjusted.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.06    0.00    0.03 
-## 
-## $beta
-##           Cosinus of y Sinus of y
-## Intercept  1.331727706  -6.021609
-## X1         0.006409535   1.344292
-## 
-## $seb
-##           Cosinus of y Sinus of y
-## Intercept    0.1404381  0.1042759
-## X1           0.2035170  0.2031161
-## 
-## $loglik
-## [1] 25.35768
-## 
-## $est
-## [1] 285.9653 282.4707
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-74.03466</td>
+<td align="left">variableRL</td>
+<td align="right">-0.163</td>
+<td align="right">0.020</td>
+<td align="right">-7.963</td>
+<td align="right">0.000</td>
 </tr>
 <tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-77.52930</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for body surface area.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.06    0.00    0.03 
-## 
-## $beta
-##           Cosinus of y Sinus of y
-##              1.7520884  -8.383290
-## typeCase    -0.3037059   3.356043
-## bsaScaled    0.3094801  -2.198097
-## 
-## $seb
-##           Cosinus of y Sinus of y
-##              0.1428666  0.1098323
-## typeCase     0.2143050  0.2125200
-## bsaScaled    0.1086668  0.1069531
-## 
-## $loglik
-## [1] 42.12291
-## 
-## $est
-## [1] 291.9277 283.1287 286.0720 281.8048 283.6739 281.0248
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">bsaScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">-68.07226</td>
+<td align="left">variableLN</td>
+<td align="right">-0.010</td>
+<td align="right">0.020</td>
+<td align="right">-0.476</td>
+<td align="right">0.635</td>
 </tr>
 <tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">-76.87128</td>
+<td align="left">typeControl:variableRL</td>
+<td align="right">0.159</td>
+<td align="right">0.029</td>
+<td align="right">5.531</td>
+<td align="right">0.000</td>
 </tr>
 <tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">-73.92796</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">-78.19523</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">-76.32610</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">-78.97519</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for orifice area area.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.06    0.00    0.03 
-## 
-## $beta
-##                   Cosinus of y Sinus of y
-##                      1.6054003  -8.120715
-## typeCase            -0.1043417   3.106066
-## orificeAreaScaled    0.1893907  -2.454024
-## 
-## $seb
-##                   Cosinus of y Sinus of y
-##                      0.1462691  0.1160903
-## typeCase             0.2266974  0.2242708
-## orificeAreaScaled    0.1144086  0.1127463
-## 
-## $loglik
-## [1] 40.81098
-## 
-## $est
-## [1] 297.1236 284.0299 286.6643 281.1827 282.7534 279.6327
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">orificeAreaScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">-62.87641</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">-75.97007</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">-73.33573</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">-78.81728</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">-77.24663</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">-80.36730</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for coaptation line length.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.08    0.02    0.05 
-## 
-## $beta
-##                 Cosinus of y Sinus of y
-##                  1.586798896  -7.239862
-## typeCase         0.001468562   1.076555
-## magnitudeScaled  0.265255221  -1.947143
-## 
-## $seb
-##                 Cosinus of y Sinus of y
-##                    0.1427796  0.1050458
-## typeCase           0.2044080  0.2038451
-## magnitudeScaled    0.1054557  0.1026069
-## 
-## $loglik
-## [1] 43.11253
-## 
-## $est
-## [1] 287.4216 284.0196 284.4506 282.3623 282.8730 281.3978
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">magnitudeScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean coaptation line length</td>
-<td align="right">-72.57839</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean coaptation line length</td>
-<td align="right">-75.98043</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean coaptation line length</td>
-<td align="right">-75.54943</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean coaptation line length</td>
-<td align="right">-77.63766</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean coaptation line length</td>
-<td align="right">-77.12698</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean coaptation line length</td>
-<td align="right">-78.60222</td>
-</tr>
-</tbody>
-</table>
-
-<h2>
-<a id="user-content-circular-regression-for-longitude-azimuthal-angle" class="anchor" href="#circular-regression-for-longitude-azimuthal-angle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Circular regression for longitude (azimuthal angle)</h2>
-
-<p>Unadjusted.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.03    0.00    0.01 
-## 
-## $beta
-##           Cosinus of y  Sinus of y
-## Intercept   -0.4600674  0.27089631
-## X1          -0.2294334 -0.06964816
-## 
-## $seb
-##           Cosinus of y Sinus of y
-## Intercept    0.1192794  0.1347447
-## X1           0.1991933  0.2034726
-## 
-## $loglik
-## [1] -164.3917
-## 
-## $est
-## [1] 163.7288 149.5096
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">163.7288</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">149.5096</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for body surface area.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##       0       0       0 
-## 
-## $beta
-##           Cosinus of y  Sinus of y
-##             -0.4277925  0.27503757
-## typeCase    -0.3015519 -0.07924063
-## bsaScaled    0.1144437  0.01654991
-## 
-## $seb
-##           Cosinus of y Sinus of y
-##              0.1275069  0.1376270
-## typeCase     0.2062491  0.2128108
-## bsaScaled    0.1050178  0.1066545
-## 
-## $loglik
-## [1] -163.9478
-## 
-## $est
-## [1] 168.0069 154.5125 164.9729 147.2621 160.9484 137.0602
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">bsaScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">168.0069</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean BSA</td>
-<td align="right">154.5125</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">164.9729</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean BSA</td>
-<td align="right">147.2621</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">160.9484</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean BSA</td>
-<td align="right">137.0602</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for orifice area area.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##    0.03    0.00    0.01 
-## 
-## $beta
-##                   Cosinus of y  Sinus of y
-##                     -0.3582187  0.25927990
-## typeCase            -0.4622895 -0.05843433
-## orificeAreaScaled    0.2644774 -0.02736773
-## 
-## $seb
-##                   Cosinus of y Sinus of y
-##                      0.1395525  0.1447753
-## typeCase             0.2122474  0.2241783
-## orificeAreaScaled    0.1048306  0.1117893
-## 
-## $loglik
-## [1] -162.4629
-## 
-## $est
-## [1] 168.1217 155.2818 166.2455 144.1029 162.6724 112.0090
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">orificeAreaScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">168.1217</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean orifice area</td>
-<td align="right">155.2818</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">166.2455</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean orifice area</td>
-<td align="right">144.1029</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">162.6724</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean orifice area</td>
-<td align="right">112.0090</td>
-</tr>
-</tbody>
-</table>
-
-<p>Adjusted for coaptation line length.</p>
-
-<pre><code>## $runtime
-##    user  system elapsed 
-##       0       0       0 
-## 
-## $beta
-##                 Cosinus of y  Sinus of y
-##                   -0.4974260  0.26512957
-## typeCase          -0.2111204 -0.06780247
-## magnitudeScaled    0.2630104  0.17459808
-## 
-## $seb
-##                 Cosinus of y Sinus of y
-##                   0.12375762  0.1357451
-## typeCase          0.20127301  0.2041262
-## magnitudeScaled   0.09461067  0.1020062
-## 
-## $loglik
-## [1] -161.1152
-## 
-## $est
-## [1] 178.6598 173.2108 164.4377 151.9422 140.1455 118.0617
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th align="left">type</th>
-<th align="left">typeCase</th>
-<th align="right">magnitudeScaled</th>
-<th align="left">scaling</th>
-<th align="right">pred</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean coaptation line length</td>
-<td align="right">178.6598</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">-1</td>
-<td align="left">-1 SD from mean coaptation line length</td>
-<td align="right">173.2108</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">0</td>
-<td align="left">Mean coaptation line length</td>
-<td align="right">164.4377</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">0</td>
-<td align="left">Mean coaptation line length</td>
-<td align="right">151.9422</td>
-</tr>
-<tr>
-<td align="left">Case</td>
-<td align="left">TRUE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean coaptation line length</td>
-<td align="right">140.1455</td>
-</tr>
-<tr>
-<td align="left">Control</td>
-<td align="left">FALSE</td>
-<td align="right">1</td>
-<td align="left">+1 SD from mean coaptation line length</td>
-<td align="right">118.0617</td>
+<td align="left">typeControl:variableLN</td>
+<td align="right">0.009</td>
+<td align="right">0.029</td>
+<td align="right">0.320</td>
+<td align="right">0.749</td>
 </tr>
 </tbody>
 </table>

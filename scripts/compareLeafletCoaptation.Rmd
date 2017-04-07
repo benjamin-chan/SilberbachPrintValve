@@ -40,37 +40,31 @@ ggsave("../figures/lineplotsLeafletsCoapFrac.png", dpi = 300, height = 4, width 
 ggsave("../figures/lineplotsLeafletsCoapFrac.svg", dpi = 300, height = 4, width = 8, units = "in")
 ```
 
-Use a linear model to test if NR and LN fractions are different.
+Use a linear model to test if leaflet fractions are different.
 
 ```{r}
 M <- 
   df1 %>% 
   lm(frac ~ type + variable + type * variable, data = .)
-p <- tidy(M) %>% filter(grepl("variableLN", term)) %>% select(p.value)
+p <- 
+  rbind(data.frame(contrast = "Cases: NR vs LN", 
+                   p = pContrast(M, matrix(c(0, 0, 0, 1, 0, 0), 1))),
+        data.frame(contrast = "Controls: NR vs LN", 
+                   p = pContrast(M, matrix(c(0, 0, 0, 0.5, 0, 0.5), 1))),
+        data.frame(contrast = "Cases: RL vs NR & LN", 
+                   p = pContrast(M, matrix(c(0, 0, 1, 0, 0, 0), 1))),
+        data.frame(contrast = "Controls: RL vs NR & LN", 
+                   p = pContrast(M, matrix(c(0, 0, 0.5, 0, 0.5, 0), 1))))
 ```
 
-* For the cases, NR and LN are `r paste0(isSig(p[1, ]), "ly")` different (p = `r sprintf("%.03f", p[1, ])`)
-* For the controls, NR and LN are `r paste0(isSig(p[2, ]), "ly")` different (p = `r sprintf("%.03f", p[2, ])`)
+* Among cases
+  * NR and LN are `r paste0(isSig(p[1, "p"]), "ly")` different (p = `r sprintf("%.03f", p[1, "p"])`)
+  * RL is `r paste0(isSig(p[3, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[3, "p"])`)
+* Among controls
+  * NR and LN are `r paste0(isSig(p[2, "p"]), "ly")` different (p = `r sprintf("%.03f", p[2, "p"])`)
+  * RL is `r paste0(isSig(p[4, "p"]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[4, "p"])`)
 
 ```{r}
-tidy(M) %>% kable(digits = 3)
-```
-
-Since NR and LN are not different for both cases and controls,
-test if RL fractions are different from NR and LN.
-
-```{r}
-M <- 
-  df1 %>% 
-  mutate(indCasesRL = type == "Case" & variable == "RL",
-         indControlRL = type == "Control" & variable == "RL") %>% 
-  lm(frac ~ indCasesRL + type + indControlRL, data = .)
-p <- tidy(M) %>% filter(grepl("RLTRUE", term)) %>% select(p.value)
-```
-
-* For the cases, RL is `r paste0(isSig(p[1, ]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[1, ])`)
-* For the controls, RL is `r paste0(isSig(p[2, ]), "ly")` different from NR and LN (p = `r sprintf("%.03f", p[2, ])`)
-
-```{r}
+p %>% kable
 tidy(M) %>% kable(digits = 3)
 ```

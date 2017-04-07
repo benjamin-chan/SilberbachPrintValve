@@ -65,6 +65,8 @@ writeWebGL(dir = dir, filename = file.path(dir, "sphereplotPredictedCoapLines.ht
 
 [Interactive HTML](../figures/webGL/sphereplotPredictedCoapLines.html)
 
+**Coaptation lines are `r paste0(isSig(M %>% tidy %>% filter(term == "type") %>% .[, "p.value"]), "ly")` different (p = `r sprintf("%.03f", M %>% tidy %>% filter(term == "type") %>% .[, "p.value"])`).**
+
 Show MANOVA details.
 
 ```{r}

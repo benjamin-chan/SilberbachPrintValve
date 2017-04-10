@@ -20,7 +20,8 @@ df1 <-
   rename(frac = value) %>% 
   mutate(variable = factor(variable,
                            levels = c("nr_frac", "rl_frac", "ln_frac"),
-                           labels = c("NR", "RL", "LN")))
+                           labels = c("Non-coronary\nRight", "Right\nLeft", "Left\nNon-corronary")))
+breaks <- c(0, 0.2, 1/3, 0.4, 0.6)
 df1 %>% 
   ggplot +
   aes(x = variable, y = frac, color = type) +
@@ -29,13 +30,15 @@ df1 %>%
   geom_boxplot(alpha = 1/2, aes(fill = type)) +
   # geom_point(alpha = 1/2, aes(group = id)) +
   scale_x_discrete("") +
-  scale_y_continuous("Coaptation area fraction") +
+  scale_y_continuous("", breaks = breaks, labels = sprintf("%.02f", breaks)) +
   scale_color_brewer("", palette = "Set1") +
   scale_fill_brewer("", palette = "Set1") +
   facet_wrap(~ type) +
+  labs(title = "Fraction of coaptation area between leaflets") + 
   theme_bw() +
   theme(legend.position = "none",
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank(),
+        plot.title = element_text(hjust = 0.5))
 ggsave("../figures/lineplotsLeafletsCoapFrac.png", dpi = 300, height = 4, width = 8, units = "in")
 ggsave("../figures/lineplotsLeafletsCoapFrac.svg", dpi = 300, height = 4, width = 8, units = "in")
 ```

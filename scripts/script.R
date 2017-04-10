@@ -13,6 +13,7 @@ files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
            # "compare.Rmd",
+           "compareTotalCoaptationArea.Rmd",
            "compareLeafletCoaptation.Rmd",
            "compareCoaptationLine.Rmd")
 f <- file("master.Rmd", open = "w")

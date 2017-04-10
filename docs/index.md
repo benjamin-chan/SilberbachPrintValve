@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-04-07 14:26:39"
+date: "2017-04-10 16:10:27"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-07 14:26:42
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-10 16:10:30
 ```
 
 Summarize the entire data set.
@@ -82,6 +82,38 @@ Summarize the entire data set.
 |:-------|--:|
 |Case    | 48|
 |Control | 49|
+# Compare total coaptation areas
+
+[PNG](../figures/boxplotsTotalCoaptationArea.png), [SVG](../figures/boxplotsTotalCoaptationArea.svg)
+
+![Boxplots](../figures/boxplotsTotalCoaptationArea.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
+
+[PNG](../figures/violinplotsTotalCoaptationArea.png), [SVG](../figures/violinplotsTotalCoaptationArea.svg)
+
+![Violin plots](../figures/violinplotsTotalCoaptationArea.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
+
+[PNG](../figures/densityTotalCoaptationArea.png), [SVG](../figures/densityTotalCoaptationArea.svg)
+
+![Boxplots](../figures/densityTotalCoaptationArea.png)
+
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
+
 # Compare leaflet coaptation fractions
 
 Comparison variables are
@@ -122,14 +154,18 @@ Use a linear model to test if leaflet fractions are different.
 
 
 
-|term                   | estimate| std.error| statistic| p.value|
-|:----------------------|--------:|---------:|---------:|-------:|
-|(Intercept)            |    0.391|     0.014|    27.043|   0.000|
-|typeControl            |   -0.056|     0.020|    -2.758|   0.006|
-|variableRL             |   -0.163|     0.020|    -7.963|   0.000|
-|variableLN             |   -0.010|     0.020|    -0.476|   0.635|
-|typeControl:variableRL |    0.159|     0.029|     5.531|   0.000|
-|typeControl:variableLN |    0.009|     0.029|     0.320|   0.749|
+|term                                   | estimate| std.error| statistic| p.value|
+|:--------------------------------------|--------:|---------:|---------:|-------:|
+|(Intercept)                            |    0.391|     0.014|    27.043|   0.000|
+|typeControl                            |   -0.056|     0.020|    -2.758|   0.006|
+|variableRight
+Left                     |   -0.163|     0.020|    -7.963|   0.000|
+|variableLeft
+Non-corronary             |   -0.010|     0.020|    -0.476|   0.635|
+|typeControl:variableRight
+Left         |    0.159|     0.029|     5.531|   0.000|
+|typeControl:variableLeft
+Non-corronary |    0.009|     0.029|     0.320|   0.749|
 # Compare coaptation lines in 3D space
 
 Observed coaptation lines.

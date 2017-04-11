@@ -53,7 +53,7 @@ ggsave("../figures/violinplotsTotalCoaptationArea.svg", dpi = 300, units = "in")
 
 [PNG](../figures/densityTotalCoaptationArea.png), [SVG](../figures/densityTotalCoaptationArea.svg)
 
-![Boxplots](../figures/densityTotalCoaptationArea.png)
+![Densities](../figures/densityTotalCoaptationArea.png)
 
 ```{r densityTotalCoaptationArea, fig.show = "hide"}
 df1 %>% 

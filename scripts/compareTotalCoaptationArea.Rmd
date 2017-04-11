@@ -19,13 +19,13 @@ df1 %>%
     scale_y_continuous("") +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
-    labs(title = "Total valve coaptation area indexed to orifice area") + 
+    labs(title = "Total valve coaptation area\nindexed to orifice area") + 
     theme_bw() +
     theme(legend.position = "none",
           panel.grid = element_blank(),
           plot.title = element_text(hjust = 0.5))
-ggsave("../figures/boxplotsTotalCoaptationArea.png", dpi = 300, units = "in")
-ggsave("../figures/boxplotsTotalCoaptationArea.svg", dpi = 300, units = "in")
+ggsave("../figures/boxplotsTotalCoaptationArea.png", dpi = 300, units = "in", width = 4, height = 4)
+ggsave("../figures/boxplotsTotalCoaptationArea.svg", dpi = 300, units = "in", width = 4, height = 4)
 ```
 
 [PNG](../figures/violinplotsTotalCoaptationArea.png), [SVG](../figures/violinplotsTotalCoaptationArea.svg)
@@ -42,13 +42,13 @@ df1 %>%
     scale_y_continuous("") +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
-    labs(title = "Total valve coaptation area indexed to orifice area") + 
+    labs(title = "Total valve coaptation area\nindexed to orifice area") + 
     theme_bw() +
     theme(legend.position = "none",
           panel.grid = element_blank(),
           plot.title = element_text(hjust = 0.5))
-ggsave("../figures/violinplotsTotalCoaptationArea.png", dpi = 300, units = "in")
-ggsave("../figures/violinplotsTotalCoaptationArea.svg", dpi = 300, units = "in")
+ggsave("../figures/violinplotsTotalCoaptationArea.png", dpi = 300, units = "in", width = 4, height = 4)
+ggsave("../figures/violinplotsTotalCoaptationArea.svg", dpi = 300, units = "in", width = 4, height = 4)
 ```
 
 [PNG](../figures/densityTotalCoaptationArea.png), [SVG](../figures/densityTotalCoaptationArea.svg)
@@ -64,13 +64,13 @@ df1 %>%
     scale_y_continuous("", labels = NULL) +
     scale_color_brewer("", palette = "Set1") +
     scale_fill_brewer("", palette = "Set1") +
-    labs(title = "Total valve coaptation area indexed to orifice area") + 
+    labs(title = "Total valve coaptation area\nindexed to orifice area") + 
     theme_bw() +
     theme(legend.position = "bottom",
           panel.grid = element_blank(),
           axis.ticks.y = element_blank(),
           plot.title = element_text(hjust = 0.5))
-ggsave("../figures/densityTotalCoaptationArea.png", dpi = 300, units = "in")
-ggsave("../figures/densityTotalCoaptationArea.svg", dpi = 300, units = "in")
+ggsave("../figures/densityTotalCoaptationArea.png", dpi = 300, units = "in", width = 4, height = 4)
+ggsave("../figures/densityTotalCoaptationArea.svg", dpi = 300, units = "in", width = 4, height = 4)
 ```
 

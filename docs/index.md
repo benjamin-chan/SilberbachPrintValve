@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-04-10 16:10:27"
+date: "2017-04-11 09:09:26"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-10 16:10:30
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-11 09:09:29
 ```
 
 Summarize the entire data set.
@@ -82,6 +82,24 @@ Summarize the entire data set.
 |:-------|--:|
 |Case    | 48|
 |Control | 49|
+# Compare means
+
+Calculate mean (SD) and ranges.
+Calculate differences in means.
+Test differences between cases and controls.
+
+
+|Variable                                               |Mean (SD), Cases |Mean (SD), Controls | Mean difference| P-value|Significance |
+|:------------------------------------------------------|:----------------|:-------------------|---------------:|-------:|:------------|
+|Total coaptation area, value                           |649 (189)        |515 (224)           |         133.609|   0.002|TRUE         |
+|Orifice area                                           |637 (197)        |487 (120)           |         149.995|   0.000|TRUE         |
+|Valve diameter                                         |32.1 (4.49)      |26.7 (4.59)         |           5.434|   0.000|TRUE         |
+|Valve area                                             |825 (235)        |575 (199)           |         250.121|   0.000|TRUE         |
+|Total valve coaptation area relative to valve diameter |20.1 (4.37)      |18.7 (5.57)         |           1.341|   0.191|FALSE        |
+|Total valve coaptation area relative to orifice area   |1.06 (0.266)     |1.05 (0.321)        |           0.012|   0.840|FALSE        |
+|Total valve coaptation area relative to valve area     |0.807 (0.191)    |0.893 (0.203)       |          -0.086|   0.035|TRUE         |
+|Coaptation line length                                 |12.4 (3.75)      |13 (4)              |          -0.656|   0.407|FALSE        |
+
 # Compare total coaptation areas
 
 [PNG](../figures/boxplotsTotalCoaptationArea.png), [SVG](../figures/boxplotsTotalCoaptationArea.svg)
@@ -89,30 +107,18 @@ Summarize the entire data set.
 ![Boxplots](../figures/boxplotsTotalCoaptationArea.png)
 
 
-```
-## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-```
 
 [PNG](../figures/violinplotsTotalCoaptationArea.png), [SVG](../figures/violinplotsTotalCoaptationArea.svg)
 
 ![Violin plots](../figures/violinplotsTotalCoaptationArea.png)
 
 
-```
-## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-```
 
 [PNG](../figures/densityTotalCoaptationArea.png), [SVG](../figures/densityTotalCoaptationArea.svg)
 
-![Boxplots](../figures/densityTotalCoaptationArea.png)
+![Densities](../figures/densityTotalCoaptationArea.png)
 
 
-```
-## Saving 7 x 7 in image
-## Saving 7 x 7 in image
-```
 
 # Compare leaflet coaptation fractions
 

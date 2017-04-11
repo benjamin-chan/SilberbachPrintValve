@@ -40,6 +40,24 @@ Due to missing data, the sample size for each group is not 50.
 |Case    | 48|
 |Control | 49|
 
+### Compare means
+
+|Variable                                               |Mean (SD), Cases |Mean (SD), Controls | Mean difference| P-value|Significance |
+|:------------------------------------------------------|:----------------|:-------------------|---------------:|-------:|:------------|
+|Total coaptation area, value                           |649 (189)        |515 (224)           |         133.609|   0.002|TRUE         |
+|Orifice area                                           |637 (197)        |487 (120)           |         149.995|   0.000|TRUE         |
+|Valve diameter                                         |32.1 (4.49)      |26.7 (4.59)         |           5.434|   0.000|TRUE         |
+|Valve area                                             |825 (235)        |575 (199)           |         250.121|   0.000|TRUE         |
+|Total valve coaptation area relative to valve diameter |20.1 (4.37)      |18.7 (5.57)         |           1.341|   0.191|FALSE        |
+|Total valve coaptation area relative to orifice area   |1.06 (0.266)     |1.05 (0.321)        |           0.012|   0.840|FALSE        |
+|Total valve coaptation area relative to valve area     |0.807 (0.191)    |0.893 (0.203)       |          -0.086|   0.035|TRUE         |
+|Coaptation line length                                 |12.4 (3.75)      |13 (4)              |          -0.656|   0.407|FALSE        |
+
+### Compare total coaptation areas
+
+![Boxplots](figures/boxplotsTotalCoaptationArea.png)
+![Violin plots](figures/violinplotsTotalCoaptationArea.png)
+
 ### Compare leaflet coaptation fractions
 
 ![Line plot](figures/lineplotsLeafletsCoapFrac.png)

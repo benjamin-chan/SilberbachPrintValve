@@ -1,0 +1,27 @@
+# Compare means
+
+Calculate mean (SD) and ranges.
+Calculate differences in means.
+Test differences between cases and controls.
+
+```{r}
+rbind(compare("total_area_value", "Total coaptation area, value"),
+      compare("orifice_area", "Orifice area"),
+      compare("valve_diameter", "Valve diameter"),
+      compare("valve_area", "Valve area"),
+      compare("a_coap_size_valve", "Total valve coaptation area relative to valve diameter"),
+      compare("a_coap_orifice_area", "Total valve coaptation area relative to orifice area"),
+      compare("a_coap_valve_area", "Total valve coaptation area relative to valve area"),
+      compare("magnitude", "Coaptation line length")) %>%
+  mutate(sig = pValue < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")] %>% 
+  select(variable, meanSDCases, meanSDControls, difference, pValue, sig) %>% 
+  rename("Variable" = variable,
+         "Mean (SD), Cases" = meanSDCases,
+         "Mean (SD), Controls" = meanSDControls,
+         "Mean difference" = difference,
+         "P-value" = pValue,
+         "Significance" = sig) %>% 
+  kable(digits = 3)
+```
+

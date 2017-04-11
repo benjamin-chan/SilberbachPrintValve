@@ -12,7 +12,7 @@ sink("script.log")
 files <- c("header.yaml",
            "preamble.Rmd",
            "read.Rmd",
-           # "compare.Rmd",
+           "compareMeans.Rmd",
            "compareTotalCoaptationArea.Rmd",
            "compareLeafletCoaptation.Rmd",
            "compareCoaptationLine.Rmd")

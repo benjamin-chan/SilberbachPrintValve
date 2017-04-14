@@ -820,6 +820,7 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 </table>
 <h3>
 <a id="user-content-compare-means" class="anchor" href="#compare-means" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare means</h3>
+<p>Raw, unadjusted comparisons.</p>
 <table>
 <thead>
 <tr>
@@ -898,6 +899,30 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 </tr>
 </tbody>
 </table>
+<p>Adjusted for <strong>orifice area</strong>, <code>orifice_area</code>.
+After adjusting for orifice area,
+the difference in coaptation line lengths of cases and controls is significant.
+<em>Interpretation:</em>
+If we had one case patient and one control patient, both with the same orifice areas,
+then their coaptation line lengths would be significantly different.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Variable</th>
+<th align="right">Mean difference</th>
+<th align="right">P-value</th>
+<th align="left">Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Coaptation line length</td>
+<td align="right">-2.213</td>
+<td align="right">0.006</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
 <h3>
 <a id="user-content-compare-total-coaptation-areas" class="anchor" href="#compare-total-coaptation-areas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare total coaptation areas</h3>
 <p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplotsTotalCoaptationArea.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplotsTotalCoaptationArea.png" alt="Boxplots" style="max-width:100%;"></a>
@@ -927,11 +952,42 @@ suitable for a peer-reviewed manuscript or grant submission.</li>
 </ul>
 <h3>
 <a id="user-content-compare-coaptation-lines-in-3d-space" class="anchor" href="#compare-coaptation-lines-in-3d-space" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare coaptation lines in 3D space</h3>
-<p>Observed coaptation lines.
+<p>Observed ceiling plane coordinates (before rotation).
 <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotObservedCoapLines.html">Interactive HTML</a></p>
 <p>Predicted coaptation lines.
 <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotPredictedCoapLines.html">Interactive HTML</a></p>
 <p><strong>Coaptation lines are not significantly different (p = 0.166).</strong>
+Adjust for scaled orifice area, <code>orificeAreaScaled</code>.</p>
+<h3>
+<a id="user-content-compare-ceiling-plane-coordinates" class="anchor" href="#compare-ceiling-plane-coordinates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compare ceiling plane coordinates</h3>
+<p><a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotCeilingPlaneCoordinates.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotCeilingPlaneCoordinates.png" alt="Plot" style="max-width:100%;"></a></p>
+<p>Predicted ceiling plane coordinates from MANOVA.
+Adjust for scaled orifice area, <code>orificeAreaScaled</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="right">orificeAreaScaled</th>
+<th align="right">centroidCalcX</th>
+<th align="right">centroidCalcY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Case</td>
+<td align="right">0</td>
+<td align="right">15.02</td>
+<td align="right">6.16</td>
+</tr>
+<tr>
+<td align="left">Control</td>
+<td align="right">0</td>
+<td align="right">11.63</td>
+<td align="right">6.66</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ceiling plane coordinates (before rotation) are significantly different (p = 0.000).</strong>
 Adjust for scaled orifice area, <code>orificeAreaScaled</code>.</p>
 <h2>
 <a id="user-content-method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method</h2>
@@ -952,7 +1008,17 @@ Linear contrasts were used to test comparisons.</p>
 <li>Observed coaptation line <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotObservedCoapLines.html">interactive HTML</a>
 Predicted coaptation line <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/webGL/sphereplotPredictedCoapLines.html">interactive HTML</a>
 </li>
-<li>Leaflet coaptation fractions comparison plots: <a href="../figures/lineplotsLeafletsCoapFrac.png">PNG</a>, <a href="../figures/lineplotsLeafletCoapFrac.svg">SVG</a>
+<li>Ceiling plane coordinates, before rotation plot: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotCeilingPlaneCoordinates.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/plotCeilingPlaneCoordinates.svg">SVG</a>
+</li>
+<li>Leaflet coaptation fractions comparison plots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/lineplotsLeafletsCoapFrac.png">PNG</a>, <a href="figures/lineplotsLeafletCoapFrac.svg">SVG</a>
+</li>
+<li>Total coaptation area plots
+<ul>
+<li>Boxplots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplotsTotalCoaptationArea.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/boxplotsTotalCoaptationArea.svg">SVG</a>
+</li>
+<li>Violin plots: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplotsTotalCoaptationArea.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/figures/violinplotsTotalCoaptationArea.svg">SVG</a>
+</li>
+</ul>
 </li>
 <li>Complete analysis: <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.html">HTML</a> or <a href="///C://Users/chanb/Documents/Projects/SilberbachPrintValve/docs/index.md">Markdown</a>
 </li>

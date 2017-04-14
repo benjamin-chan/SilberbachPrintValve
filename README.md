@@ -42,6 +42,8 @@ Due to missing data, the sample size for each group is not 50.
 
 ### Compare means
 
+Raw, unadjusted comparisons.
+
 |Variable                                               |Mean (SD), Cases |Mean (SD), Controls | Mean difference| P-value|Significance |
 |:------------------------------------------------------|:----------------|:-------------------|---------------:|-------:|:------------|
 |Total coaptation area, value                           |649 (189)        |515 (224)           |         133.609|   0.002|TRUE         |
@@ -52,6 +54,18 @@ Due to missing data, the sample size for each group is not 50.
 |Total valve coaptation area relative to orifice area   |1.06 (0.266)     |1.05 (0.321)        |           0.012|   0.840|FALSE        |
 |Total valve coaptation area relative to valve area     |0.807 (0.191)    |0.893 (0.203)       |          -0.086|   0.035|TRUE         |
 |Coaptation line length                                 |12.4 (3.75)      |13 (4)              |          -0.656|   0.407|FALSE        |
+
+Adjusted for **orifice area**, `orifice_area`.
+After adjusting for orifice area,
+the difference in coaptation line lengths of cases and controls is significant.
+*Interpretation:*
+If we had one case patient and one control patient, both with the same orifice areas,
+then their coaptation line lengths would be significantly different.
+
+|Variable               | Mean difference| P-value|Significance |
+|:----------------------|---------------:|-------:|:------------|
+|Coaptation line length |          -2.213|   0.006|TRUE         |
+
 
 ### Compare total coaptation areas
 
@@ -74,13 +88,28 @@ Due to missing data, the sample size for each group is not 50.
 
 ### Compare coaptation lines in 3D space
 
-Observed coaptation lines.
+Observed ceiling plane coordinates (before rotation).
 [Interactive HTML](figures/webGL/sphereplotObservedCoapLines.html)
 
 Predicted coaptation lines.
 [Interactive HTML](figures/webGL/sphereplotPredictedCoapLines.html)
 
 **Coaptation lines are not significantly different (p = 0.166).**
+Adjust for scaled orifice area, `orificeAreaScaled`.
+
+### Compare ceiling plane coordinates
+
+![Plot](figures/plotCeilingPlaneCoordinates.png)
+
+Predicted ceiling plane coordinates from MANOVA.
+Adjust for scaled orifice area, `orificeAreaScaled`.
+
+|type    | orificeAreaScaled| centroidCalcX| centroidCalcY|
+|:-------|-----------------:|-------------:|-------------:|
+|Case    |                 0|         15.02|          6.16|
+|Control |                 0|         11.63|          6.66|
+
+**Ceiling plane coordinates (before rotation) are significantly different (p = 0.000).**
 Adjust for scaled orifice area, `orificeAreaScaled`.
 
 
@@ -106,7 +135,11 @@ Linear contrasts were used to test comparisons.
 
 * Observed coaptation line [interactive HTML](figures/webGL/sphereplotObservedCoapLines.html)
 Predicted coaptation line [interactive HTML](figures/webGL/sphereplotPredictedCoapLines.html)
-* Leaflet coaptation fractions comparison plots: [PNG](../figures/lineplotsLeafletsCoapFrac.png), [SVG](../figures/lineplotsLeafletCoapFrac.svg)
+* Ceiling plane coordinates, before rotation plot: [PNG](figures/plotCeilingPlaneCoordinates.png), [SVG](figures/plotCeilingPlaneCoordinates.svg)
+* Leaflet coaptation fractions comparison plots: [PNG](figures/lineplotsLeafletsCoapFrac.png), [SVG](figures/lineplotsLeafletCoapFrac.svg)
+* Total coaptation area plots
+  * Boxplots: [PNG](figures/boxplotsTotalCoaptationArea.png), [SVG](figures/boxplotsTotalCoaptationArea.svg)
+  * Violin plots: [PNG](figures/violinplotsTotalCoaptationArea.png), [SVG](figures/violinplotsTotalCoaptationArea.svg)
 * Complete analysis: [HTML](docs/index.html) or [Markdown](docs/index.md)
 
 

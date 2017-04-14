@@ -1,6 +1,6 @@
 ---
 title: "PrintValve case-control analysis"
-date: "2017-04-11 09:09:26"
+date: "2017-04-14 10:45:27"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -72,7 +72,7 @@ Output a subset for spot-checking.
 
 
 ```
-## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-11 09:09:29
+## File ../data/processed/sphericalCoordinates.csv was written on 2017-04-14 10:45:29
 ```
 
 Summarize the entire data set.
@@ -100,6 +100,19 @@ Test differences between cases and controls.
 |Total valve coaptation area relative to valve area     |0.807 (0.191)    |0.893 (0.203)       |          -0.086|   0.035|TRUE         |
 |Coaptation line length                                 |12.4 (3.75)      |13 (4)              |          -0.656|   0.407|FALSE        |
 
+## Adjusted comparisons
+
+Adjusted for **orifice area**, `orifice_area`.
+After adjusting for orifice area,
+the difference in coaptation line lengths of cases and controls is significant.
+*Interpretation:*
+If we had one case patient and one control patient, both with the same orifice areas,
+then their coaptation line lengths would be significantly different.
+
+
+|Variable               | Mean difference| P-value|Significance |
+|:----------------------|---------------:|-------:|:------------|
+|Coaptation line length |          -2.213|   0.006|TRUE         |
 # Compare total coaptation areas
 
 [PNG](../figures/boxplotsTotalCoaptationArea.png), [SVG](../figures/boxplotsTotalCoaptationArea.svg)
@@ -225,6 +238,52 @@ Show MANOVA details.
 ## type               1   17.24   17.24   1.339    0.2502    
 ## orificeAreaScaled  1  322.63  322.63  25.063 2.585e-06 ***
 ## Residuals         94 1210.04   12.87                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+# Compare ceiling plane coordinates
+
+Observed ceiling plane coordinates (before rotation).
+
+[PNG](../figures/plotCeilingPlaneCoordinates.png), [SVG](../figures/plotCeilingPlaneCoordinates.svg)
+
+![Plot](../figures/plotCeilingPlaneCoordinates.png)
+
+
+
+Calculate predicted ceiling plane coordinates from MANOVA.
+Adjust for scaled orifice area, `orificeAreaScaled`.
+
+
+|type    | orificeAreaScaled| centroidCalcX| centroidCalcY|
+|:-------|-----------------:|-------------:|-------------:|
+|Case    |                 0|         15.02|          6.16|
+|Control |                 0|         11.63|          6.66|
+
+**Ceiling plane coordinates (before rotation) are significantly different (p = 0.000).**
+
+Show MANOVA details.
+
+
+|term              | df|    pillai| statistic| num.df| den.df|   p.value|
+|:-----------------|--:|---------:|---------:|------:|------:|---------:|
+|type              |  1| 0.2080039| 12.212411|      2|     93| 0.0000195|
+|orificeAreaScaled |  1| 0.1179182|  6.216201|      2|     93| 0.0029252|
+
+```
+##  Response centroidCalcX :
+##                   Df  Sum Sq Mean Sq F value    Pr(>F)    
+## type               1  469.60  469.60 24.6862 3.017e-06 ***
+## orificeAreaScaled  1  112.88  112.88  5.9339   0.01674 *  
+## Residuals         94 1788.13   19.02                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##  Response centroidCalcY :
+##                   Df Sum Sq Mean Sq F value   Pr(>F)   
+## type               1   0.10   0.097  0.0194 0.889413   
+## orificeAreaScaled  1  35.42  35.423  7.0716 0.009207 **
+## Residuals         94 470.86   5.009                    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```

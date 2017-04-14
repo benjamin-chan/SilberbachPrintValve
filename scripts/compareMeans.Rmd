@@ -25,3 +25,24 @@ rbind(compare("total_area_value", "Total coaptation area, value"),
   kable(digits = 3)
 ```
 
+## Adjusted comparisons
+
+Adjusted for **orifice area**, `orifice_area`.
+After adjusting for orifice area,
+the difference in coaptation line lengths of cases and controls is significant.
+*Interpretation:*
+If we had one case patient and one control patient, both with the same orifice areas,
+then their coaptation line lengths would be significantly different.
+
+```{r}
+covar <- "orifice_area"
+compare("magnitude", "Coaptation line length", covar = covar) %>%
+  mutate(sig = pValue < 0.05) %>% 
+  .[names(.) %>% grep("formula", ., invert = TRUE, value = TRUE) %>% c("formula")] %>% 
+  select(variable, difference, pValue, sig) %>% 
+  rename("Variable" = variable,
+         "Mean difference" = difference,
+         "P-value" = pValue,
+         "Significance" = sig) %>% 
+  kable(digits = 3)
+```

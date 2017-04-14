@@ -15,7 +15,8 @@ files <- c("header.yaml",
            "compareMeans.Rmd",
            "compareTotalCoaptationArea.Rmd",
            "compareLeafletCoaptation.Rmd",
-           "compareCoaptationLine.Rmd")
+           "compareCoaptationLine.Rmd",
+           "compareCeilingPlaneCoordinates.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])
